@@ -1,0 +1,4014 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#6.0.0-alpha.1'>
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta name="Volantis" content="6.0.0-alpha.1">
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="62GZuQzI8vKz1vqtq9cAt9WNIDJQQ-v_-hBV6ghqPT4" />    
+  <!-- 上面这行是给谷歌验证的 -->
+   
+  <!-- SEO相关 -->
+  
+  <link rel="canonical" href="https://archer-baiyi.github.io/en/2025/12/07/编程/sql入门/"/>
+  <!-- 渲染优化 -->
+    <meta http-equiv='x-dns-prefetch-control' content='on' />
+      <link rel='dns-prefetch' href='https://unpkg.com'>
+      <link rel="preconnect" href="https://unpkg.com" crossorigin>
+      <link rel='dns-prefetch' href='https://cdn.bootcdn.net'>
+      <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Security-Policy" content=" default-src 'self' https:; block-all-mixed-content; base-uri 'self' https:; form-action 'self' https:; worker-src 'self' https:; connect-src 'self' https: *; img-src 'self' data: https: *; media-src 'self' https: *; font-src 'self' data: https: *; frame-src 'self' https: *; manifest-src 'self' https: *; child-src https:; script-src 'self' https: 'unsafe-inline' *; style-src 'self' https: 'unsafe-inline' *; ">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <!-- import head_begin begin -->
+  <!-- import head_begin end -->
+  <!-- Custom Files headBegin begin-->
+  
+  <!-- Custom Files headBegin end-->
+    <link rel="shortcut icon" type='image/x-icon' href="/en/%E7%90%83%E9%9C%9C_%E5%8D%A1%E9%80%9A.png">
+  <link rel="preload" href="/en/css/style.css" as="style">
+  <link rel="preload" href="https://unpkg.com/volantis-static@0.0.1660614606622/media/fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://unpkg.com/volantis-static@0.0.1660614606622/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <!-- feed -->
+  <!-- 页面元数据 -->
+  <title>SQL入门 - Hexo</title>
+  <meta name="keywords" content="SQL,null">
+  <meta desc name="description" content="hi - null - Hexo">
+  
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL入门">
+<meta property="og:url" content="https://archer-baiyi.github.io/en/2025/12/07/%E7%BC%96%E7%A8%8B/SQL%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="什么是SQL？SQL（Structured Query Language，结构化查询语言）是一种用于定义、查询和管理关系型数据库的一种声明式语言。 声明式语言指的是：只需要描述想要什么结果（例如要哪些数据、满足什么条件），而不必编写具体怎么一步步实现的过程。具体的执行方式由数据库的查询优化器与执行引擎决定。 它主要用来做这些事：  查询数据（DQL）：比如 SELECT，从表里查数据、过滤、排序、">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2025-12-07T21:53:03.000Z">
+<meta property="article:modified_time" content="2026-02-19T12:35:41.603Z">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+  <style>
+    /* 首屏样式 */
+    #safearea {
+  display: none;
+}
+:root {
+  --color-site-body: #f4f4f4;
+  --color-site-bg: #f4f4f4;
+  --color-site-inner: #fff;
+  --color-site-footer: #666;
+  --color-card: #fff;
+  --color-text: #444;
+  --color-block: #f6f6f6;
+  --color-inlinecode: #c74f00;
+  --color-codeblock: #fff7ea;
+  --color-h1: #3a3a3a;
+  --color-h2: #3a3a3a;
+  --color-h3: #333;
+  --color-h4: #444;
+  --color-h5: #555;
+  --color-h6: #666;
+  --color-p: #444;
+  --color-list: #666;
+  --color-list-hl: #30ad91;
+  --color-meta: #888;
+  --color-read-bkg: #e0d8c8;
+  --color-read-post: #f8f1e2;
+  --color-copyright-bkg: #f5f5f5;
+}
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+*::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+*::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #3dd9b6;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+html {
+  color: var(--color-text);
+  width: 100%;
+  height: 100%;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-size: 16px;
+}
+html >::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+html >::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+html >::-webkit-scrollbar-thumb {
+  background: #3dd9b6;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+html >::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+body {
+  background-color: var(--color-site-body);
+  text-rendering: optimizelegibility;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body.modal-active {
+  overflow: hidden;
+}
+@media screen and (max-width: 680px) {
+  body.modal-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+a {
+  color: #2092ec;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+a:hover {
+  color: #ff5722;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+ul,
+ol {
+  padding-left: 0;
+}
+ul li,
+ol li {
+  list-style: none;
+}
+header {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+img {
+  border: 0;
+  background: none;
+  max-width: 100%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  height: 0;
+  border: 0;
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-bottom: 1px solid rgba(68,68,68,0.1);
+}
+button,
+input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .blur {
+    background: rgba(255,255,255,0.9) !important;
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.shadow {
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.shadow.floatable {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.shadow.floatable:hover {
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+}
+#l_cover {
+  min-height: 64px;
+}
+.cover-wrapper {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 100vh;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  color: var(--color-site-inner);
+  padding: 0 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -100px;
+}
+.cover-wrapper .cover-body {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cover-wrapper#full {
+  height: calc(100vh + 100px);
+  padding-bottom: 100px;
+}
+.cover-wrapper#half {
+  max-height: 640px;
+  min-height: 400px;
+  height: calc(36vh - 64px + 200px);
+}
+.cover-wrapper #scroll-down {
+  width: 100%;
+  height: 64px;
+  position: absolute;
+  bottom: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+.cover-wrapper #scroll-down .scroll-down-effects {
+  color: #fff;
+  font-size: 24px;
+  line-height: 64px;
+  position: absolute;
+  width: 24px;
+  left: calc(50% - 12px);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  animation: scroll-down-effect 1.5s infinite;
+  -webkit-animation: scroll-down-effect 1.5s infinite;
+  -khtml-animation: scroll-down-effect 1.5s infinite;
+  -moz-animation: scroll-down-effect 1.5s infinite;
+  -o-animation: scroll-down-effect 1.5s infinite;
+  -ms-animation: scroll-down-effect 1.5s infinite;
+}
+@-moz-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  margin-top: 64px;
+  margin-bottom: 100px;
+}
+.cover-wrapper .cover-body,
+.cover-wrapper .cover-body .top,
+.cover-wrapper .cover-body .bottom {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  max-width: 100%;
+}
+.cover-wrapper .cover-body .bottom {
+  margin-top: 32px;
+}
+.cover-wrapper .cover-body .title {
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-size: 3.125rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.cover-wrapper .cover-body .subtitle {
+  font-size: 20px;
+}
+.cover-wrapper .cover-body .logo {
+  max-height: 120px;
+  max-width: calc(100% - 4 * 16px);
+}
+@media screen and (min-height: 1024px) {
+  .cover-wrapper .cover-body .title {
+    font-size: 3rem;
+  }
+  .cover-wrapper .cover-body .subtitle {
+    font-size: 1.05rem;
+  }
+  .cover-wrapper .cover-body .logo {
+    max-height: 150px;
+  }
+}
+.cover-wrapper .cover-body .m_search {
+  position: relative;
+  max-width: calc(100% - 16px);
+  width: 320px;
+  vertical-align: middle;
+}
+.cover-wrapper .cover-body .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100%;
+}
+.cover-wrapper .cover-body .m_search .icon,
+.cover-wrapper .cover-body .m_search .input {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.cover-wrapper .cover-body .m_search .icon {
+  position: absolute;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  line-height: 2.5rem;
+  width: 32px;
+  top: 0;
+  left: 5px;
+  color: rgba(68,68,68,0.75);
+}
+.cover-wrapper .cover-body .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  height: 2.5rem;
+  width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 0.875rem;
+  -webkit-appearance: none;
+  padding-left: 36px;
+  border-radius: 1.4rem;
+  -webkit-border-radius: 1.4rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: var(--color-text);
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .cover-body .m_search .input {
+    padding-left: 36px;
+  }
+}
+.cover-wrapper .cover-body .m_search .input:hover {
+  background: rgba(255,255,255,0.8);
+}
+.cover-wrapper .cover-body .m_search .input:focus {
+  background: #fff;
+}
+.cover-wrapper .list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -khtml-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  align-items: stretch;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.cover-wrapper .list-h a {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 0;
+  -ms-flex: 1 0;
+  flex: 1 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  font-weight: 600;
+}
+.cover-wrapper .list-h a img {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  margin: 4px;
+  min-width: 40px;
+  max-width: 44px;
+}
+@media screen and (max-width: 768px) {
+  .cover-wrapper .list-h a img {
+    min-width: 36px;
+    max-width: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .list-h a img {
+    margin: 2px 4px;
+    min-width: 32px;
+    max-width: 36px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .cover-wrapper .list-h a img {
+    min-width: 28px;
+    max-width: 32px;
+  }
+}
+.cover-wrapper {
+  max-width: 100%;
+}
+.cover-wrapper.search .bottom .menu {
+  margin-top: 16px;
+}
+.cover-wrapper.search .bottom .menu .list-h a {
+  white-space: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 2px;
+  margin: 4px;
+  color: var(--color-site-inner);
+  opacity: 0.75;
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  border-bottom: 2px solid transparent;
+}
+.cover-wrapper.search .bottom .menu .list-h a i {
+  margin-right: 4px;
+}
+.cover-wrapper.search .bottom .menu .list-h a p {
+  font-size: 0.9375rem;
+}
+.cover-wrapper.search .bottom .menu .list-h a:hover,
+.cover-wrapper.search .bottom .menu .list-h a.active,
+.cover-wrapper.search .bottom .menu .list-h a:active {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  border-bottom: 2px solid var(--color-site-inner);
+}
+.cover-wrapper.dock .menu,
+.cover-wrapper.featured .menu,
+.cover-wrapper.focus .menu {
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+.cover-wrapper.dock .menu .list-h a,
+.cover-wrapper.featured .menu .list-h a,
+.cover-wrapper.focus .menu .list-h a {
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  line-height: 24px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-bottom: none;
+  text-align: center;
+  align-content: flex-end;
+  color: rgba(68,68,68,0.7);
+  font-size: 1.5rem;
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper.dock .menu .list-h a,
+  .cover-wrapper.featured .menu .list-h a,
+  .cover-wrapper.focus .menu .list-h a {
+    padding: 12px 8px;
+  }
+}
+.cover-wrapper.dock .menu .list-h a i,
+.cover-wrapper.featured .menu .list-h a i,
+.cover-wrapper.focus .menu .list-h a i {
+  margin: 8px;
+}
+.cover-wrapper.dock .menu .list-h a p,
+.cover-wrapper.featured .menu .list-h a p,
+.cover-wrapper.focus .menu .list-h a p {
+  font-size: 0.875rem;
+}
+.cover-wrapper.dock .menu .list-h a.active,
+.cover-wrapper.featured .menu .list-h a.active,
+.cover-wrapper.focus .menu .list-h a.active {
+  background: var(--color-card);
+  backdrop-filter: none;
+}
+.cover-wrapper.dock .menu .list-h a.active i,
+.cover-wrapper.featured .menu .list-h a.active i,
+.cover-wrapper.focus .menu .list-h a.active i,
+.cover-wrapper.dock .menu .list-h a.active i+p,
+.cover-wrapper.featured .menu .list-h a.active i+p,
+.cover-wrapper.focus .menu .list-h a.active i+p {
+  color: #3dd9b6;
+}
+.cover-wrapper.dock .menu .list-h a.active img+p,
+.cover-wrapper.featured .menu .list-h a.active img+p,
+.cover-wrapper.focus .menu .list-h a.active img+p {
+  color: var(--color-text);
+}
+.cover-wrapper.dock .menu .list-h a:hover,
+.cover-wrapper.featured .menu .list-h a:hover,
+.cover-wrapper.focus .menu .list-h a:hover {
+  background: var(--color-card);
+}
+.cover-wrapper.dock .top {
+  margin-bottom: 48px;
+}
+.cover-wrapper.dock .menu {
+  background: rgba(255,255,255,0.5);
+  position: absolute;
+  bottom: 0;
+  max-width: 100%;
+}
+.cover-wrapper.dock .menu .list-h {
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  margin: 4px;
+}
+.cover-wrapper.dock .menu .list-h a+a {
+  margin-left: 4px;
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper.dock .menu .list-h {
+    overflow-x: scroll;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-track-piece {
+    background: transparent;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb {
+    background: #3dd9b6;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb:hover {
+    background: #ff5722;
+  }
+}
+@supports (backdrop-filter: blur(20px)) {
+  .cover-wrapper.dock .menu {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.cover-wrapper #parallax-window {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+.parallax-mirror {
+  animation-delay: 0s;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: fadeIn;
+}
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-mode: 'dark';
+  }
+  :root:not([color-scheme]) {
+    --color-site-body: #121212;
+    --color-read-bkg: #1f1f1f;
+    --color-read-post: #262626;
+    --color-site-bg: #1f1f1f;
+    --color-site-inner: rgba(238,238,238,0.871);
+    --color-site-footer: rgba(170,170,170,0.871);
+    --color-card: #262626;
+    --color-text: rgba(238,238,238,0.871);
+    --color-block: #434343;
+    --color-codeblock: #1f1f1f;
+    --color-inlinecode: #d56d28;
+    --color-h1: rgba(255,255,255,0.871);
+    --color-h2: rgba(255,255,255,0.871);
+    --color-h3: rgba(255,255,255,0.6);
+    --color-h4: rgba(255,255,255,0.6);
+    --color-h5: rgba(255,255,255,0.6);
+    --color-h6: rgba(255,255,255,0.6);
+    --color-p: rgba(217,217,217,0.871);
+    --color-list: rgba(217,217,217,0.871);
+    --color-list-hl: #63e0c4;
+    --color-meta: rgba(191,191,191,0.871);
+    --color-link: rgba(191,191,191,0.871);
+    --color-copyright-bkg: #21252b;
+  }
+  :root:not([color-scheme]) img {
+    filter: brightness(70%) !important;
+  }
+  :root:not([color-scheme]) .blur {
+    background: rgba(31,31,31,0.9) !important;
+  }
+  :root:not([color-scheme]) .white-box.blur {
+    background: rgba(38,38,38,0.9) !important;
+  }
+  :root:not([color-scheme]) .nav-main .u-search-input {
+    background: var(--color-card) !important;
+  }
+  :root:not([color-scheme]) #l_main .article .prev-next>a {
+    background: var(--color-block) !important;
+  }
+  :root:not([color-scheme]) #l_main .article .prev-next>a:hover {
+    background: var(--color-site-bg) !important;
+  }
+  :root:not([color-scheme]) .article blockquote {
+    background: var(--color-block) !important;
+  }
+  :root:not([color-scheme]) .article-title a {
+    color: var(--color-h1) !important;
+  }
+  :root:not([color-scheme]) details>summary {
+    color: var(--color-p) !important;
+    background: var(--color-site-bg) !important;
+  }
+  :root:not([color-scheme]) details {
+    border: 1px solid var(--color-site-bg) !important;
+    background: var(--color-site-bg) !important;
+  }
+  :root:not([color-scheme]) #u-search .modal,
+  :root:not([color-scheme]) #u-search .modal-header,
+  :root:not([color-scheme]) #u-search .modal-body {
+    background: var(--color-card) !important;
+  }
+  :root:not([color-scheme]) #u-search .modal-body .modal-results .result:hover {
+    background: var(--color-block) !important;
+  }
+  :root:not([color-scheme]) .u-search-input:hover {
+    background: var(--color-block) !important;
+  }
+  :root:not([color-scheme]) .u-search-input:focus {
+    background: var(--color-site-body) !important;
+  }
+}
+[color-scheme='dark'] {
+  --color-site-body: #121212;
+  --color-read-bkg: #1f1f1f;
+  --color-read-post: #262626;
+  --color-site-bg: #1f1f1f;
+  --color-site-inner: rgba(238,238,238,0.871);
+  --color-site-footer: rgba(170,170,170,0.871);
+  --color-card: #262626;
+  --color-text: rgba(238,238,238,0.871);
+  --color-block: #434343;
+  --color-codeblock: #1f1f1f;
+  --color-inlinecode: #d56d28;
+  --color-h1: rgba(255,255,255,0.871);
+  --color-h2: rgba(255,255,255,0.871);
+  --color-h3: rgba(255,255,255,0.6);
+  --color-h4: rgba(255,255,255,0.6);
+  --color-h5: rgba(255,255,255,0.6);
+  --color-h6: rgba(255,255,255,0.6);
+  --color-p: rgba(217,217,217,0.871);
+  --color-list: rgba(217,217,217,0.871);
+  --color-list-hl: #63e0c4;
+  --color-meta: rgba(191,191,191,0.871);
+  --color-link: rgba(191,191,191,0.871);
+  --color-copyright-bkg: #21252b;
+}
+[color-scheme='dark'] img {
+  filter: brightness(70%) !important;
+}
+[color-scheme='dark'] .blur {
+  background: rgba(31,31,31,0.9) !important;
+}
+[color-scheme='dark'] .white-box.blur {
+  background: rgba(38,38,38,0.9) !important;
+}
+[color-scheme='dark'] .nav-main .u-search-input {
+  background: var(--color-card) !important;
+}
+[color-scheme='dark'] #l_main .article .prev-next>a {
+  background: var(--color-block) !important;
+}
+[color-scheme='dark'] #l_main .article .prev-next>a:hover {
+  background: var(--color-site-bg) !important;
+}
+[color-scheme='dark'] .article blockquote {
+  background: var(--color-block) !important;
+}
+[color-scheme='dark'] .article-title a {
+  color: var(--color-h1) !important;
+}
+[color-scheme='dark'] details>summary {
+  color: var(--color-p) !important;
+  background: var(--color-site-bg) !important;
+}
+[color-scheme='dark'] details {
+  border: 1px solid var(--color-site-bg) !important;
+  background: var(--color-site-bg) !important;
+}
+[color-scheme='dark'] #u-search .modal,
+[color-scheme='dark'] #u-search .modal-header,
+[color-scheme='dark'] #u-search .modal-body {
+  background: var(--color-card) !important;
+}
+[color-scheme='dark'] #u-search .modal-body .modal-results .result:hover {
+  background: var(--color-block) !important;
+}
+[color-scheme='dark'] .u-search-input:hover {
+  background: var(--color-block) !important;
+}
+[color-scheme='dark'] .u-search-input:focus {
+  background: var(--color-site-body) !important;
+}
+@media screen and (max-width: 500px) {
+  [color-scheme='dark'] .l_header .m_search {
+    background: var(--color-site-bg) !important;
+  }
+}
+@font-face {
+  font-family: 'UbuntuMono';
+  src: url("https://unpkg.com/volantis-static@0.0.1660614606622/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Varela Round';
+  src: url("https://unpkg.com/volantis-static@0.0.1660614606622/media/fonts/VarelaRound/VarelaRound-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+.l_header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 64px;
+  background: var(--color-card);
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.l_header.auto {
+  transition: opacity 0.4s ease;
+  -webkit-transition: opacity 0.4s ease;
+  -khtml-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
+  -ms-transition: opacity 0.4s ease;
+  visibility: hidden;
+}
+.l_header.auto.show {
+  opacity: 1 !important;
+  -webkit-opacity: 1 !important;
+  -moz-opacity: 1 !important;
+  visibility: visible;
+}
+.l_header .container {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.l_header #wrapper {
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.l_header #wrapper .nav-main,
+.l_header #wrapper .nav-sub {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -khtml-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  -ms-justify-content: space-between;
+  align-items: center;
+}
+.l_header #wrapper .nav-main {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.l_header #wrapper.sub .nav-main {
+  transform: translateY(-64px);
+  -webkit-transform: translateY(-64px);
+  -khtml-transform: translateY(-64px);
+  -moz-transform: translateY(-64px);
+  -o-transform: translateY(-64px);
+  -ms-transform: translateY(-64px);
+}
+.l_header #wrapper .nav-sub {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  height: 64px;
+  width: calc(100% - 2 * 16px);
+  position: absolute;
+}
+.l_header #wrapper .nav-sub ::-webkit-scrollbar {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (min-width: 2048px) {
+  .l_header #wrapper .nav-sub {
+    max-width: 55vw;
+    margin: auto;
+  }
+}
+.l_header #wrapper.sub .nav-sub {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+}
+.l_header #wrapper .title {
+  position: relative;
+  color: var(--color-text);
+  padding-left: 24px;
+  max-height: 64px;
+}
+.l_header #wrapper .nav-main .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  line-height: 64px;
+  padding: 0 24px;
+  font-size: 1.25rem;
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+}
+.l_header #wrapper .nav-main .title img {
+  height: 64px;
+}
+.l_header .nav-sub {
+  max-width: 1280px;
+  margin: auto;
+}
+.l_header .nav-sub .title {
+  font-weight: bold;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  line-height: 1.2;
+  max-height: 64px;
+  white-space: normal;
+  flex-shrink: 1;
+}
+.l_header .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  line-height: 64px;
+  align-items: center;
+}
+.l_header .switcher .s-toc {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .l_header .switcher .s-toc {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+  }
+}
+.l_header .switcher >li {
+  height: 48px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  margin: 2px;
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li {
+    margin: 0 1px;
+    height: 48px;
+  }
+}
+.l_header .switcher >li >a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0.85em 1.1em;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  color: #3dd9b6;
+}
+.l_header .switcher >li >a:hover {
+  border: none;
+}
+.l_header .switcher >li >a.active,
+.l_header .switcher >li >a:active {
+  border: none;
+  background: var(--color-site-bg);
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li >a {
+    width: 36px;
+    height: 48px;
+  }
+}
+.l_header .nav-sub .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+}
+.l_header .m_search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  height: 64px;
+  width: 240px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (max-width: 1024px) {
+  .l_header .m_search {
+    width: 44px;
+    min-width: 44px;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+  }
+  .l_header .m_search:hover {
+    width: 240px;
+  }
+  .l_header .m_search:hover input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search:hover .input {
+    width: 100%;
+  }
+  .l_header .m_search:hover .input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search {
+    min-width: 0;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.l_header .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.l_header .m_search .icon {
+  position: absolute;
+  width: 36px;
+  left: 5px;
+  color: var(--color-meta);
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .icon {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+.l_header .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.3;
+  width: 100%;
+  color: var(--color-text);
+  background: #fafafa;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 40px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search .input:focus {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .input {
+    background: var(--color-block);
+    padding-left: 8px;
+    border: none;
+  }
+  .l_header .m_search .input:hover,
+  .l_header .m_search .input:focus {
+    border: none;
+  }
+}
+@media (max-width: 500px) {
+  .l_header .m_search {
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    transition: all 0.28s ease;
+    -webkit-transition: all 0.28s ease;
+    -khtml-transition: all 0.28s ease;
+    -moz-transition: all 0.28s ease;
+    -o-transition: all 0.28s ease;
+    -ms-transition: all 0.28s ease;
+  }
+  .l_header .m_search .input {
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+  .l_header.z_search-open .m_search {
+    width: 100%;
+  }
+  .l_header.z_search-open .m_search .input {
+    width: calc(100% - 120px);
+  }
+}
+ul.m-pc >li>a {
+  color: inherit;
+  border-bottom: 2px solid transparent;
+}
+ul.m-pc >li>a:active,
+ul.m-pc >li>a.active {
+  border-bottom: 2px solid #3dd9b6;
+}
+ul.m-pc li:hover >ul.list-v,
+ul.list-v li:hover >ul.list-v {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.nav-list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  align-items: stretch;
+}
+ul.nav-list-h>li {
+  position: relative;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  height: 100%;
+  line-height: 2.4;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+ul.nav-list-h>li >a {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+}
+ul.list-v {
+  z-index: 1;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: absolute;
+  background: var(--color-card);
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  margin-top: -6px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 8px 0;
+}
+ul.list-v.show {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.list-v hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ul.list-v >li {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+ul.list-v >li.header {
+  font-size: 0.78125rem;
+  font-weight: bold;
+  line-height: 2em;
+  color: var(--color-meta);
+  margin: 8px 16px 4px;
+}
+ul.list-v >li.header i {
+  margin-right: 8px;
+}
+ul.list-v >li ul {
+  margin-left: 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: -40px;
+}
+ul.list-v .aplayer-container {
+  min-height: 64px;
+  padding: 6px 16px;
+}
+ul.list-v >li>a {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  color: var(--color-list);
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0 20px 0 16px;
+  text-overflow: ellipsis;
+  margin: 0 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+@media screen and (max-width: 1024px) {
+  ul.list-v >li>a {
+    line-height: 40px;
+  }
+}
+ul.list-v >li>a >i {
+  margin-right: 8px;
+}
+ul.list-v >li>a:active,
+ul.list-v >li>a.active {
+  color: var(--color-list-hl);
+}
+ul.list-v >li>a:hover {
+  color: var(--color-list-hl);
+  background: var(--color-site-bg);
+}
+.l_header .menu >ul>li>a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding: 0 8px;
+}
+.l_header .menu >ul>li>a >i {
+  margin-right: 4px;
+}
+.l_header ul.nav-list-h>li {
+  color: var(--color-list);
+  line-height: 64px;
+}
+.l_header ul.nav-list-h>li >a {
+  max-height: 64px;
+  overflow: hidden;
+  color: inherit;
+}
+.l_header ul.nav-list-h>li >a:active,
+.l_header ul.nav-list-h>li >a.active {
+  color: #3dd9b6;
+}
+.l_header ul.nav-list-h>li:hover>a {
+  color: var(--color-list-hl);
+}
+.l_header ul.nav-list-h>li i.music {
+  animation: rotate-effect 1.5s linear infinite;
+  -webkit-animation: rotate-effect 1.5s linear infinite;
+  -khtml-animation: rotate-effect 1.5s linear infinite;
+  -moz-animation: rotate-effect 1.5s linear infinite;
+  -o-animation: rotate-effect 1.5s linear infinite;
+  -ms-animation: rotate-effect 1.5s linear infinite;
+}
+@-moz-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+.menu-phone li ul.list-v {
+  right: calc(100% - 0.5 * 16px);
+}
+.menu-phone li ul.list-v ul {
+  right: calc(100% - 0.5 * 16px);
+}
+#wrapper {
+  max-width: 1280px;
+  margin: auto;
+}
+@media screen and (min-width: 2048px) {
+  #wrapper {
+    max-width: 55vw;
+  }
+}
+#wrapper .menu {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  margin: 0 16px 0 0;
+}
+#wrapper .menu .list-v ul {
+  left: calc(100% - 0.5 * 16px);
+}
+.menu-phone {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: 16px;
+  right: 8px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.menu-phone ul {
+  right: calc(100% - 0.5 * 16px);
+}
+@media screen and (max-width: 500px) {
+  .menu-phone {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: block;
+  }
+}
+.l_header {
+  max-width: 65vw;
+  left: calc((100% - 65vw) * 0.5);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+@media screen and (max-width: 2048px) {
+  .l_header {
+    max-width: 1312px;
+    left: calc((100% - 1312px) * 0.5);
+  }
+}
+@media screen and (max-width: 1312px) {
+  .l_header {
+    left: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .l_header #wrapper .nav-main .title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .l_header #wrapper .nav-sub {
+    width: 100%;
+  }
+  .l_header #wrapper .nav-sub .title {
+    overflow-y: scroll;
+    margin-top: 2px;
+    padding: 8px 16px;
+  }
+  .l_header #wrapper .switcher {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+    margin-right: 8px;
+  }
+  .l_header .menu {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .list-v li {
+    max-width: 270px;
+  }
+}
+#u-search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px 20px;
+  z-index: 1001;
+}
+@media screen and (max-width: 680px) {
+  #u-search {
+    padding: 0px;
+  }
+}
+@media screen and (prefers-color-scheme: dark) and (max-width: 500px) {
+  .l_header .m_search {
+    background: var(--color-site-bg) !important;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="/en/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/en/css/style.css"></noscript>
+    <script>
+      let userColorScheme=localStorage.getItem("color-scheme")
+      if(userColorScheme){
+        document.documentElement.setAttribute("color-scheme", userColorScheme);
+      }
+    </script>
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+    '.kill-t{'+
+      'font-size: 2rem;'+
+    '}'+
+    '.kill-c{'+
+      'font-size: 1.2rem;'+
+    '}'+
+		'#l_header,#l_body{'+
+			'display: none;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        `<span class="kill-t"><b>Sorry, your browser cannot access this site</b></span><br/>`+
+        `<span class="kill-c">Microsoft has terminated support for Internet Explorer (IE) 10 and earlier versions in 2016. <br/>There are great security risks to continue using it. Please use contemporary mainstream browsers to access.</span><br/>`+
+        `<a target="_blank" rel="noopener" href="https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge/"><strong>Learn more ></strong></a>`+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+    .kill-t{
+      font-size: 2rem;
+    }
+    .kill-c{
+      font-size: 1.2rem;
+    }
+		#l_header,#l_body{
+			display: none;
+		}
+	</style>
+    <div class="kill-noscript">
+        <span class="kill-t"><b>Sorry, your browser cannot access this site</b></span><br/>
+        <span class="kill-c">This page requires browser support (enable) JavaScript</span><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>Learn more ></strong></a>
+    </div>
+</noscript>
+
+
+  <script>
+  /************这个文件存放不需要重载的全局变量和全局函数*********/
+  window.volantis = {}; // volantis 全局变量
+  volantis.debug = "env"; // 调试模式
+  volantis.dom = {}; // 页面Dom see: /source/js/app.js etc.
+  /******************** volantis.dom.$ ********************************/
+  // 注：这里没有选择器，也没有forEach一次只处理一个dom，这里重新封装主题常用的dom方法，返回的是dom对象，对象包含了以下方法，同时保留dom的原生API
+  function volantisDom(ele) {
+    if (!ele) ele = document.createElement("div")
+    this.ele = ele;
+    // ==============================================================
+    this.ele.find = (c) => {
+      let q = this.ele.querySelector(c)
+      if (q)
+        return new volantisDom(q)
+    }
+    // ==============================================================
+    this.ele.hasClass = (c) => {
+      return this.ele.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
+    }
+    this.ele.addClass = (c) => {
+      this.ele.classList.add(c);
+      return this.ele
+    }
+    this.ele.removeClass = (c) => {
+      this.ele.classList.remove(c);
+      return this.ele
+    }
+    this.ele.toggleClass = (c) => {
+      if (this.ele.hasClass(c)) {
+        this.ele.removeClass(c)
+      } else {
+        this.ele.addClass(c)
+      }
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.on = (c, f) => {
+      this.ele.addEventListener(c, f, false)
+      return this.ele
+    }
+    this.ele.click = (f, r) => {
+      this.ele.on("click", f, r)
+      return this.ele
+    }
+    this.ele.scroll = (f, r) => {
+      this.ele.on("scroll", f, r)
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.html = (c) => {
+      // if(c=== undefined){
+      //   return this.ele.innerHTML
+      // }else{
+      this.ele.innerHTML = c
+      return this.ele
+      // }
+    }
+    // ==============================================================
+    this.ele.hide = (c) => {
+      this.ele.style.display = "none"
+      return this.ele
+    }
+    this.ele.show = (c) => {
+      this.ele.style.display = "block"
+      return this.ele
+    }
+    // ==============================================================
+    return this.ele
+  }
+  volantis.dom.$ = (ele) => {
+    return !!ele ? new volantisDom(ele) : null;
+  }
+  /******************** RunItem ********************************/
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          volantis.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+  /******************** RightMenu ********************************/
+  // volantis.rightmenu.handle(callBack[,"callBackName"]) 外部菜单项控制
+  // 可在 volantis.mouseEvent 处获取右键事件
+  volantis.rightmenu = {};
+  volantis.rightmenu.method = {
+    handle: new RunItem(),
+  }
+  volantis.rightmenu = Object.assign(volantis.rightmenu, {
+    handle: volantis.rightmenu.method.handle.push,
+  });
+  /********************  Dark Mode  ********************************/
+  // /layout/_partial/scripts/darkmode.ejs
+  // volantis.dark.mode 当前模式 dark or light
+  // volantis.dark.toggle() 暗黑模式触发器
+  // volantis.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  volantis.dark = {};
+  volantis.dark.method = {
+    toggle: new RunItem(),
+  };
+  volantis.dark = Object.assign(volantis.dark, {
+    push: volantis.dark.method.toggle.push,
+  });
+  /********************  Message  ********************************/
+  // VolantisApp.message
+  /********************  isMobile  ********************************/
+  // /source/js/app.js
+  // volantis.isMobile
+  // volantis.isMobileOld
+  /********************脚本动态加载函数********************************/
+  // volantis.js(src, cb)  cb 可以传入onload回调函数 或者 JSON对象 例如: volantis.js("src", ()=>{}) 或 volantis.js("src", {defer:true,onload:()=>{}})
+  // volantis.css(src)
+
+  // 返回Promise对象，如下方法同步加载资源，这利于处理文件资源之间的依赖关系，例如：APlayer 需要在 MetingJS 之前加载
+  // (async () => {
+  //     await volantis.js("...theme.plugins.aplayer.js.aplayer...")
+  //     await volantis.js("...theme.plugins.aplayer.js.meting...")
+  // })();
+
+  // 已经加入了setTimeout
+  volantis.js = (src, cb) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+  volantis.css = (src) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  }
+  /********************按需加载的插件********************************/
+  // volantis.import.jQuery().then(()=>{})
+  volantis.import = {
+    jQuery: () => {
+      if (typeof jQuery == "undefined") {
+        return volantis.js("https://unpkg.com/jquery@3.7.1/dist/jquery.min.js")
+      } else {
+        return new Promise(resolve => {
+          resolve()
+        });
+      }
+    }
+  }
+  /********************** requestAnimationFrame ********************************/
+  // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+  // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+  volantis.requestAnimationFrame = (fn) => {
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    }
+    window.requestAnimationFrame(fn)
+  }
+  /************************ layoutHelper *****************************************/
+  volantis.layoutHelper = (helper, html, opt) => {
+    opt = Object.assign({ clean: false}, opt)
+    function myhelper(helper, html, clean) {
+      volantis.tempDiv = document.createElement("div");
+      volantis.tempDiv.innerHTML = html;
+      let layoutHelper = document.querySelector("#layoutHelper-" + helper)
+      if (layoutHelper) {
+        if (clean) {
+          layoutHelper.innerHTML = ""
+        }
+        layoutHelper.append(volantis.tempDiv);
+      }
+    }
+    myhelper(helper, html, opt.clean)
+  }
+  /****************************** 滚动事件处理 ****************************************/
+  volantis.scroll = {
+    engine: new RunItem(),
+    unengine: new RunItem(),
+  };
+  volantis.scroll = Object.assign(volantis.scroll, {
+    push: volantis.scroll.engine.push,
+  });
+  // 滚动条距离顶部的距离
+  volantis.scroll.getScrollTop = () => {
+    let scrollPos;
+    if (window.pageYOffset) {
+      scrollPos = window.pageYOffset;
+    } else if (document.compatMode && document.compatMode != 'BackCompat') {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (document.body) {
+      scrollPos = document.body.scrollTop;
+    }
+    return scrollPos;
+  }
+  volantis.scroll.scrollHeight = function () {
+    return Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+    )
+  }
+  volantis.scroll.offsetHeight = function () {
+    return Math.max(
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.body.clientHeight,
+      document.documentElement.clientHeight
+    )
+  }
+  volantis.scroll.progress = function () {
+    return volantis.scroll.getScrollTop() / (volantis.scroll.scrollHeight() - volantis.scroll.offsetHeight())
+  }
+  // 使用 requestAnimationFrame 处理滚动事件
+  // `volantis.scroll.del` 中存储了一个数值, 该数值检测一定时间间隔内滚动条滚动的位移, 数值的检测频率是浏览器的刷新频率. 数值为正数时, 表示向下滚动. 数值为负数时, 表示向上滚动.
+  volantis.scroll.handleScrollEvents = () => {
+    volantis.scroll.lastScrollTop = volantis.scroll.getScrollTop()
+    function loop() {
+      const scrollTop = volantis.scroll.getScrollTop();
+      if (volantis.scroll.lastScrollTop !== scrollTop) {
+        volantis.scroll.del = scrollTop - volantis.scroll.lastScrollTop;
+        volantis.scroll.lastScrollTop = scrollTop;
+        // if (volantis.scroll.del > 0) {
+        //   console.log("向下滚动");
+        // } else {
+        //   console.log("向上滚动");
+        // }
+        // 注销过期的unengine未滚动事件
+        volantis.scroll.unengine.list = []
+        volantis.scroll.engine.start();
+      } else {
+        volantis.scroll.unengine.start();
+      }
+      volantis.requestAnimationFrame(loop)
+    }
+    volantis.requestAnimationFrame(loop)
+  }
+  volantis.scroll.handleScrollEvents()
+  volantis.scroll.ele = null;
+  // 触发页面滚动至目标元素位置
+  volantis.scroll.to = (ele, option = {}) => {
+    if (!ele) return;
+    volantis.scroll.ele = ele;
+    // 默认配置
+    opt = {
+      top: ele.getBoundingClientRect().top + document.documentElement.scrollTop,
+      behavior: "smooth"
+    }
+    // 定义配置
+    if ("top" in option) {
+      opt.top = option.top
+    }
+    if ("behavior" in option) {
+      opt.behavior = option.behavior
+    }
+    if ("addTop" in option) {
+      opt.top += option.addTop
+    }
+    if (!("observerDic" in option)) {
+      option.observerDic = 100
+    }
+    // 滚动
+    window.scrollTo(opt);
+    // 监视器
+    // 监视并矫正元素滚动到指定位置
+    // 用于处理 lazyload 引起的 cls 导致的定位失败问题
+    // option.observer = false
+    if (option.observer) {
+      setTimeout(() => {
+        if (volantis.scroll.ele != ele) {
+          return
+        }
+        volantis.scroll.unengine.push(() => {
+          let me = ele.getBoundingClientRect().top
+          if (!(me >= -option.observerDic && me <= option.observerDic)) {
+            volantis.scroll.to(ele, option)
+          }
+          volantis.scroll.unengine.remove("unengineObserver")
+        }, "unengineObserver")
+      }, 1000)
+    }
+  }
+  /********************** Content Visibility ********************************/
+  // 见 source/css/first.styl 如果遇到任何问题 删除 .post-story 即可
+  // 一个元素被声明 content-visibility 属性后 如果元素不在 viewport 中 浏览器不会计算其后代元素样式和属性 从而节省 Style & Layout 耗时
+  // content-visibility 的副作用: 锚点失效 等等(实验初期 暂不明确), 使用此方法清除样式
+  volantis.cleanContentVisibility = () => {
+    if (document.querySelector(".post-story")) {
+      console.log("cleanContentVisibility");
+      document.querySelectorAll(".post-story").forEach(e => {
+        e.classList.remove("post-story")
+      })
+    }
+  }
+  /******************************************************************************/
+  /******************************************************************************/
+  /******************************************************************************/
+  //图像加载出错时的处理
+  function errorImgAvatar(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg";
+    img.onerror = null;
+  }
+  function errorImgCover(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg";
+    img.onerror = null;
+  }
+  /******************************************************************************/
+</script>
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  pdata.commentConfig={};
+  volantis.GLOBAL_CONFIG ={
+    root: '/en/',
+    debug: "env",
+    default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
+    lastupdate: new Date(1771996874673),
+    cdn: {
+      izitoast_css: 'https://unpkg.com/izitoast@1.4.0/dist/css/iziToast.min.css',
+      izitoast_js: 'https://unpkg.com/izitoast@1.4.0/dist/js/iziToast.min.js',
+      fancybox_css: 'https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css',
+      fancybox_js: 'https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.js'
+    },
+    sidebar: {
+      for_page: ["blogger","category","tagcloud","donate"],
+      for_post: ["toc"],
+      webinfo: {
+        lastupd: {
+          enable: true,
+          friendlyShow: true
+        },
+        runtime: {
+          data: "2020/01/01",
+          unit: "天"
+        }
+      }
+    },
+    plugins: {
+      message: {"enable":true,"icon":{"default":"fa-solid fa-info-circle light-blue","quection":"fa-solid fa-question-circle light-blue"},"time":{"default":5000,"quection":20000},"position":"topRight","transitionIn":"bounceInLeft","transitionOut":"fadeOutRight","titleColor":"var(--color-text)","messageColor":"var(--color-text)","backgroundColor":"var(--color-card)","zindex":2147483647,"copyright":{"enable":true,"title":"知识共享许可协议","message":"请遵守 CC BY-NC-SA 4.0 协议。","icon":"far fa-copyright light-blue"},"aplayer":{"enable":true,"play":"fa-solid fa-play","pause":"fa-solid fa-pause"},"rightmenu":{"enable":true,"notice":true}},
+      
+      
+    },
+    search: {
+      
+
+      
+        dataPath: (("/en/" || "/").endsWith("/") ? "/en/" || "/" : "/en//" || "/") + "content.json",
+      
+
+      
+    },
+    languages: {
+      
+        search: {
+          hits_empty: "We didn't find any results for the search: ${query}.",
+          hits_stats: "${hits} results found in ${time} ms",
+        }
+      
+    }
+  }
+</script>
+  <!-- import head_end begin -->
+  <!-- import head_end end -->
+  <!-- Custom Files headEnd begin-->
+  
+  <!-- Custom Files headEnd end-->
+</head>
+  <body itemscope itemtype="https://schema.org.cn/WebPage">
+    
+    <header itemscope itemtype="https://schema.org.cn/WPHeader" id="l_header" class="l_header auto shadow floatable blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone'>
+        <li><a id="s-comment" class="fa-solid fa-comments fa-fw" target="_self" title="comment"></a></li>
+        
+          <li><a id="s-toc" class="s-toc fa-solid fa-list fa-fw" target="_self" title="toc"></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/en/'>
+          
+            <img no-lazy class='logo' src='https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/Logo-NavBar@3x.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/" title="Blog"
+                  
+                  
+                  
+                    active-action="action-en"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>Blog
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/categories/" title="Categories"
+                  
+                  
+                  
+                    active-action="action-encategories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>Categories
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/tags/" title="Tags"
+                  
+                  
+                  
+                    active-action="action-entags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>Tags
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/archives/" title="Archievs"
+                  
+                  
+                  
+                    active-action="action-enarchives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>Archievs
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/friends/" title="Friends"
+                  
+                  
+                  
+                    active-action="action-enfriends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>Friends
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/about/" title="About"
+                  
+                  
+                  
+                    active-action="action-enabout"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>About
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-moon fa-fw'></i>Dark
+                </a>
+              <li>
+            
+          
+          
+				</ul>
+			</div>
+      
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fa-solid fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+      
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fa-solid fa-search fa-fw" target="_self" title="search"></a></li>
+				
+				<li>
+          <a class="s-menu fa-solid fa-bars fa-fw" target="_self" title="menu"></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/" title="Blog"
+                  
+                  
+                  
+                    active-action="action-en"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>Blog
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/categories/" title="Categories"
+                  
+                  
+                  
+                    active-action="action-encategories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>Categories
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/tags/" title="Tags"
+                  
+                  
+                  
+                    active-action="action-entags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>Tags
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/archives/" title="Archievs"
+                  
+                  
+                  
+                    active-action="action-enarchives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>Archievs
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/friends/" title="Friends"
+                  
+                  
+                  
+                    active-action="action-enfriends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>Friends
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/about/" title="About"
+                  
+                  
+                  
+                    active-action="action-enabout"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>About
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-moon fa-fw'></i>Dark
+                </a>
+              <li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+
+      <!-- Custom Files header begin -->
+      
+      <!-- Custom Files header end -->
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+      <div class="cover-wrapper post dock" id='half'>
+        
+  <div id="parallax-window"></div>
+
+<div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Archer's blog</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/en/"
+              
+              
+              active-action="action-en">
+              <i class='fa-solid fa-rss fa-fw'></i><p>Blog</p>
+            </a>
+          
+            <a href="/en/categories/"
+              
+              
+              active-action="action-encategories">
+              <img src='https://unpkg.com/volantis-static@0.0.1660614606622/media/twemoji/assets/svg/1f5c3.svg'><p>Categories</p>
+            </a>
+          
+            <a href="/en/tags/"
+              
+              
+              active-action="action-entags">
+              <i class='fa-solid fa-tags fa-fw'></i><p>Tags</p>
+            </a>
+          
+            <a href="/en/archives/"
+              
+              
+              active-action="action-enarchives">
+              <i class='fa-solid fa-archive fa-fw'></i><p>Archievs</p>
+            </a>
+          
+            <a href="/en/friends/"
+              
+              
+              active-action="action-enfriends">
+              <i class='fa-solid fa-link fa-fw'></i><p>Friends</p>
+            </a>
+          
+            <a href="/en/about/"
+              
+              
+              active-action="action-enabout">
+              <i class='fa-solid fa-info-circle fa-fw'></i><p>About</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+    
+  
+</div>
+
+      <div id="safearea">
+        <div class="body-wrapper">
+          
+<div id="l_main" class=''>
+  <article itemscope itemtype="https://schema.org.cn/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="https://archer-baiyi.github.io/en/2025/12/07/编程/SQL入门/">
+  <span hidden itemprop="publisher" itemscope itemtype="https://schema.org.cn/Organization">
+    <meta itemprop="name" content="Hexo">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="https://schema.org.cn/Post">
+    <meta itemprop="name" content="Hexo">
+    <meta itemprop="description" content="hi">
+  </span>
+  
+
+
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title" itemprop="name headline">
+        SQL入门
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+  
+  
+  
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/en/categories/%E7%BC%96%E7%A8%8B/">编程</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="https://schema.org.cn/Thing">
+        <a href="/en/categories/%E7%BC%96%E7%A8%8B/" itemprop="url"><span itemprop="name">编程</span></a>
+      </span>
+    
+  </div>
+  
+
+
+
+          
+        
+          
+            
+  
+  
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/en/tags/SQL/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>SQL</p></a></div>
+  <span hidden itemprop="keywords">SQL</span>
+  
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2026-02-19T13:35:41+01:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>Last UpdatedFeb 19, 2026</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
+      
+      <span id="busuanzi_page_pv">
+        <i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i>
+      </span>
+        
+      <span>次浏览</span>
+    </p>
+  </a>
+</div>
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <h2 id="什么是SQL？"><a href="#什么是SQL？" class="headerlink" title="什么是SQL？"></a><strong>什么是SQL？</strong></h2><p>SQL（Structured Query Language，结构化查询语言）是一种用于<strong>定义、查询和管理关系型数据库</strong>的一种<strong>声明式语言</strong>。</p>
+<p>声明式语言指的是：只需要描述想要什么结果（例如要哪些数据、满足什么条件），而不必编写具体怎么一步步实现的过程。具体的执行方式由数据库的查询优化器与执行引擎决定。</p>
+<p>它主要用来做这些事：</p>
+<ul>
+<li><strong>查询数据（DQL）</strong>：比如 <code>SELECT</code>，从表里查数据、过滤、排序、分组等</li>
+<li><strong>定义数据库结构（DDL）</strong>：比如 <code>CREATE / ALTER / DROP</code>，创建/修改/删除表、索引、视图等</li>
+<li><strong>操作数据（DML）</strong>：比如 <code>INSERT / UPDATE / DELETE</code>，新增、修改、删除表中的记录</li>
+<li><strong>权限控制（DCL）</strong>：比如 <code>GRANT / REVOKE</code>，给用户授权或收回权限</li>
+<li><strong>事务控制（TCL）</strong>：比如 <code>COMMIT / ROLLBACK / SAVEPOINT</code>，控制事务提交、回滚等</li>
+</ul>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a><strong>基础</strong></h2><p>一般的SQL查询语句的<strong>语法顺序</strong>/结构如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [<span class="keyword">DISTINCT</span>] <span class="operator">&lt;</span>select_list<span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">FROM</span> <span class="operator">&lt;</span>table_or_subquery<span class="operator">&gt;</span> [<span class="keyword">JOIN</span> ... <span class="keyword">ON</span> ...]</span><br><span class="line"><span class="keyword">WHERE</span> <span class="operator">&lt;</span>row_conditions<span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="operator">&lt;</span>group_cols<span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">HAVING</span> <span class="operator">&lt;</span>group_conditions<span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="operator">&lt;</span>sort_exprs<span class="operator">&gt;</span></span><br><span class="line">LIMIT <span class="operator">&lt;</span>n<span class="operator">&gt;</span> [<span class="keyword">OFFSET</span> <span class="operator">&lt;</span>m<span class="operator">&gt;</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>SELECT</code>：选择列</li>
+<li><code>DISTINCT</code>：去重</li>
+<li><code>FROM</code>：选择表格</li>
+<li><code>WHERE</code>：筛选条件</li>
+<li><code>GROUP BY</code>：分组</li>
+<li><code>HAVING</code>：对分组后的结果过滤</li>
+<li><code>ORDER BY</code>：排序<ul>
+<li><code>ASC</code>：升序</li>
+<li><code>DESC</code>：降序</li>
+</ul>
+</li>
+<li><code>LIMIT</code>：截断返回行数</li>
+</ul>
+<p><br></p>
+<p>而它们的<strong>执行顺序</strong>是：<code>FROM → WHERE → GROUP BY → HAVING → SELECT → DISTINCT → ORDER BY → LIMIT</code></p>
+<p><br></p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a><strong>入门</strong></h2><p>以这个数据库为例（ <a target="_blank" rel="noopener" href="https://hyper-db.de/interface.html">https://hyper-db.de/interface.html</a> ）</p>
+<p><img src="/images/image-20251229014957843.png" class="lazyload" data-srcset="/images/image-20251229014957843.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229014957843"></p>
+<p>如果我们想知道一共有哪些教授，那么我们只需要：</p>
+<ul>
+<li>列出Professors这张表里的</li>
+<li>Name这一列的所有内容</li>
+</ul>
+<p>对应的命令：</p>
+<ul>
+<li><code>SELECT</code>后跟列名</li>
+<li><code>FROM</code>后跟表名</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229015523442.png" class="lazyload" data-srcset="/images/image-20251229015523442.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229015523442"></p>
+<h3 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a><strong>DISTINCT</strong></h3><p>假如我们只关注Professors表里一共有多少种不同的Level：</p>
+<p>如果用之前的方法它会重复输出：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Level</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229174125626.png" class="lazyload" data-srcset="/images/image-20251229174125626.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229174125626"></p>
+<p>所以我们需要用<code>DISTINCT</code>来去重：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> Level</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229174138624.png" class="lazyload" data-srcset="/images/image-20251229174138624.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229174138624"></p>
+<h3 id="ORDER-BY"><a href="#ORDER-BY" class="headerlink" title="ORDER BY"></a><strong>ORDER BY</strong></h3><p>在结果较多时我们往往希望将结果排序以便我们后续操作，这是需要用到<code>ORDER BY</code>：</p>
+<ul>
+<li><code>ASC</code>：升序</li>
+<li><code>DESC</code>：降序</li>
+</ul>
+<p>默认是升序（<code>ASC</code>）。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name, Level</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Level <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229203421452.png" class="lazyload" data-srcset="/images/image-20251229203421452.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229203421452"></p>
+<h3 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a><strong>LIMIT</strong></h3><p>也可以只查看前几条结果：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br><span class="line">LIMIT <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229203523308.png" class="lazyload" data-srcset="/images/image-20251229203523308.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229203523308"></p>
+<h3 id="OFFSET"><a href="#OFFSET" class="headerlink" title="OFFSET"></a><strong>OFFSET</strong></h3><p>和<code>LIMIT</code>类似，只不过是查看从第几条开始之后的结果。</p>
+<p>配合<code>LIMIT</code>一起用可以直接锁定某个排名的人：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name, Semester</span><br><span class="line"><span class="keyword">FROM</span> students</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Semester <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">OFFSET</span> <span class="number">0</span></span><br><span class="line">LIMIT <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20260219093420166.png" class="lazyload" data-srcset="/images/image-20260219093420166.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20260219093420166"></p>
+<p>注意，offset是从0开始的。</p>
+<h3 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a><strong>WHERE</strong></h3><p>如果现在想要加上一点条件，比如说只显示Level等于C4的教授，那么就是：</p>
+<ul>
+<li><code>WHERE</code>后面跟筛选条件</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br><span class="line"><span class="keyword">WHERE</span> Level <span class="operator">=</span> <span class="string">&#x27;C4&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229015504737.png" class="lazyload" data-srcset="/images/image-20251229015504737.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229015504737"></p>
+<h3 id="命名"><a href="#命名" class="headerlink" title="命名"></a><strong>命名</strong></h3><p>有时我们希望自己命名查询结果的列名，这时候就需要<code>AS</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name <span class="keyword">AS</span> Prof_name</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229203210254.png" class="lazyload" data-srcset="/images/image-20251229203210254.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229203210254"></p>
+<p><br></p>
+<p>除此之外，有些时候筛选会遇到2个表里有相同的列名，这个时候就需要命名每个表以此来区分：</p>
+<ul>
+<li>在每个表后加上空格以及新的名字（例如<code>Students s</code>）</li>
+<li>在之后的部分就可以用s指代这张表</li>
+</ul>
+<p>比如说我们想知道学生”Fichte”上了哪些课：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.Name, a.LectureNr</span><br><span class="line"><span class="keyword">FROM</span> Students s, attend a</span><br><span class="line"><span class="keyword">WHERE</span> s.StudNr <span class="operator">=</span> a.StudNr <span class="keyword">AND</span></span><br><span class="line">	  s.Name <span class="operator">=</span> <span class="string">&#x27;Fichte&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229204255579.png" class="lazyload" data-srcset="/images/image-20251229204255579.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229204255579"></p>
+<h3 id="COUNT"><a href="#COUNT" class="headerlink" title="COUNT"></a><strong>COUNT</strong></h3><p>如果我们想知道一共有多少名教授，就需要<code>COUNT</code>来帮助我们数数：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/image-20251229202539482.png" class="lazyload" data-srcset="/images/image-20251229202539482.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229202539482"></p>
+<h3 id="GROUP-BY"><a href="#GROUP-BY" class="headerlink" title="GROUP BY"></a><strong>GROUP BY</strong></h3><p>如果我们想知道每个Level各有多少教授，就需要<code>GROUP BY</code>来帮助我们进行分组：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Level, <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Level;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229202747291.png" class="lazyload" data-srcset="/images/image-20251229202747291.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229202747291"></p>
+<p>在 <code>GROUP BY</code> 查询里，<code>SELECT</code> 里出现的每个表达式必须满足二选一：</p>
+<ol>
+<li><strong>是分组键</strong>（出现在 <code>GROUP BY</code> 里，或能由分组键唯一决定），或者</li>
+<li><strong>是聚合表达式</strong>（被 <code>SUM/AVG/COUNT/MIN/MAX/...</code> 包起来）</li>
+</ol>
+<p>否则：</p>
+<p><img src="/images/image-20251229224844458.png" class="lazyload" data-srcset="/images/image-20251229224844458.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229224844458"></p>
+<p>但是通过<code>GROUP BY a, b, c</code>这种只会得到<strong>最细粒度</strong>的分组，即每个<code>(a,b,c)</code>一行。</p>
+<p>那我们同时还想得到更粗颗粒度的分组结果（比如按照<code>(a,b),(a),(a,c)</code>这些分组）该怎么办呢？</p>
+<p>最普通的方法就是用<code>UNION ALL</code>：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">  a, <span class="keyword">NULL</span> <span class="keyword">AS</span> b, c,</span><br><span class="line">  <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> cnt</span><br><span class="line"><span class="keyword">FROM</span> t</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a, c</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">  <span class="keyword">NULL</span> <span class="keyword">AS</span> a, b, c,</span><br><span class="line">  <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> cnt</span><br><span class="line"><span class="keyword">FROM</span> t</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> b, c</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">  a, <span class="keyword">NULL</span> <span class="keyword">AS</span> b, <span class="keyword">NULL</span> <span class="keyword">AS</span> c,</span><br><span class="line">  <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> cnt</span><br><span class="line"><span class="keyword">FROM</span> t</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a</span><br></pre></td></tr></table></figure></p>
+<p>当然，还有很多更加便捷的方法：</p>
+<h4 id="GROUPING-SETS"><a href="#GROUPING-SETS" class="headerlink" title="GROUPING SETS"></a><strong>GROUPING SETS</strong></h4><p>可以用<code>GROUPING SETS</code>来定义多个想要的分组：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">GROUPING SETS</span> (</span><br><span class="line">  (a, b, c),</span><br><span class="line">  (a, c),</span><br><span class="line">  (b, c),</span><br><span class="line">  (a),</span><br><span class="line">  (c),</span><br><span class="line">  (),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>其中 <code>()</code> 是全表总计（grand total），只按“空分组”汇总一次。</p>
+<h4 id="CUBE"><a href="#CUBE" class="headerlink" title="CUBE"></a><strong>CUBE</strong></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">CUBE</span>(a,b,c)</span><br></pre></td></tr></table></figure>
+<p><strong><code>CUBE</code>会处理所有子集分组。</strong>即当维度（CUBE括号里的列个数）为n时，会产生$2^n$种分组。</p>
+<p>例如n=3时，一共8种：</p>
+<ol>
+<li>(a,b,c)</li>
+<li>(a,b)</li>
+<li>(a,c)</li>
+<li>(b,c)</li>
+<li>(a)</li>
+<li>(b)</li>
+<li>(c)</li>
+<li>()   全表总计</li>
+</ol>
+<p><code>CUBE</code>的输出里某些维度列会出现<code>NULL</code>，它代表这一行在该维度上“被汇总掉了”（对所有该维度值求和/求平均等）。比如说在按照<code>(a,b)</code>分组的部分内容里，那么<code>c</code>栏内容就会是<code>NULL</code>。</p>
+<p>因为<code>CUBE</code>会显示/返回所有分组层级的结果，所以通常要用<code>WHERE ... IS NULL</code>来挑某一层。</p>
+<p>例子：只要按(a,b)的汇总，即<code>c IS NULL</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a, b, s</span><br><span class="line"><span class="keyword">FROM</span> cube_table</span><br><span class="line"><span class="keyword">WHERE</span> c <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="ROLLUP"><a href="#ROLLUP" class="headerlink" title="ROLLUP"></a><strong>ROLLUP</strong></h4><p>与<code>CUBE</code>不同，<strong><code>ROLLUP</code>会沿着维度列表“逐层向上汇总。</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">ROLLUP</span>(a,b,c)</span><br></pre></td></tr></table></figure>
+<p>例如n=3的情况，<code>ROLLUP</code>会计算这几个分组：</p>
+<ul>
+<li><p>(a,b,c)</p>
+</li>
+<li><p>(a,b)</p>
+</li>
+<li><p>(a)</p>
+</li>
+<li><p>()</p>
+</li>
+</ul>
+<p>不会处理<code>(a,c)</code>之类的分组结果。</p>
+<h3 id="HAVING"><a href="#HAVING" class="headerlink" title="HAVING"></a><strong>HAVING</strong></h3><p>在分组的基础上我们往往希望再加点筛选条件，这个时候就需要<code>HAVING</code>来对分组后的结果过滤。</p>
+<p>比如说我们想知道哪些Level的人数超过了3：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Level, <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Level</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="operator">&gt;</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229203038546.png" class="lazyload" data-srcset="/images/image-20251229203038546.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229203038546"></p>
+<h3 id="子查询-嵌套"><a href="#子查询-嵌套" class="headerlink" title="子查询/嵌套"></a><strong>子查询/嵌套</strong></h3><p>假如我们想知道哪些学生的学期数在平均学期数以下，就需要拆成2步来完成</p>
+<ul>
+<li><p>计算平均学期数（先生成一个子列表）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(Semester)</span><br><span class="line"><span class="keyword">FROM</span> Students</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229223305184.png" class="lazyload" data-srcset="/images/image-20251229223305184.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229223305184"></p>
+</li>
+<li><p>筛选</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name</span><br><span class="line"><span class="keyword">FROM</span> Students</span><br><span class="line"><span class="keyword">WHERE</span> Semester <span class="operator">&lt;</span> </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>拼起来就是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name</span><br><span class="line"><span class="keyword">FROM</span> Students</span><br><span class="line"><span class="keyword">WHERE</span> Semester <span class="operator">&lt;</span> (<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(Semester)</span><br><span class="line">				  <span class="keyword">FROM</span> Students)</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229223655076.png" class="lazyload" data-srcset="/images/image-20251229223655076.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229223655076"></p>
+<p>或者也可以：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name</span><br><span class="line"><span class="keyword">FROM</span> Students, (<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(Semester) <span class="keyword">AS</span> avg_semester</span><br><span class="line">				  <span class="keyword">FROM</span> Students) avg</span><br><span class="line"><span class="keyword">WHERE</span> Semester <span class="operator">&lt;</span> avg_semester</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251229223919452.png" class="lazyload" data-srcset="/images/image-20251229223919452.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251229223919452"></p>
+<p>这样会高效很多。</p>
+<h4 id="LATERAL"><a href="#LATERAL" class="headerlink" title="LATERAL"></a><strong>LATERAL</strong></h4><p><code>LATERAL</code>允许<code>FROM</code>子句中的派生表/子查询/表函数引用其左侧 <code>FROM</code> 项的列，从而形成相关（correlated）的行源，并对左侧输入的每一行进行求值。</p>
+<p><strong>例子：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span></span><br><span class="line">(<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">AS</span> x) <span class="keyword">AS</span> t1,</span><br><span class="line"><span class="keyword">LATERAL</span> (<span class="keyword">SELECT</span> t1.x<span class="operator">+</span><span class="number">1</span> <span class="keyword">AS</span> y) <span class="keyword">AS</span> t2</span><br></pre></td></tr></table></figure>
+<p>这段等价于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">1</span>]:</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> [x+<span class="number">1</span>]:</span><br><span class="line">        <span class="built_in">print</span>(x,y)</span><br></pre></td></tr></table></figure>
+<h3 id="集合比较与存在性"><a href="#集合比较与存在性" class="headerlink" title="集合比较与存在性"></a><strong>集合比较与存在性</strong></h3><h4 id="IN"><a href="#IN" class="headerlink" title="IN"></a><strong><code>IN</code></strong></h4><p>判断是否属于集合。</p>
+<p>比如说我们想知道哪些学生参加了5001这门课，并且最后输出它们的名字，那么我们就可以用<code>IN</code>来进行判断：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.Name</span><br><span class="line"><span class="keyword">FROM</span> Students s</span><br><span class="line"><span class="keyword">WHERE</span> s.StudNr <span class="keyword">IN</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> a.StudNr</span><br><span class="line">  <span class="keyword">FROM</span> attend a</span><br><span class="line">  <span class="keyword">WHERE</span> a.LectureNr <span class="operator">=</span> <span class="number">5001</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="ANY"><a href="#ANY" class="headerlink" title="ANY"></a><strong><code>ANY</code></strong></h4><p>对集合里至少一个成立。</p>
+<p>比如说我们想找出房间号比某个 C3 教授房间更大的教授：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> p.Name, p.Room</span><br><span class="line"><span class="keyword">FROM</span> Professors p</span><br><span class="line"><span class="keyword">WHERE</span> p.Room <span class="operator">&gt;</span> <span class="keyword">ANY</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> Room</span><br><span class="line">  <span class="keyword">FROM</span> Professors</span><br><span class="line">  <span class="keyword">WHERE</span> Level <span class="operator">=</span> <span class="string">&#x27;C3&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="ALL"><a href="#ALL" class="headerlink" title="ALL"></a><strong><code>ALL</code></strong></h4><p>比如说我们想找出房间号比所有 C3 教授房间都小的教授和房间：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> p.Name, p.Room</span><br><span class="line"><span class="keyword">FROM</span> Professors p</span><br><span class="line"><span class="keyword">WHERE</span> p.Room <span class="operator">&lt;</span> <span class="keyword">ALL</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> Room</span><br><span class="line">  <span class="keyword">FROM</span> Professors</span><br><span class="line">  <span class="keyword">WHERE</span> Level <span class="operator">=</span> <span class="string">&#x27;C3&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="EXISTS"><a href="#EXISTS" class="headerlink" title="EXISTS"></a><strong><code>EXISTS</code></strong></h4><p>比如说我们想找出至少开了一门课的教授：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> p.Name</span><br><span class="line"><span class="keyword">FROM</span> Professors p</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">FROM</span> Lectures l</span><br><span class="line">  <span class="keyword">WHERE</span> l.Given_by <span class="operator">=</span> p.PersNr</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="NOT-EXISTS"><a href="#NOT-EXISTS" class="headerlink" title="NOT EXISTS"></a><strong><code>NOT EXISTS</code></strong></h4><p>找出没有学生选的课程：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> l.LectureNr, l.Title</span><br><span class="line"><span class="keyword">FROM</span> Lectures l</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">FROM</span> attend a</span><br><span class="line">  <span class="keyword">WHERE</span> a.LectureNr <span class="operator">=</span> l.LectureNr</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="Common-Table-Expression-CTE-WITH-AS"><a href="#Common-Table-Expression-CTE-WITH-AS" class="headerlink" title="Common Table Expression (CTE) / WITH AS"></a><strong>Common Table Expression (CTE) / <code>WITH AS</code></strong></h3><p>CTE的核心动机：</p>
+<ol>
+<li><p><strong>可读性/结构化</strong></p>
+<ul>
+<li><p>多层嵌套查询堆起来很难读</p>
+</li>
+<li><p>CTE 可以“给每一步命名”，让外层查询更清爽</p>
+</li>
+</ul>
+</li>
+<li><p><strong>可复用</strong></p>
+<ul>
+<li>CTE 的结果可以在同一个查询里被引用多次（比重复写子查询好）</li>
+</ul>
+</li>
+</ol>
+<p>CTE具体用到的命令就是<code>WITH AS</code>。</p>
+<p><code>WITH AS</code>的功能是<strong>在一条 SQL 里给一段子查询/临时结果起名字</strong>，后面就能像用表一样用它。</p>
+<p>注意，<code>WITH AS</code>和子查询是等价的，但是用<code>WITH AS</code>会更容易阅读和理解。</p>
+<p>基本语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> 名字(可选列名列表) <span class="keyword">AS</span> (</span><br><span class="line">  一条查询</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> ...</span><br><span class="line"><span class="keyword">FROM</span> 名字;</span><br></pre></td></tr></table></figure>
+<p>一条SQL也可以写多个 CTE，用逗号隔开：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> cte1 <span class="keyword">AS</span> (...),</span><br><span class="line">     cte2 <span class="keyword">AS</span> (...)</span><br><span class="line"><span class="keyword">SELECT</span> ...</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>例子：查询C4教授的房间（先找C4教授，再查询他们的房间）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> C4Prof <span class="keyword">AS</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> Professors</span><br><span class="line">  <span class="keyword">WHERE</span> Level <span class="operator">=</span> <span class="string">&#x27;C4&#x27;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> Name, Room</span><br><span class="line"><span class="keyword">FROM</span> C4Prof;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>也可以用<code>VALUES</code>临时造数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> Professors ( persnr , name , paygrade , room , salary , taxclass ) <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">VALUES</span> 	(<span class="number">2125</span> , <span class="string">&#x27; Sokrates &#x27;</span> , <span class="string">&#x27; C4 &#x27;</span> ,<span class="number">226</span> ,<span class="number">85000</span> ,<span class="number">1</span>) ,</span><br><span class="line">		(<span class="number">2126</span> , <span class="string">&#x27; Russel &#x27;</span> , <span class="string">&#x27; C4 &#x27;</span> ,<span class="number">232</span> ,<span class="number">80000</span> ,<span class="number">3</span>) ,</span><br><span class="line">		(<span class="number">2127</span> , <span class="string">&#x27; Kopernikus &#x27;</span> , <span class="string">&#x27; C3 &#x27;</span> ,<span class="number">310</span> ,<span class="number">65000</span> ,<span class="number">5</span>) ,</span><br><span class="line">		(<span class="number">2128</span> , <span class="string">&#x27; Aristoteles &#x27;</span> , <span class="string">&#x27; C4 &#x27;</span> ,<span class="number">250</span> ,<span class="number">85000</span> ,<span class="number">1</span>) ,</span><br><span class="line">		(<span class="number">2133</span> , <span class="string">&#x27; Popper &#x27;</span> , <span class="string">&#x27; C3 &#x27;</span> ,<span class="number">52</span> ,<span class="number">68000</span> ,<span class="number">1</span>) ,</span><br><span class="line">		(<span class="number">2134</span> , <span class="string">&#x27; Augustinus &#x27;</span> , <span class="string">&#x27; C3 &#x27;</span> ,<span class="number">309</span> ,<span class="number">55000</span> ,<span class="number">5</span>) ,</span><br><span class="line">		(<span class="number">2136</span> , <span class="string">&#x27; Curie &#x27;</span> , <span class="string">&#x27; C4 &#x27;</span> ,<span class="number">36</span> ,<span class="number">95000</span> ,<span class="number">3</span>) ,</span><br><span class="line">		(<span class="number">2137</span> , <span class="string">&#x27; Kant &#x27;</span> , <span class="string">&#x27; C4 &#x27;</span> ,<span class="number">7</span> ,<span class="number">98000</span> ,<span class="number">1</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> persnr , name , paygrade , room , salary , taxclass</span><br><span class="line"><span class="keyword">FROM</span> Professors;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251230120003507.png" class="lazyload" data-srcset="/images/image-20251230120003507.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251230120003507"></p>
+<p><br></p>
+<p>又或者是之前这个例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Name</span><br><span class="line"><span class="keyword">FROM</span> Students, (<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(Semester) <span class="keyword">AS</span> avg_semester</span><br><span class="line">				  <span class="keyword">FROM</span> Students) avg</span><br><span class="line"><span class="keyword">WHERE</span> Semester <span class="operator">&lt;</span> avg_semester</span><br></pre></td></tr></table></figure>
+<p>改成用WITH AS就是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> avg <span class="keyword">AS</span> (<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(Semester) <span class="keyword">AS</span> avg_semester</span><br><span class="line">			 <span class="keyword">FROM</span> Students)</span><br><span class="line"><span class="keyword">SELECT</span> Name</span><br><span class="line"><span class="keyword">FROM</span> Students, avg</span><br><span class="line"><span class="keyword">WHERE</span> Semester <span class="operator">&lt;</span> avg_semester</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>同时命名多个临时结果时只需要写一个WITH：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> examination ( MatrNr , CourseNr , PersNr , Grade ) <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> pruefen</span><br><span class="line">  <span class="keyword">UNION</span></span><br><span class="line">  <span class="keyword">VALUES</span> (<span class="number">29120</span> ,<span class="number">0</span> ,<span class="number">0</span> ,<span class="number">3.0</span>) , (<span class="number">29555</span> ,<span class="number">0</span> ,<span class="number">0</span> ,<span class="number">2.0</span>) ,</span><br><span class="line">         (<span class="number">29555</span> ,<span class="number">0</span> ,<span class="number">0</span> ,<span class="number">1.3</span>) , (<span class="number">29555</span> ,<span class="number">0</span> ,<span class="number">0</span> ,<span class="number">1.0</span>)</span><br><span class="line">) ,</span><br><span class="line">grades ( Name , MatrNr , Semester , Grade ) <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> s . name , s . matrnr , semester , <span class="built_in">avg</span> ( Grade )</span><br><span class="line">  <span class="keyword">FROM</span> studenten s , examination p</span><br><span class="line">  <span class="keyword">WHERE</span> s . matrnr <span class="operator">=</span> p. matrnr</span><br><span class="line">  <span class="keyword">GROUP</span> <span class="keyword">BY</span> s. name , s. matrnr , semester</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="COALESCE"><a href="#COALESCE" class="headerlink" title="COALESCE"></a><strong>COALESCE</strong></h3><p><code>COALESCE</code> 是 SQL 里的<strong>空值处理函数</strong>：<br> 按从左到右的顺序，返回<strong>第一个不是 NULL 的值</strong>；如果全是 NULL，就返回 NULL。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">COALESCE</span>(a, b, c, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>等价于：如果 <code>a</code> 不是 NULL 返回 <code>a</code>，否则看 <code>b</code>，否则看 <code>c</code>，否则返回 <code>0</code>。</p>
+<p>并且</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COALESCE</span>(description, <span class="string">&#x27;None&#x27;</span>)</span><br><span class="line"><span class="keyword">FROM</span> sometable</span><br></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> description <span class="keyword">is</span> <span class="keyword">NOT NULL</span></span><br><span class="line">	   <span class="keyword">THEN</span> description</span><br><span class="line">	   <span class="keyword">ELSE</span> <span class="string">&#x27;NONE&#x27;</span> <span class="keyword">END</span></span><br><span class="line"><span class="keyword">FROM</span> sometable</span><br></pre></td></tr></table></figure>
+<h3 id="处理字符串"><a href="#处理字符串" class="headerlink" title="处理字符串"></a><strong>处理字符串</strong></h3><p><strong>字符串匹配：</strong></p>
+<ul>
+<li><strong><code>Like</code></strong>：<code>%</code> 任意长度（可空），<code>_</code> 单字符</li>
+</ul>
+<p><strong>常见字符串函数（SQL-92/常见实现）：</strong></p>
+<ul>
+<li><code>SUBSTRING(str, start, len)</code></li>
+<li><code>UPPER(str)</code>（也常见 <code>LOWER</code>）</li>
+</ul>
+<p><strong>字符串拼接：</strong></p>
+<ul>
+<li>标准：<code>||</code></li>
+<li>也提到某些系统有 <code>+</code> 或 <code>CONCAT(a,b)</code>（方言差异）</li>
+</ul>
+<h2 id="建表"><a href="#建表" class="headerlink" title="建表"></a><strong>建表</strong></h2><h3 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a><strong>基础</strong></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> Students (</span><br><span class="line">  StudNr   <span class="type">INT</span>,</span><br><span class="line">  Name     <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  Semester <span class="type">INT</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>含义：</p>
+<ul>
+<li><code>CREATE TABLE 表名 (...)</code>：创建表</li>
+<li>括号里每行：<code>列名 数据类型</code></li>
+</ul>
+<p>常见数据类型（不同库略有差别）：</p>
+<ul>
+<li>整数：<code>INT</code> / <code>BIGINT</code></li>
+<li>小数：<code>DECIMAL(p,s)</code>（精确）/ <code>DOUBLE</code>（浮点）</li>
+<li>字符串：<code>VARCHAR(n)</code> / <code>TEXT</code></li>
+<li>日期时间：<code>DATE</code> / <code>TIMESTAMP</code></li>
+<li>布尔：<code>BOOLEAN</code></li>
+</ul>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a><strong>约束</strong></h3><p>但我们往往需要加上些条件，比如说非空，指定主键：</p>
+<ul>
+<li><p>主键<code>PRIMARY KEY</code>（唯一 + 非空）</p>
+</li>
+<li><p><code>NOT NULL</code>（不允许空）</p>
+</li>
+<li><p><code>UNIQUE</code>（不允许重复）</p>
+</li>
+<li><p><code>DEFAULT</code>（缺省值）</p>
+</li>
+<li><p><code>CHECK</code>（自定义规则）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Grade <span class="type">DECIMAL</span>(<span class="number">2</span>,<span class="number">1</span>) <span class="keyword">CHECK</span> (Grade <span class="operator">&gt;=</span> <span class="number">1.0</span> <span class="keyword">AND</span> Grade <span class="operator">&lt;=</span> <span class="number">5.0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> Professors (</span><br><span class="line">  PersNr <span class="type">INT</span> <span class="keyword">PRIMARY KEY</span>,</span><br><span class="line">  Name   <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT NULL</span>,</span><br><span class="line">  Level  <span class="type">VARCHAR</span>(<span class="number">2</span>),</span><br><span class="line">  Room   <span class="type">INT</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="CTAS"><a href="#CTAS" class="headerlink" title="CTAS"></a><strong>CTAS</strong></h3><p><strong>CREATE TABLE AS SELECT</strong>（简称 <strong>CTAS</strong>），就是用查询结果建表。</p>
+<p>例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> C4_Professors <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> PersNr, Name, Room</span><br><span class="line"><span class="keyword">FROM</span> Professors</span><br><span class="line"><span class="keyword">WHERE</span> Level <span class="operator">=</span> <span class="string">&#x27;C4&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>特点：</p>
+<ul>
+<li>新表会包含查询出来的列</li>
+<li>很多数据库会把类型推导出来</li>
+<li>约束（主键/外键/NOT NULL 等）通常<strong>不会自动带过去</strong>（不同库细节不同），需要另加</li>
+</ul>
+<h3 id="临时表（TEMP-TEMPORARY）"><a href="#临时表（TEMP-TEMPORARY）" class="headerlink" title="临时表（TEMP / TEMPORARY）"></a><strong>临时表（TEMP / TEMPORARY）</strong></h3><p>只在当前会话存在，断开就没了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> TEMP <span class="keyword">TABLE</span> tmp_top_students <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> StudNr, <span class="built_in">AVG</span>(Grade) <span class="keyword">AS</span> avg_grade</span><br><span class="line"><span class="keyword">FROM</span> test</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> StudNr;</span><br></pre></td></tr></table></figure>
+<h2 id="窗口函数（Window-functions）"><a href="#窗口函数（Window-functions）" class="headerlink" title="窗口函数（Window functions）"></a><strong>窗口函数（Window functions）</strong></h2><p>窗口函数（<strong>window function</strong>）可以把它理解成：<strong>“对每一行，都能基于‘一组相关的行’计算出一个值，但又不会把行合并掉”</strong>。</p>
+<p><strong>窗口函数一般写在 <code>SELECT</code>部分（也可用于 <code>ORDER BY</code>）。并且由于窗口函数的计算发生在 <code>WHERE/GROUP BY/HAVING</code> 之后，因此通常不能直接出现在这些子句（以及 <code>JOIN ON</code>）里。</strong></p>
+<p>和之前的分组（<code>GROUP BY</code>）的区别：</p>
+<ul>
+<li><strong>普通聚合 + GROUP BY</strong>：会把多行“压成一行”（一组只剩一行）。</li>
+<li><strong>窗口函数</strong>：每一行都还在，但可以在每一行旁边<strong>附加</strong>一个聚合/排名/累计值。</li>
+</ul>
+<p>窗口函数的典型形式是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&lt;</span>窗口函数<span class="operator">&gt;</span>(...) <span class="keyword">OVER</span> (</span><br><span class="line">  <span class="keyword">PARTITION</span> <span class="keyword">BY</span> ...</span><br><span class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> ...</span><br><span class="line">  <span class="operator">&lt;</span>frame<span class="operator">&gt;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>PARTITION BY ...</code>：按什么分组（每组独立算）</li>
+<li><code>ORDER BY ...</code>：组内顺序（排名/累计/相邻必备）</li>
+<li><code>Frame</code>：<code>ROWS ...</code> / <code>RANGE ...</code><ul>
+<li><code>ROWS BETWEEN 2 PRECEDING AND 2 FOLLOWING</code>（按行数滑窗）</li>
+<li><code>RANGE BETWEEN 5000 PRECEDING AND 5000 FOLLOWING</code>（按值范围滑窗）</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>例子1：</strong>比如说我们同时想知道每个学生上的课的总数以及具体是哪些课的话，就需要：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.name,</span><br><span class="line">     l.Title,</span><br><span class="line">     <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> a.StudNr) <span class="keyword">AS</span> total_attended_lectures</span><br><span class="line"><span class="keyword">FROM</span> Students s, Lectures l, attend a</span><br><span class="line"><span class="keyword">WHERE</span> s.StudNr <span class="operator">=</span> a.StudNr</span><br><span class="line">  <span class="keyword">AND</span> l.LectureNr <span class="operator">=</span> a.LectureNr;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251230112006687.png" class="lazyload" data-srcset="/images/image-20251230112006687.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251230112006687"></p>
+<p>或者</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.name,</span><br><span class="line">       l.Title,</span><br><span class="line">       <span class="built_in">SUM</span>(<span class="number">1</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> a.StudNr) <span class="keyword">AS</span> total_attended_lectures</span><br><span class="line"><span class="keyword">FROM</span> Students s, Lectures l, attend a</span><br><span class="line"><span class="keyword">WHERE</span> s.StudNr <span class="operator">=</span> a.StudNr</span><br><span class="line">  <span class="keyword">AND</span> l.LectureNr <span class="operator">=</span> a.LectureNr;</span><br></pre></td></tr></table></figure>
+<p>也是一样的效果。</p>
+<p><br></p>
+<p><strong>例子2：</strong>假如我们现在只关注现有的test表，想知道每个学生的排名：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.name, t.Grade, <span class="built_in">rank</span>()<span class="keyword">OVER</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> t.Grade <span class="keyword">ASC</span>)</span><br><span class="line"><span class="keyword">FROM</span> Students s, test t</span><br><span class="line"><span class="keyword">WHERE</span> s.StudNr <span class="operator">=</span> t.StudNr</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251230110235179.png" class="lazyload" data-srcset="/images/image-20251230110235179.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251230110235179"></p>
+<p>这里的rank会自动实现跳号的功能，即如果A,B的值为1，C的值为2，那么A,B的排名都是1，C的排名会自动变成3，而不是2。</p>
+<h3 id="常用的窗口函数"><a href="#常用的窗口函数" class="headerlink" title="常用的窗口函数"></a><strong>常用的窗口函数</strong></h3><p>1）排名类：</p>
+<p>用来给每行一个名次/序号。</p>
+<ul>
+<li><code>ROW_NUMBER()</code>：每行一个唯一序号（不管并列）（1,2,3,4…）</li>
+<li><code>RANK()</code>：并列同名次，会跳号（1,1,3…）</li>
+<li><code>DENSE_RANK()</code>：并列同名次，不跳号（1,1,2…）</li>
+<li><code>PERCENT_RANK()</code>：把排名映射到 0~1（相对排名）</li>
+<li><code>CUME_DIST()</code>：累计分布（&lt;= 当前行的比例）</li>
+<li><code>NTILE(n)</code>：分桶，把排序后的行分成 n 份（比如分成 4 桶做四分位）</li>
+</ul>
+<p>2）聚合类（在<code>GROUP BY</code>里用的聚合函数也可以用在窗口上）：</p>
+<ul>
+<li><code>SUM(...) OVER (...)</code>：组内总和 / 累计和</li>
+<li><code>AVG(...) OVER (...)</code>：组内平均 / 滑动平均</li>
+<li><code>COUNT(...) OVER (...)</code>：组内计数 / 累计计数</li>
+<li><code>MIN/MAX(...) OVER (...)</code>：组内最小/最大（也可做滚动最小/最大）</li>
+</ul>
+<p>3）取相邻对象（分析趋势、做差分）</p>
+<ul>
+<li><code>LAG(x, k, default)</code>：往前第 k 行的 x（默认 k=1）</li>
+<li><code>LEAD(x, k, default)</code>：往后第 k 行的 x</li>
+<li><code>FIRST_VALUE(x)</code>：窗口内第一行的 x</li>
+<li><code>LAST_VALUE(x)</code>：窗口内最后一行的 x</li>
+<li><code>NTH_VALUE(x, n)</code>：窗口内第 n 行的 x（不是所有库都有）</li>
+</ul>
+<h2 id="递归-Recursion"><a href="#递归-Recursion" class="headerlink" title="递归/Recursion"></a><strong>递归/Recursion</strong></h2><p>递归的基本框架：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">RECURSIVE</span> 名字(列...) <span class="keyword">AS</span> (</span><br><span class="line">  <span class="comment">-- 1. 基础部分（base case / anchor）</span></span><br><span class="line">  <span class="keyword">SELECT</span> ...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">UNION</span> [<span class="keyword">ALL</span>]</span><br><span class="line"></span><br><span class="line">  <span class="comment">-- 2. 递归部分（recursive step）</span></span><br><span class="line">  <span class="keyword">SELECT</span> ...</span><br><span class="line">  <span class="keyword">FROM</span> 名字 ...   <span class="comment">-- 这里引用自己</span></span><br><span class="line">  ...</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> ...</span><br><span class="line"><span class="keyword">FROM</span> 名字;</span><br></pre></td></tr></table></figure>
+<p>SQL里递归的写法和Induction/Iteration一样。先定义base case，再一层一层递进。</p>
+<p>或者说是<strong>先给出起始集合，再反复应用递推规则，不断扩张结果集合，直到没有新东西为止。</strong></p>
+<p><strong>而不是像其他编程语言里一样一直调用自己，直到碰到base case，然后停止。</strong></p>
+<p>在此基础上我们还可以通过定义一列新的内容（次数，长度等）以及增加基于这列信息的判断条件，来实现控制循环次数（上限）。（见例子3）</p>
+<p><br></p>
+<h3 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a><strong>例子1</strong></h3><p>生成1-5</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">RECURSIVE</span> nums(n) <span class="keyword">AS</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">  <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">    </span><br><span class="line">  <span class="keyword">SELECT</span> n <span class="operator">+</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">FROM</span> nums</span><br><span class="line">  <span class="keyword">WHERE</span> n <span class="operator">&lt;</span> <span class="number">5</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span> nums;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image-20251231111821756.png" class="lazyload" data-srcset="/images/image-20251231111821756.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251231111821756"></p>
+<h3 id="例子2"><a href="#例子2" class="headerlink" title="例子2"></a><strong>例子2</strong></h3><p>假设我们现在希望查询“Der Wiener Kreis”(LectureNr=5259) 这门课的的所有前置课程（包括直接和间接）。</p>
+<p>普通的查找直接前置课程：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Title</span><br><span class="line"><span class="keyword">FROM</span> Lectures</span><br><span class="line"><span class="keyword">WHERE</span> LectureNr <span class="keyword">IN</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> Predecessor</span><br><span class="line">    <span class="keyword">FROM</span> require r, Lectures l</span><br><span class="line">    <span class="keyword">WHERE</span> r.Successor <span class="operator">=</span> l.LectureNr</span><br><span class="line">  	  <span class="keyword">AND</span>  l.Title <span class="operator">=</span> <span class="string">&#x27;Der Wiener Kreis&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>查询第n轮前置就是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> v1.Predecessor</span><br><span class="line"><span class="keyword">from</span> require v1,</span><br><span class="line">     ...</span><br><span class="line">     require vn_minus_1,</span><br><span class="line">     require vn,</span><br><span class="line">     require v</span><br><span class="line"><span class="keyword">where</span> v1.Predecessor <span class="operator">=</span> v2.Successor <span class="keyword">and</span></span><br><span class="line">      ...</span><br><span class="line">      vn_minus_1.Predecessor <span class="operator">=</span> vn.Successor <span class="keyword">and</span></span><br><span class="line">      vn.Predecessor <span class="operator">=</span> v.LectureNr <span class="keyword">and</span></span><br><span class="line">      v.Title <span class="operator">=</span> <span class="string">&#x27;Der Wiener Kreis&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>我们把这个完整查询拆成2步：</p>
+<ul>
+<li><p>利用递归创建子查询（临时表），在原来require表的基础上添加所有间接前置课程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">RECURSIVE</span> TransPrereq (Prereq, Successor) <span class="keyword">AS</span> (</span><br><span class="line">     <span class="comment">-- 递归的基础查询</span></span><br><span class="line">    <span class="keyword">SELECT</span> Predecessor, Successor</span><br><span class="line">    <span class="keyword">FROM</span> require</span><br><span class="line"></span><br><span class="line">    <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 递归部分 (Prereq -&gt; ... -&gt; Successor)</span></span><br><span class="line">    <span class="keyword">SELECT</span> t.Prereq, r.Successor</span><br><span class="line">    <span class="keyword">FROM</span> TransPrereq t, require r</span><br><span class="line">    <span class="keyword">WHERE</span> t.Successor <span class="operator">=</span> r.Predecessor</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> TransPrereq</span><br></pre></td></tr></table></figure>
+<p>每次递归时相当于有这样一个链：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.Prereq -&gt; t.Successor = r.Predecessor -&gt; r.Successor</span><br></pre></td></tr></table></figure>
+<p>我们将一头一尾加进结果里。</p>
+<p><img src="/images/image-20251231110956890.png" class="lazyload" data-srcset="/images/image-20251231110956890.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251231110956890"></p>
+</li>
+<li><p>在里面找’Der Wiener Kreis’的所有前置课程</p>
+</li>
+</ul>
+<p>合并起来：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">RECURSIVE</span> TransPrereq (Prereq, Successor) <span class="keyword">AS</span> (</span><br><span class="line">     <span class="comment">-- 递归的基础查询</span></span><br><span class="line">    <span class="keyword">SELECT</span> Predecessor, Successor</span><br><span class="line">    <span class="keyword">FROM</span> require</span><br><span class="line"></span><br><span class="line">    <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 递归部分 (Prereq -&gt; ... -&gt; Successor)</span></span><br><span class="line">    <span class="keyword">SELECT</span> t.Prereq, r.Successor</span><br><span class="line">    <span class="keyword">FROM</span> TransPrereq t, require r</span><br><span class="line">    <span class="keyword">WHERE</span> t.Successor <span class="operator">=</span> r.Predecessor</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> Title</span><br><span class="line"><span class="keyword">FROM</span> Lectures</span><br><span class="line"><span class="keyword">WHERE</span> LectureNr <span class="keyword">IN</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> Prereq</span><br><span class="line">    <span class="keyword">FROM</span> TransPrereq t, Lectures l</span><br><span class="line">    <span class="keyword">WHERE</span> t.Successor <span class="operator">=</span> l.LectureNr</span><br><span class="line">  	  <span class="keyword">AND</span>  l.Title <span class="operator">=</span> <span class="string">&#x27;Der Wiener Kreis&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="例子3"><a href="#例子3" class="headerlink" title="例子3"></a><strong>例子3</strong></h3><p>考虑下面这个图：</p>
+<p><img src="/images/image-20251231154645072.png" class="lazyload" data-srcset="/images/image-20251231154645072.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20251231154645072"></p>
+<p>用SQL表示是这样的：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">recursive</span> singleDirection (a ,b ) <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> ( <span class="keyword">VALUES</span> (<span class="number">1</span> ,<span class="number">2</span>) , (<span class="number">2</span> ,<span class="number">4</span>) , (<span class="number">1</span> ,<span class="number">3</span>) , (<span class="number">3</span> ,<span class="number">4</span>) , (<span class="number">3</span> ,<span class="number">5</span>) , (<span class="number">2</span> ,<span class="number">5</span>) ,</span><br><span class="line">                (<span class="number">5</span> ,<span class="number">6</span>) , (<span class="number">4</span> ,<span class="number">6</span>) , (<span class="number">6</span> ,<span class="number">7</span>) ) <span class="keyword">as</span> graph</span><br><span class="line">) ,</span><br><span class="line">undirectedGraph <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> singleDirection</span><br><span class="line">  <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">  <span class="keyword">SELECT</span> b , a</span><br><span class="line">  <span class="keyword">FROM</span> singleDirection</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>如果我们现在想判断从1出发是否能到6，我们就可以这样：</p>
+<ul>
+<li>利用递归生成一张查询结果表，列出所有可到达的pair</li>
+<li>然后找(1,6)是否在里面</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">recursive</span> singleDirection (a ,b ) <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> ( <span class="keyword">VALUES</span> (<span class="number">1</span> ,<span class="number">2</span>) , (<span class="number">2</span> ,<span class="number">4</span>) , (<span class="number">1</span> ,<span class="number">3</span>) , (<span class="number">3</span> ,<span class="number">4</span>) , (<span class="number">3</span> ,<span class="number">5</span>) , (<span class="number">2</span> ,<span class="number">5</span>) ,</span><br><span class="line">                (<span class="number">5</span> ,<span class="number">6</span>) , (<span class="number">4</span> ,<span class="number">6</span>) , (<span class="number">6</span> ,<span class="number">7</span>) ) <span class="keyword">as</span> graph</span><br><span class="line">) ,</span><br><span class="line">undirectedGraph <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> singleDirection</span><br><span class="line">  <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">  <span class="keyword">SELECT</span> b , a</span><br><span class="line">  <span class="keyword">FROM</span> singleDirection</span><br><span class="line">) ,</span><br><span class="line">hull (a , b) <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> undirectedGraph</span><br><span class="line">  <span class="keyword">UNION</span></span><br><span class="line">  <span class="keyword">SELECT</span> fst .a , snd . b</span><br><span class="line">  <span class="keyword">FROM</span> hull fst , undirectedGraph snd</span><br><span class="line">  <span class="keyword">WHERE</span> fst . b <span class="operator">=</span> snd .a</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> hull</span><br><span class="line"><span class="keyword">WHERE</span> a <span class="operator">=</span> <span class="number">6</span></span><br><span class="line">  <span class="keyword">and</span> b <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>为了避免无穷展开，我们现在加个限制：图的直径为4，即不考虑长度超过4的路径，那么就可以加一列来记录路径长度并且限制长度：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">recursive</span> singleDirection (a , b) <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> ( <span class="keyword">VALUES</span> (<span class="number">1</span> ,<span class="number">2</span>) , (<span class="number">2</span> ,<span class="number">4</span>) , (<span class="number">1</span> ,<span class="number">3</span>) , (<span class="number">3</span> ,<span class="number">4</span>) , (<span class="number">3</span> ,<span class="number">5</span>) , (<span class="number">2</span> ,<span class="number">5</span>) ,</span><br><span class="line">                (<span class="number">5</span> ,<span class="number">6</span>) , (<span class="number">4</span> ,<span class="number">6</span>) , (<span class="number">6</span> ,<span class="number">7</span>) ) <span class="keyword">as</span> graph</span><br><span class="line">) ,</span><br><span class="line">undirectedGraph (a , b) <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> singleDirection</span><br><span class="line">  <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">  <span class="keyword">SELECT</span> b , a</span><br><span class="line">  <span class="keyword">FROM</span> singleDirection</span><br><span class="line">) ,</span><br><span class="line">hull (a , b , dist ) <span class="keyword">as</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> a , b , <span class="number">1</span></span><br><span class="line">  <span class="keyword">FROM</span> undirectedGraph</span><br><span class="line">  <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">  <span class="keyword">SELECT</span> fst .a , snd .b , dist <span class="operator">+</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">FROM</span> hull fst , undirectedGraph snd</span><br><span class="line">  <span class="keyword">WHERE</span> fst . b <span class="operator">=</span> snd .a</span><br><span class="line">    <span class="keyword">and</span> dist <span class="operator">&lt;=</span> <span class="number">4</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">min</span> ( dist )</span><br><span class="line"><span class="keyword">FROM</span> hull</span><br><span class="line"><span class="keyword">WHERE</span> a <span class="operator">=</span> <span class="number">6</span></span><br><span class="line">  <span class="keyword">and</span> b <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a><strong>PostgreSQL</strong></h2><h3 id="pgvector"><a href="#pgvector" class="headerlink" title="pgvector"></a><strong>pgvector</strong></h3><p><code>pgvector</code>是PostgreSQL的一个拓展，用于直接做向量存储与相似检索。</p>
+<p><strong>定义向量列</strong></p>
+<p>比如说定义10维的vector列：</p>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> items (</span><br><span class="line">  id <span class="type">bigserial</span> <span class="keyword">PRIMARY KEY</span>,</span><br><span class="line">  embedding vector(<span class="number">10</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>（<code>embedding</code>只是列名）</p>
+<p><strong>插入向量</strong></p>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> items (embedding)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">&#x27;[1,2,3,4,5,6,7,8,9,10]&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>查看向量维度</strong></p>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> embedding.dim </span><br><span class="line"><span class="keyword">FROM</span> items </span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>运算符与距离度量</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;-&gt;</code></td>
+<td>L2（欧氏距离）</td>
+</tr>
+<tr>
+<td><code>&lt;#&gt;</code></td>
+<td>negative inner product（负内积）</td>
+</tr>
+<tr>
+<td><code>&lt;=&gt;</code></td>
+<td>cosine distance（余弦距离）</td>
+</tr>
+<tr>
+<td><code>&lt;+&gt;</code></td>
+<td>L1（曼哈顿距离）</td>
+</tr>
+<tr>
+<td><code>&lt;~&gt;</code></td>
+<td>Hamming distance（二值向量）</td>
+</tr>
+<tr>
+<td><code>&lt;%&gt;</code></td>
+<td>Jaccard distance（二值向量）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>例子：计算距离并输出一个<code>dist</code>列</strong></p>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">  id,</span><br><span class="line">  embedding &lt;-&gt; <span class="string">&#x27;[1,2,3,4,5,6,7,8,9,10]&#x27;</span>::vector <span class="keyword">AS</span> dist</span><br><span class="line"><span class="keyword">FROM</span> items</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> dist;</span><br></pre></td></tr></table></figure>
+<p>会计算<code>embedding</code>列的所有vector到<code>[1,2,3,4,5,6,7,8,9,10]</code>的L2距离，然后按照或者距离进行排序。（注意，<code>ORDER BY</code>默认是升序）</p>
+<p><strong>例子2：找某条记录的近邻</strong></p>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id</span><br><span class="line"><span class="keyword">FROM</span> items</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> embedding &lt;-&gt; (</span><br><span class="line">  <span class="keyword">SELECT</span> embedding <span class="keyword">FROM</span> items <span class="keyword">WHERE</span> id = <span class="number">123</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>例子3：给每个找近邻</strong></p>
+<p>假设有一个表<code>wiki(word TEXT, embedding vector(50))</code>。</p>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> w1.word, w2.word</span><br><span class="line"><span class="keyword">FROM</span> wiki w1</span><br><span class="line"><span class="keyword">CROSS</span> <span class="keyword">JOIN</span> <span class="keyword">LATERAL</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> word</span><br><span class="line">  <span class="keyword">FROM</span> wiki</span><br><span class="line">  <span class="keyword">WHERE</span> w1.word &lt;&gt; word</span><br><span class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> w1.embedding &lt;=&gt; embedding</span><br><span class="line">  <span class="keyword">LIMIT</span> <span class="number">3</span></span><br><span class="line">) <span class="keyword">AS</span> w2;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>CROSS JOIN</code>：笛卡尔连接（不写 ON 条件）</li>
+<li><code>LATERAL (subquery)</code>：这个 subquery 会根据当前 <code>w1</code> 变化而变化</li>
+</ul>
+<p>所以对外层每一行 <code>w1</code>，运行一次括号里的子查询，得到若干行结果，然后把这些结果行和当前 <code>w1</code> 拼在一起输出。</p>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2025-12-07T22:53:03+01:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Dec 7, 2025</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://archer-baiyi.github.io/en/2025/12/07/%E7%BC%96%E7%A8%8B/SQL%E5%85%A5%E9%97%A8/&title=SQL入门 - Hexo&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://archer-baiyi.github.io/en/2025/12/07/%E7%BC%96%E7%A8%8B/SQL%E5%85%A5%E9%97%A8/&title=SQL入门 - Hexo&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://archer-baiyi.github.io/en/2025/12/07/%E7%BC%96%E7%A8%8B/SQL%E5%85%A5%E9%97%A8/&title=SQL入门 - Hexo&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/en/2025/12/22/%E7%BC%96%E7%A8%8B/Python%E7%9A%84Pandas%E5%BA%93/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>Python的Pandas库</p>
+          <p class='content'>什么是Pandas库？Pandas 是 Python 生态中用于数据处理与分析的核心库，提供以 Series（带索引的一维数组） 与 DataFrame（带行列标签、可混合类型的二维表） 为基础...</p>
+        </a>
+      
+      
+        <a class='next' href='/en/2025/12/03/CTF/Crypto/LWE-%E5%85%A5%E9%97%A8/'>
+          <p class='title'>LWE(Learning With Error) 入门<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>从传统公钥密码到 LWE如今我们日常使用的主流公钥密码体系（比如 RSA、Diffie–Hellman、椭圆曲线密码 ECC），背后依赖的核心困难问题大多是两类：
+
+Factorization（...</p>
+        </a>
+      
+    </div>
+  
+  <!-- 文章推荐 -->
+  
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+  
+
+
+
+
+
+</div>
+<aside id='l_side' itemscope itemtype="https://schema.org.cn/WPSideBar">
+  
+
+  
+    
+    
+      
+    
+  
+
+
+<div class="widget-sticky">
+
+  
+  
+
+
+<section class="widget toc-wrapper desktop mobile" id="toc-div" >
+  
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSQL%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是SQL？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E9%97%A8"><span class="toc-number">3.</span> <span class="toc-text">入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DISTINCT"><span class="toc-number">3.1.</span> <span class="toc-text">DISTINCT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ORDER-BY"><span class="toc-number">3.2.</span> <span class="toc-text">ORDER BY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LIMIT"><span class="toc-number">3.3.</span> <span class="toc-text">LIMIT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OFFSET"><span class="toc-number">3.4.</span> <span class="toc-text">OFFSET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WHERE"><span class="toc-number">3.5.</span> <span class="toc-text">WHERE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D"><span class="toc-number">3.6.</span> <span class="toc-text">命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#COUNT"><span class="toc-number">3.7.</span> <span class="toc-text">COUNT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GROUP-BY"><span class="toc-number">3.8.</span> <span class="toc-text">GROUP BY</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GROUPING-SETS"><span class="toc-number">3.8.1.</span> <span class="toc-text">GROUPING SETS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CUBE"><span class="toc-number">3.8.2.</span> <span class="toc-text">CUBE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ROLLUP"><span class="toc-number">3.8.3.</span> <span class="toc-text">ROLLUP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HAVING"><span class="toc-number">3.9.</span> <span class="toc-text">HAVING</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2-%E5%B5%8C%E5%A5%97"><span class="toc-number">3.10.</span> <span class="toc-text">子查询&#x2F;嵌套</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LATERAL"><span class="toc-number">3.10.1.</span> <span class="toc-text">LATERAL</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E6%AF%94%E8%BE%83%E4%B8%8E%E5%AD%98%E5%9C%A8%E6%80%A7"><span class="toc-number">3.11.</span> <span class="toc-text">集合比较与存在性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IN"><span class="toc-number">3.11.1.</span> <span class="toc-text">IN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ANY"><span class="toc-number">3.11.2.</span> <span class="toc-text">ANY</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ALL"><span class="toc-number">3.11.3.</span> <span class="toc-text">ALL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EXISTS"><span class="toc-number">3.11.4.</span> <span class="toc-text">EXISTS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NOT-EXISTS"><span class="toc-number">3.11.5.</span> <span class="toc-text">NOT EXISTS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Table-Expression-CTE-WITH-AS"><span class="toc-number">3.12.</span> <span class="toc-text">Common Table Expression (CTE) &#x2F; WITH AS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#COALESCE"><span class="toc-number">3.13.</span> <span class="toc-text">COALESCE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.14.</span> <span class="toc-text">处理字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">建表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80-1"><span class="toc-number">4.1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F"><span class="toc-number">4.2.</span> <span class="toc-text">约束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CTAS"><span class="toc-number">4.3.</span> <span class="toc-text">CTAS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E8%A1%A8%EF%BC%88TEMP-TEMPORARY%EF%BC%89"><span class="toc-number">4.4.</span> <span class="toc-text">临时表（TEMP &#x2F; TEMPORARY）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%EF%BC%88Window-functions%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">窗口函数（Window functions）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">5.1.</span> <span class="toc-text">常用的窗口函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92-Recursion"><span class="toc-number">6.</span> <span class="toc-text">递归&#x2F;Recursion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%901"><span class="toc-number">6.1.</span> <span class="toc-text">例子1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%902"><span class="toc-number">6.2.</span> <span class="toc-text">例子2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%903"><span class="toc-number">6.3.</span> <span class="toc-text">例子3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PostgreSQL"><span class="toc-number">7.</span> <span class="toc-text">PostgreSQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pgvector"><span class="toc-number">7.1.</span> <span class="toc-text">pgvector</span></a></li></ol></li></ol>
+  </div>
+</section>
+
+  
+
+</div>
+
+  <!-- Custom Files side begin -->
+  
+  <!-- Custom Files side end -->
+</aside>
+
+
+
+        </div>
+        
+  
+  <footer class="footer clearfix"  itemscope itemtype="https://schema.org.cn/WPFooter">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper" itemprop="about" itemscope itemtype="https://schema.org.cn/Thing">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/#6.0.0-alpha.1" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_site_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © since 2017 XXX</a></p>
+
+        </div>
+      
+    
+    <!-- Custom Files footer begin-->
+    
+    <!-- Custom Files footer end-->
+  </footer>
+
+
+        <a id="s-top" class="fa-solid fa-arrow-up fa-fw" title="top"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+  /******************** volantis.dom ********************************/
+  // 页面选择器 将dom对象缓存起来 see: /source/js/app.js etc.
+  volantis.dom.bodyAnchor = volantis.dom.$(document.getElementById("safearea")); // 页面主体
+  volantis.dom.topBtn = volantis.dom.$(document.getElementById('s-top')); // 向上
+  volantis.dom.wrapper = volantis.dom.$(document.getElementById('wrapper')); // 整个导航栏
+  volantis.dom.coverAnchor = volantis.dom.$(document.querySelector('#l_cover .cover-wrapper')); // 1个
+  volantis.dom.switcher = volantis.dom.$(document.querySelector('#l_header .switcher .s-search')); // 搜索按钮   移动端 1个
+  volantis.dom.header = volantis.dom.$(document.getElementById('l_header')); // 移动端导航栏
+  volantis.dom.search = volantis.dom.$(document.querySelector('#l_header .m_search')); // 搜索框 桌面端 移动端 1个
+  volantis.dom.mPhoneList = volantis.dom.$(document.querySelectorAll('#l_header .m-phone .list-v')); //  手机端 子菜单 多个
+</script>
+
+<script>
+  
+  volantis.css("https://unpkg.com/@fortawesome/fontawesome-free@6.6.0/css/all.min.css");
+  
+  
+  
+</script>
+
+<!-- required -->
+
+
+<!-- internal -->
+
+<script src="/en/en/js/app.js"></script>
+
+
+
+
+<!-- rightmenu要在darkmode之前（ToggleButton） darkmode要在comments之前（volantis.dark.push）-->
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "color-scheme";
+const rootElementDarkModeAttributeName = "color-scheme";
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+  getCustomDarkMode();
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+/**
+ * get target mode
+ */
+ const getCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  if(currentSetting=="dark"){
+    volantis.dark.mode="light";
+  }else{
+    volantis.dark.mode="dark";
+  }
+  // console.log(volantis.dark.mode)
+};
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+/**
+ * 暗黑模式触发器
+ */
+volantis.dark.toggle=()=>{
+  const mode = toggleCustomDarkMode();
+  applyCustomDarkModeSettings(mode);
+  // 使用 volantis.dark.push 方法传入volantis.dark.toggle回调函数 参见layout/_partial/scripts/global.ejs
+  volantis.dark.method.toggle.start();
+}
+/**
+ * bind event for toggle button
+ */
+
+function bindToggleButton() {
+  var btn= document.querySelectorAll("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn")
+  btn.forEach(function (e) {
+    volantis.dom.$(e).on('click',volantis.dark.toggle);
+  })
+}
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", ()=>{
+  volantis.requestAnimationFrame(bindToggleButton)
+});
+
+const darkModelListeners={
+  dark:(mediaQueryList )=>{
+    if(mediaQueryList.matches){
+      volantis.dark.mode = "dark";
+    }
+    volantis.dark.method.toggle.start();
+  },
+  light:(mediaQueryList)=>{
+    if(mediaQueryList.matches){
+      volantis.dark.mode = "light";
+    }
+    volantis.dark.method.toggle.start();
+  }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addListener(darkModelListeners.dark)
+window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListeners.light)
+</script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    
+      const sites_api = document.getElementById('sites-api');
+      if (sites_api != undefined && typeof SitesJS === 'undefined') {
+        volantis.js("/en/js/plugins/tags/sites.js")
+      }
+    
+    
+      const friends_api = document.getElementById('friends-api');
+      if (friends_api != undefined && typeof FriendsJS === 'undefined') {
+        volantis.js("/en/js/plugins/tags/friends.js")
+      }
+    
+    
+      const contributors_api = document.getElementById('contributors-api');
+      if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
+        volantis.js("/en/js/plugins/tags/contributors.js")
+      }
+    
+  };
+  loadIssuesJS()
+</script>
+
+
+
+
+  <script defer src="https://unpkg.com/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: ["#"],
+	maxRPS: 6,
+	hoverDelay: 0
+  };
+</script>
+<script defer src="https://unpkg.com/volantis-static@0.0.1660614606622/libs/flying-pages/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://npm.onmicrosoft.cn/penndu@16.0.0/bsz.js"></script>
+
+
+<!-- optional -->
+
+  <script>
+  async function loadSearchScript() {
+    
+        
+    
+    return volantis.js("/en/js/search/hexo.js");
+  }
+
+  function loadSearchService() {
+    loadSearchScript();
+    document.querySelectorAll(".input.u-search-input").forEach((e) => {
+      e.removeEventListener("focus", loadSearchService, false);
+    });
+
+    document.querySelectorAll(".u-search-form").forEach((e) => {
+      e.addEventListener("submit", (event) => {
+        event.preventDefault();
+      }, false);
+    });
+  }
+
+  // 打开并搜索 字符串 s
+  function OpenSearch(s) {
+    if (typeof SearchService === 'undefined')
+      loadSearchScript().then(() => {
+        SearchService.setQueryText(s);
+        SearchService.search();
+      });
+    else {
+      SearchService.setQueryText(s);
+      SearchService.search();
+    }
+  }
+
+  // 访问含有 ?s=xxx  的链接时打开搜索 // 与搜索引擎 structured data 相关: /scripts/helpers/structured-data/lib/config.js
+  if (window.location.search && /^\?s=/g.test(window.location.search)) {
+    let queryText = decodeURI(window.location.search)
+      .replace(/\ /g, "-")
+      .replace(/^\?s=/g, "");
+    OpenSearch(queryText);
+  }
+
+  // 搜索输入框获取焦点时加载搜索
+  document.querySelectorAll(".input.u-search-input").forEach((e) => {
+    e.addEventListener("focus", loadSearchService, false);
+  });
+</script>
+
+
+
+
+
+
+
+  <script>
+
+
+
+  function p_highlightjs_copyCode(){
+    if (!(document.querySelector(".highlight .code pre") ||
+      document.querySelector(".article pre code"))) {
+      return;
+    }
+    VolantisApp.utilCopyCode(".highlight .code pre, .article pre code")
+  }
+  volantis.requestAnimationFrame(p_highlightjs_copyCode)
+
+</script>
+
+
+
+
+
+
+
+
+  <script>
+  let imgs = ["/background/wallhaven-jewjp5_2560x1080.png"];
+  let index = 0;
+  let IntervalParallax = null;
+
+  function parallax(){
+    let ParallaxWindow = document.querySelector("#parallax-window");
+    
+      ParallaxWindow = document.querySelector("html");
+    
+    Parallax.window = ParallaxWindow;
+    Parallax.options.fade = 1500;
+    Parallax.cache = 1;
+    next_parallax();
+    Parallax.init();
+    if (imgs.length>1) {
+      IntervalParallax = setInterval(function () {
+        next_parallax();
+      }, '31536000000');
+    }
+  }
+
+  function next_parallax() {
+    if (typeof Parallax == "undefined") {
+      return
+    }
+    
+    if (imgs.length>=1) {
+      Parallax.options.src = imgs[index % imgs.length];
+      Parallax.start();
+      index++;
+      if (Parallax.cache) {
+        fetch(imgs[index % imgs.length] +"?t=" + new Date().getTime());
+        if (index == imgs.length) {
+          Parallax.cache = 0;
+        }
+      }
+    }
+  }
+  var runningOnBrowser = typeof window !== "undefined";
+  var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+  if (!isBot) {
+    volantis.js('/en/js/plugins/parallax.js').then(()=>{
+      parallax()
+    })
+  }
+</script>
+
+
+
+
+  <script>
+  function load_swiper() {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    volantis.css("https://unpkg.com/swiper@11.1.14/swiper-bundle.min.css");
+    volantis.js("https://unpkg.com/swiper@11.1.14/swiper-bundle.min.js").then(() => {
+      p_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function p_swiper() {
+    volantis.swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+
+</script>
+
+
+
+  <script>
+  volantis.css("https://unpkg.com/pace-js@1.2.4/themes/blue/pace-theme-minimal.css");
+  volantis.js("https://unpkg.com/pace-js@1.2.4/pace.min.js").then(() => {
+    Pace.options.restartOnPushState = false;
+    // 阅读进度
+    volantis.scroll.push(() => {
+      Pace.stop();
+      Pace.trigger('start');
+      Pace.bar.update(volantis.scroll.progress() * 100);
+      document.body.className = document.body.className.replaceAll("pace-running ","");
+    },"阅读进度")
+    // todo：配置项开关, 哪些页面添加阅读进度
+  })
+</script>
+
+
+
+
+<script>
+  function listenSidebarTOC() {
+    const navItems = document.querySelectorAll(".toc li");
+    if (!navItems.length) return;
+    const targets = []
+    const sections = Array.from(navItems).forEach((element) => {
+      const link = element.querySelector(".toc-link");
+      const target = document.getElementById(
+        link.getAttribute("href") ? decodeURI(link.getAttribute("href")).replace("#", "") : link.getAttribute("toc-action").split("toc-")[1] // 兼容 hexo-blog-encrypt
+      );
+      targets.push(target)
+      // 解除 a 标签 href 的 锚点定位, a 标签 href 的 锚点定位 会随机启用?? 产生错位???
+      if (link.getAttribute("href")) {
+        link.setAttribute("toc-action", "toc-" + decodeURI(link.getAttribute("href")).replace("#", ""))
+        link.removeAttribute("href")
+      }
+      // 配置 点击 触发新的锚点定位
+      if (target && target.id) {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          // 这里的 addTop 是通过错位使得 toc 自动展开.
+          volantis.scroll.to(target, { addTop: 5, observer: true })
+          // Anchor id
+          history.pushState(null, document.title, "#" + target.id);
+        });
+      }
+      return target;
+    });
+
+    function activateNavByIndex(target) {
+      if (target.classList.contains("active-current")) return;
+
+      document.querySelectorAll(".toc .active").forEach((element) => {
+        element.classList.remove("active", "active-current");
+      });
+      target.classList.add("active", "active-current");
+      let parent = target.parentNode;
+      while (!parent.matches(".toc")) {
+        if (parent.matches("li")) parent.classList.add("active");
+        parent = parent.parentNode;
+      }
+    }
+
+    // 方案一：
+    volantis.activateNavIndex = 0
+    activateNavByIndex(navItems[volantis.activateNavIndex])
+    if (targets[0]) {
+      volantis.scroll.push(() => {
+        if (targets[0].getBoundingClientRect().top >= 0) {
+          volantis.activateNavIndex = 0
+        } else if (targets[targets.length - 1].getBoundingClientRect().top < 0) {
+          volantis.activateNavIndex = targets.length - 1
+        } else {
+          for (let index = 0; index < targets.length; index++) {
+            const target0 = targets[index];
+            const target1 = targets[(index + 1) % targets.length];
+            if (target0.getBoundingClientRect().top < 0 && target1.getBoundingClientRect().top >= 0) {
+              volantis.activateNavIndex = index
+              break;
+            }
+          }
+        }
+        activateNavByIndex(navItems[volantis.activateNavIndex])
+      })
+    }
+
+    // 方案二：
+    // IntersectionObserver 不是完美精确到像素级别 也不是低延时性的
+    // function findIndex(entries) {
+    //   let index = 0;
+    //   let entry = entries[index];
+    //   if (entry.boundingClientRect.top > 0) {
+    //     index = sections.indexOf(entry.target);
+    //     return index === 0 ? 0 : index - 1;
+    //   }
+    //   for (; index < entries.length; index++) {
+    //     if (entries[index].boundingClientRect.top <= 0) {
+    //       entry = entries[index];
+    //     } else {
+    //       return sections.indexOf(entry.target);
+    //     }
+    //   }
+    //   return sections.indexOf(entry.target);
+    // }
+    // function createIntersectionObserver(marginTop) {
+    //   marginTop = Math.floor(marginTop + 10000);
+    //   let intersectionObserver = new IntersectionObserver(
+    //     (entries, observe) => {
+    //       let scrollHeight = document.documentElement.scrollHeight;
+    //       if (scrollHeight > marginTop) {
+    //         observe.disconnect();
+    //         createIntersectionObserver(scrollHeight);
+    //         return;
+    //       }
+    //       let index = findIndex(entries);
+    //       activateNavByIndex(navItems[index]);
+    //     }, {
+    //       rootMargin: marginTop + "px 0px -100% 0px",
+    //       threshold: 0,
+    //     }
+    //   );
+    //   sections.forEach((element) => {
+    //     element && intersectionObserver.observe(element);
+    //   });
+    // }
+    // createIntersectionObserver(document.documentElement.scrollHeight);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    volantis.requestAnimationFrame(listenSidebarTOC)
+  });
+</script>
+
+
+
+
+
+<script>
+  document.onreadystatechange = function () {
+    if (document.readyState == 'complete') {
+      // 页面加载完毕 样式加载失败，或是当前网速慢，或是开启了省流模式
+      const { saveData, effectiveType } = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {}
+      if (getComputedStyle(document.querySelector("#safearea"), null)["display"] == "none" || saveData || /2g/.test(effectiveType)) {
+        document.querySelectorAll(".reveal").forEach(function (e) {
+          e.style["opacity"] = "1";
+        });
+        document.querySelector("#safearea").style["display"] = "block";
+      }
+    }
+  }
+</script>
+
+
+  <script type="application/ld+json">[{"@context":"https://schema.org.cn","@type":"Organization","name":"Hexo","url":"https://archer-baiyi.github.io/en/en/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"https://schema.org.cn","@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://archer-baiyi.github.io/en/en/","sameAs":["https://github.com/volantis-x"],"description":"hi"},{"@context":"https://schema.org.cn","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://archer-baiyi.github.io/en/en/","name":"Hexo"}},{"@type":"ListItem","position":2,"item":{"@id":"https://archer-baiyi.github.io/en/en/categories/编程/","name":"编程"}},{"@type":"ListItem","position":3,"item":{"@id":"https://archer-baiyi.github.io/en/en/2025/12/07/编程/SQL入门/","name":"SQL入门"}}]},{"@context":"https://schema.org.cn","@type":"WebSite","name":"Hexo","url":"https://archer-baiyi.github.io/en/en/","keywords":null,"description":"hi","author":{"@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://archer-baiyi.github.io/en/en/","description":"hi"},"publisher":{"@type":"Organization","name":"Hexo","url":"https://archer-baiyi.github.io/en/en/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://archer-baiyi.github.io/en?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"https://schema.org.cn","@type":"BlogPosting","headline":"SQL入门","description":"hi","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://archer-baiyi.github.io/en/2025/12/07/%E7%BC%96%E7%A8%8B/SQL%E5%85%A5%E9%97%A8/"},"author":{"@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://archer-baiyi.github.io/en/en/"},"publisher":{"@type":"Organization","name":"Hexo","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://archer-baiyi.github.io/en/2025/12/07/%E7%BC%96%E7%A8%8B/SQL%E5%85%A5%E9%97%A8/","wordCount":0,"datePublished":"2025-12-07T21:53:03.000Z","dateModified":"2026-02-19T12:35:41.603Z","articleSection":"编程","keywords":"SQL","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+
+
+
+
+    </div>
+    
+    <script>
+      (function() {
+        // 定义修复核心逻辑
+        function checkAndFixTOC() {
+          var tocDiv = document.getElementById('toc-div');
+          
+          if (tocDiv) {
+            // 1. 检查 TOC 里面是不是真的有内容（防止把空目录显示出来）
+            var tocList = tocDiv.querySelector('ol.toc');
+            var hasContent = tocList && tocList.children.length > 0;
+            
+            // 2. 如果有内容，但被隐藏了 (display: none)，则强制显示
+            // 这里检查内联样式 style.display，因为它优先级最高
+            if (hasContent && tocDiv.style.display === 'none') {
+              console.log('Volantis Fix: 检测到目录被误杀，正在强制复活...');
+              
+              // 使用 cssText 赋予最高优先级 !important
+              tocDiv.style.cssText = "display: block !important; opacity: 1 !important; visibility: visible !important;";
+              
+              // 3. 告诉主题重新计算布局（防止侧边栏塌陷）
+              window.dispatchEvent(new Event('resize'));
+              window.dispatchEvent(new Event('scroll'));
+              
+              // 4. 重启目录高亮监听
+              if (typeof listenSidebarTOC === 'function') {
+                listenSidebarTOC();
+              }
+            }
+          }
+        }
+
+        // 策略 A: 监听解密事件 (依然保留，作为第一道防线)
+        window.addEventListener('hexo-blog-encrypt:success', function() {
+          checkAndFixTOC();
+          setTimeout(checkAndFixTOC, 200); // 补刀
+        });
+
+        // 策略 B: 暴力轮询 (每 1 秒检查一次，作为终极防线)
+        // 只要你在当前页面，这个定时器就会一直巡逻，确保目录不会莫名其妙消失
+        setInterval(checkAndFixTOC, 1000);
+        
+      })();
+    </script>
+    </body>
+</html>

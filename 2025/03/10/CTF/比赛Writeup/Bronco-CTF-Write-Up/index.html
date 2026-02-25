@@ -1,0 +1,3722 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#6.0.0-alpha.1'>
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta name="Volantis" content="6.0.0-alpha.1">
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="62GZuQzI8vKz1vqtq9cAt9WNIDJQQ-v_-hBV6ghqPT4" />    
+  <!-- 上面这行是给谷歌验证的 -->
+   
+  <!-- SEO相关 -->
+  
+  <link rel="canonical" href="https://archer-baiyi.github.io/en/2025/03/10/ctf/比赛writeup/bronco-ctf-write-up/"/>
+  <!-- 渲染优化 -->
+    <meta http-equiv='x-dns-prefetch-control' content='on' />
+      <link rel='dns-prefetch' href='https://unpkg.com'>
+      <link rel="preconnect" href="https://unpkg.com" crossorigin>
+      <link rel='dns-prefetch' href='https://cdn.bootcdn.net'>
+      <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Security-Policy" content=" default-src 'self' https:; block-all-mixed-content; base-uri 'self' https:; form-action 'self' https:; worker-src 'self' https:; connect-src 'self' https: *; img-src 'self' data: https: *; media-src 'self' https: *; font-src 'self' data: https: *; frame-src 'self' https: *; manifest-src 'self' https: *; child-src https:; script-src 'self' https: 'unsafe-inline' *; style-src 'self' https: 'unsafe-inline' *; ">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <!-- import head_begin begin -->
+  <!-- import head_begin end -->
+  <!-- Custom Files headBegin begin-->
+  
+  <!-- Custom Files headBegin end-->
+    <link rel="shortcut icon" type='image/x-icon' href="/en/%E7%90%83%E9%9C%9C_%E5%8D%A1%E9%80%9A.png">
+  <link rel="preload" href="/en/css/style.css" as="style">
+  <link rel="preload" href="https://unpkg.com/volantis-static@0.0.1660614606622/media/fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://unpkg.com/volantis-static@0.0.1660614606622/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <!-- feed -->
+  <!-- 页面元数据 -->
+  <title>Bronco CTF Write Up - Hexo</title>
+  <meta name="keywords" content="writeup,null">
+  <meta desc name="description" content="Bronco CTF比赛的题解，涉及方向：Crypto, Web, Reverse, Steg, Misc, Forensics - null - Hexo">
+  
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bronco CTF Write Up">
+<meta property="og:url" content="https://archer-baiyi.github.io/en/2025/03/10/CTF/%E6%AF%94%E8%B5%9BWriteup/Bronco-CTF-Write-Up/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Bronco CTF比赛的题解，涉及方向：Crypto, Web, Reverse, Steg, Misc, Forensics">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2025-03-10T12:28:52.000Z">
+<meta property="article:modified_time" content="2025-11-29T21:38:32.221Z">
+<meta property="article:tag" content="writeup">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+  <style>
+    /* 首屏样式 */
+    #safearea {
+  display: none;
+}
+:root {
+  --color-site-body: #f4f4f4;
+  --color-site-bg: #f4f4f4;
+  --color-site-inner: #fff;
+  --color-site-footer: #666;
+  --color-card: #fff;
+  --color-text: #444;
+  --color-block: #f6f6f6;
+  --color-inlinecode: #c74f00;
+  --color-codeblock: #fff7ea;
+  --color-h1: #3a3a3a;
+  --color-h2: #3a3a3a;
+  --color-h3: #333;
+  --color-h4: #444;
+  --color-h5: #555;
+  --color-h6: #666;
+  --color-p: #444;
+  --color-list: #666;
+  --color-list-hl: #30ad91;
+  --color-meta: #888;
+  --color-read-bkg: #e0d8c8;
+  --color-read-post: #f8f1e2;
+  --color-copyright-bkg: #f5f5f5;
+}
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+*::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+*::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #3dd9b6;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+html {
+  color: var(--color-text);
+  width: 100%;
+  height: 100%;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-size: 16px;
+}
+html >::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+html >::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+html >::-webkit-scrollbar-thumb {
+  background: #3dd9b6;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+html >::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+body {
+  background-color: var(--color-site-body);
+  text-rendering: optimizelegibility;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body.modal-active {
+  overflow: hidden;
+}
+@media screen and (max-width: 680px) {
+  body.modal-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+a {
+  color: #2092ec;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+a:hover {
+  color: #ff5722;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+ul,
+ol {
+  padding-left: 0;
+}
+ul li,
+ol li {
+  list-style: none;
+}
+header {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+img {
+  border: 0;
+  background: none;
+  max-width: 100%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  height: 0;
+  border: 0;
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-bottom: 1px solid rgba(68,68,68,0.1);
+}
+button,
+input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .blur {
+    background: rgba(255,255,255,0.9) !important;
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.shadow {
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.shadow.floatable {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.shadow.floatable:hover {
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+}
+#l_cover {
+  min-height: 64px;
+}
+.cover-wrapper {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 100vh;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  color: var(--color-site-inner);
+  padding: 0 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -100px;
+}
+.cover-wrapper .cover-body {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cover-wrapper#full {
+  height: calc(100vh + 100px);
+  padding-bottom: 100px;
+}
+.cover-wrapper#half {
+  max-height: 640px;
+  min-height: 400px;
+  height: calc(36vh - 64px + 200px);
+}
+.cover-wrapper #scroll-down {
+  width: 100%;
+  height: 64px;
+  position: absolute;
+  bottom: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+.cover-wrapper #scroll-down .scroll-down-effects {
+  color: #fff;
+  font-size: 24px;
+  line-height: 64px;
+  position: absolute;
+  width: 24px;
+  left: calc(50% - 12px);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  animation: scroll-down-effect 1.5s infinite;
+  -webkit-animation: scroll-down-effect 1.5s infinite;
+  -khtml-animation: scroll-down-effect 1.5s infinite;
+  -moz-animation: scroll-down-effect 1.5s infinite;
+  -o-animation: scroll-down-effect 1.5s infinite;
+  -ms-animation: scroll-down-effect 1.5s infinite;
+}
+@-moz-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  margin-top: 64px;
+  margin-bottom: 100px;
+}
+.cover-wrapper .cover-body,
+.cover-wrapper .cover-body .top,
+.cover-wrapper .cover-body .bottom {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  max-width: 100%;
+}
+.cover-wrapper .cover-body .bottom {
+  margin-top: 32px;
+}
+.cover-wrapper .cover-body .title {
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-size: 3.125rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.cover-wrapper .cover-body .subtitle {
+  font-size: 20px;
+}
+.cover-wrapper .cover-body .logo {
+  max-height: 120px;
+  max-width: calc(100% - 4 * 16px);
+}
+@media screen and (min-height: 1024px) {
+  .cover-wrapper .cover-body .title {
+    font-size: 3rem;
+  }
+  .cover-wrapper .cover-body .subtitle {
+    font-size: 1.05rem;
+  }
+  .cover-wrapper .cover-body .logo {
+    max-height: 150px;
+  }
+}
+.cover-wrapper .cover-body .m_search {
+  position: relative;
+  max-width: calc(100% - 16px);
+  width: 320px;
+  vertical-align: middle;
+}
+.cover-wrapper .cover-body .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100%;
+}
+.cover-wrapper .cover-body .m_search .icon,
+.cover-wrapper .cover-body .m_search .input {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.cover-wrapper .cover-body .m_search .icon {
+  position: absolute;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  line-height: 2.5rem;
+  width: 32px;
+  top: 0;
+  left: 5px;
+  color: rgba(68,68,68,0.75);
+}
+.cover-wrapper .cover-body .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  height: 2.5rem;
+  width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 0.875rem;
+  -webkit-appearance: none;
+  padding-left: 36px;
+  border-radius: 1.4rem;
+  -webkit-border-radius: 1.4rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: var(--color-text);
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .cover-body .m_search .input {
+    padding-left: 36px;
+  }
+}
+.cover-wrapper .cover-body .m_search .input:hover {
+  background: rgba(255,255,255,0.8);
+}
+.cover-wrapper .cover-body .m_search .input:focus {
+  background: #fff;
+}
+.cover-wrapper .list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -khtml-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  align-items: stretch;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.cover-wrapper .list-h a {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 0;
+  -ms-flex: 1 0;
+  flex: 1 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  font-weight: 600;
+}
+.cover-wrapper .list-h a img {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  margin: 4px;
+  min-width: 40px;
+  max-width: 44px;
+}
+@media screen and (max-width: 768px) {
+  .cover-wrapper .list-h a img {
+    min-width: 36px;
+    max-width: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .list-h a img {
+    margin: 2px 4px;
+    min-width: 32px;
+    max-width: 36px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .cover-wrapper .list-h a img {
+    min-width: 28px;
+    max-width: 32px;
+  }
+}
+.cover-wrapper {
+  max-width: 100%;
+}
+.cover-wrapper.search .bottom .menu {
+  margin-top: 16px;
+}
+.cover-wrapper.search .bottom .menu .list-h a {
+  white-space: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 2px;
+  margin: 4px;
+  color: var(--color-site-inner);
+  opacity: 0.75;
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  border-bottom: 2px solid transparent;
+}
+.cover-wrapper.search .bottom .menu .list-h a i {
+  margin-right: 4px;
+}
+.cover-wrapper.search .bottom .menu .list-h a p {
+  font-size: 0.9375rem;
+}
+.cover-wrapper.search .bottom .menu .list-h a:hover,
+.cover-wrapper.search .bottom .menu .list-h a.active,
+.cover-wrapper.search .bottom .menu .list-h a:active {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  border-bottom: 2px solid var(--color-site-inner);
+}
+.cover-wrapper.dock .menu,
+.cover-wrapper.featured .menu,
+.cover-wrapper.focus .menu {
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+.cover-wrapper.dock .menu .list-h a,
+.cover-wrapper.featured .menu .list-h a,
+.cover-wrapper.focus .menu .list-h a {
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  line-height: 24px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-bottom: none;
+  text-align: center;
+  align-content: flex-end;
+  color: rgba(68,68,68,0.7);
+  font-size: 1.5rem;
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper.dock .menu .list-h a,
+  .cover-wrapper.featured .menu .list-h a,
+  .cover-wrapper.focus .menu .list-h a {
+    padding: 12px 8px;
+  }
+}
+.cover-wrapper.dock .menu .list-h a i,
+.cover-wrapper.featured .menu .list-h a i,
+.cover-wrapper.focus .menu .list-h a i {
+  margin: 8px;
+}
+.cover-wrapper.dock .menu .list-h a p,
+.cover-wrapper.featured .menu .list-h a p,
+.cover-wrapper.focus .menu .list-h a p {
+  font-size: 0.875rem;
+}
+.cover-wrapper.dock .menu .list-h a.active,
+.cover-wrapper.featured .menu .list-h a.active,
+.cover-wrapper.focus .menu .list-h a.active {
+  background: var(--color-card);
+  backdrop-filter: none;
+}
+.cover-wrapper.dock .menu .list-h a.active i,
+.cover-wrapper.featured .menu .list-h a.active i,
+.cover-wrapper.focus .menu .list-h a.active i,
+.cover-wrapper.dock .menu .list-h a.active i+p,
+.cover-wrapper.featured .menu .list-h a.active i+p,
+.cover-wrapper.focus .menu .list-h a.active i+p {
+  color: #3dd9b6;
+}
+.cover-wrapper.dock .menu .list-h a.active img+p,
+.cover-wrapper.featured .menu .list-h a.active img+p,
+.cover-wrapper.focus .menu .list-h a.active img+p {
+  color: var(--color-text);
+}
+.cover-wrapper.dock .menu .list-h a:hover,
+.cover-wrapper.featured .menu .list-h a:hover,
+.cover-wrapper.focus .menu .list-h a:hover {
+  background: var(--color-card);
+}
+.cover-wrapper.dock .top {
+  margin-bottom: 48px;
+}
+.cover-wrapper.dock .menu {
+  background: rgba(255,255,255,0.5);
+  position: absolute;
+  bottom: 0;
+  max-width: 100%;
+}
+.cover-wrapper.dock .menu .list-h {
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  margin: 4px;
+}
+.cover-wrapper.dock .menu .list-h a+a {
+  margin-left: 4px;
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper.dock .menu .list-h {
+    overflow-x: scroll;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-track-piece {
+    background: transparent;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb {
+    background: #3dd9b6;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb:hover {
+    background: #ff5722;
+  }
+}
+@supports (backdrop-filter: blur(20px)) {
+  .cover-wrapper.dock .menu {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.cover-wrapper #parallax-window {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+.parallax-mirror {
+  animation-delay: 0s;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: fadeIn;
+}
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-mode: 'dark';
+  }
+  :root:not([color-scheme]) {
+    --color-site-body: #121212;
+    --color-read-bkg: #1f1f1f;
+    --color-read-post: #262626;
+    --color-site-bg: #1f1f1f;
+    --color-site-inner: rgba(238,238,238,0.871);
+    --color-site-footer: rgba(170,170,170,0.871);
+    --color-card: #262626;
+    --color-text: rgba(238,238,238,0.871);
+    --color-block: #434343;
+    --color-codeblock: #1f1f1f;
+    --color-inlinecode: #d56d28;
+    --color-h1: rgba(255,255,255,0.871);
+    --color-h2: rgba(255,255,255,0.871);
+    --color-h3: rgba(255,255,255,0.6);
+    --color-h4: rgba(255,255,255,0.6);
+    --color-h5: rgba(255,255,255,0.6);
+    --color-h6: rgba(255,255,255,0.6);
+    --color-p: rgba(217,217,217,0.871);
+    --color-list: rgba(217,217,217,0.871);
+    --color-list-hl: #63e0c4;
+    --color-meta: rgba(191,191,191,0.871);
+    --color-link: rgba(191,191,191,0.871);
+    --color-copyright-bkg: #21252b;
+  }
+  :root:not([color-scheme]) img {
+    filter: brightness(70%) !important;
+  }
+  :root:not([color-scheme]) .blur {
+    background: rgba(31,31,31,0.9) !important;
+  }
+  :root:not([color-scheme]) .white-box.blur {
+    background: rgba(38,38,38,0.9) !important;
+  }
+  :root:not([color-scheme]) .nav-main .u-search-input {
+    background: var(--color-card) !important;
+  }
+  :root:not([color-scheme]) #l_main .article .prev-next>a {
+    background: var(--color-block) !important;
+  }
+  :root:not([color-scheme]) #l_main .article .prev-next>a:hover {
+    background: var(--color-site-bg) !important;
+  }
+  :root:not([color-scheme]) .article blockquote {
+    background: var(--color-block) !important;
+  }
+  :root:not([color-scheme]) .article-title a {
+    color: var(--color-h1) !important;
+  }
+  :root:not([color-scheme]) details>summary {
+    color: var(--color-p) !important;
+    background: var(--color-site-bg) !important;
+  }
+  :root:not([color-scheme]) details {
+    border: 1px solid var(--color-site-bg) !important;
+    background: var(--color-site-bg) !important;
+  }
+  :root:not([color-scheme]) #u-search .modal,
+  :root:not([color-scheme]) #u-search .modal-header,
+  :root:not([color-scheme]) #u-search .modal-body {
+    background: var(--color-card) !important;
+  }
+  :root:not([color-scheme]) #u-search .modal-body .modal-results .result:hover {
+    background: var(--color-block) !important;
+  }
+  :root:not([color-scheme]) .u-search-input:hover {
+    background: var(--color-block) !important;
+  }
+  :root:not([color-scheme]) .u-search-input:focus {
+    background: var(--color-site-body) !important;
+  }
+}
+[color-scheme='dark'] {
+  --color-site-body: #121212;
+  --color-read-bkg: #1f1f1f;
+  --color-read-post: #262626;
+  --color-site-bg: #1f1f1f;
+  --color-site-inner: rgba(238,238,238,0.871);
+  --color-site-footer: rgba(170,170,170,0.871);
+  --color-card: #262626;
+  --color-text: rgba(238,238,238,0.871);
+  --color-block: #434343;
+  --color-codeblock: #1f1f1f;
+  --color-inlinecode: #d56d28;
+  --color-h1: rgba(255,255,255,0.871);
+  --color-h2: rgba(255,255,255,0.871);
+  --color-h3: rgba(255,255,255,0.6);
+  --color-h4: rgba(255,255,255,0.6);
+  --color-h5: rgba(255,255,255,0.6);
+  --color-h6: rgba(255,255,255,0.6);
+  --color-p: rgba(217,217,217,0.871);
+  --color-list: rgba(217,217,217,0.871);
+  --color-list-hl: #63e0c4;
+  --color-meta: rgba(191,191,191,0.871);
+  --color-link: rgba(191,191,191,0.871);
+  --color-copyright-bkg: #21252b;
+}
+[color-scheme='dark'] img {
+  filter: brightness(70%) !important;
+}
+[color-scheme='dark'] .blur {
+  background: rgba(31,31,31,0.9) !important;
+}
+[color-scheme='dark'] .white-box.blur {
+  background: rgba(38,38,38,0.9) !important;
+}
+[color-scheme='dark'] .nav-main .u-search-input {
+  background: var(--color-card) !important;
+}
+[color-scheme='dark'] #l_main .article .prev-next>a {
+  background: var(--color-block) !important;
+}
+[color-scheme='dark'] #l_main .article .prev-next>a:hover {
+  background: var(--color-site-bg) !important;
+}
+[color-scheme='dark'] .article blockquote {
+  background: var(--color-block) !important;
+}
+[color-scheme='dark'] .article-title a {
+  color: var(--color-h1) !important;
+}
+[color-scheme='dark'] details>summary {
+  color: var(--color-p) !important;
+  background: var(--color-site-bg) !important;
+}
+[color-scheme='dark'] details {
+  border: 1px solid var(--color-site-bg) !important;
+  background: var(--color-site-bg) !important;
+}
+[color-scheme='dark'] #u-search .modal,
+[color-scheme='dark'] #u-search .modal-header,
+[color-scheme='dark'] #u-search .modal-body {
+  background: var(--color-card) !important;
+}
+[color-scheme='dark'] #u-search .modal-body .modal-results .result:hover {
+  background: var(--color-block) !important;
+}
+[color-scheme='dark'] .u-search-input:hover {
+  background: var(--color-block) !important;
+}
+[color-scheme='dark'] .u-search-input:focus {
+  background: var(--color-site-body) !important;
+}
+@media screen and (max-width: 500px) {
+  [color-scheme='dark'] .l_header .m_search {
+    background: var(--color-site-bg) !important;
+  }
+}
+@font-face {
+  font-family: 'UbuntuMono';
+  src: url("https://unpkg.com/volantis-static@0.0.1660614606622/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Varela Round';
+  src: url("https://unpkg.com/volantis-static@0.0.1660614606622/media/fonts/VarelaRound/VarelaRound-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+.l_header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 64px;
+  background: var(--color-card);
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.l_header.auto {
+  transition: opacity 0.4s ease;
+  -webkit-transition: opacity 0.4s ease;
+  -khtml-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
+  -ms-transition: opacity 0.4s ease;
+  visibility: hidden;
+}
+.l_header.auto.show {
+  opacity: 1 !important;
+  -webkit-opacity: 1 !important;
+  -moz-opacity: 1 !important;
+  visibility: visible;
+}
+.l_header .container {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.l_header #wrapper {
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.l_header #wrapper .nav-main,
+.l_header #wrapper .nav-sub {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -khtml-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  -ms-justify-content: space-between;
+  align-items: center;
+}
+.l_header #wrapper .nav-main {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.l_header #wrapper.sub .nav-main {
+  transform: translateY(-64px);
+  -webkit-transform: translateY(-64px);
+  -khtml-transform: translateY(-64px);
+  -moz-transform: translateY(-64px);
+  -o-transform: translateY(-64px);
+  -ms-transform: translateY(-64px);
+}
+.l_header #wrapper .nav-sub {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  height: 64px;
+  width: calc(100% - 2 * 16px);
+  position: absolute;
+}
+.l_header #wrapper .nav-sub ::-webkit-scrollbar {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (min-width: 2048px) {
+  .l_header #wrapper .nav-sub {
+    max-width: 55vw;
+    margin: auto;
+  }
+}
+.l_header #wrapper.sub .nav-sub {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+}
+.l_header #wrapper .title {
+  position: relative;
+  color: var(--color-text);
+  padding-left: 24px;
+  max-height: 64px;
+}
+.l_header #wrapper .nav-main .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  line-height: 64px;
+  padding: 0 24px;
+  font-size: 1.25rem;
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+}
+.l_header #wrapper .nav-main .title img {
+  height: 64px;
+}
+.l_header .nav-sub {
+  max-width: 1280px;
+  margin: auto;
+}
+.l_header .nav-sub .title {
+  font-weight: bold;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  line-height: 1.2;
+  max-height: 64px;
+  white-space: normal;
+  flex-shrink: 1;
+}
+.l_header .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  line-height: 64px;
+  align-items: center;
+}
+.l_header .switcher .s-toc {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .l_header .switcher .s-toc {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+  }
+}
+.l_header .switcher >li {
+  height: 48px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  margin: 2px;
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li {
+    margin: 0 1px;
+    height: 48px;
+  }
+}
+.l_header .switcher >li >a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0.85em 1.1em;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  color: #3dd9b6;
+}
+.l_header .switcher >li >a:hover {
+  border: none;
+}
+.l_header .switcher >li >a.active,
+.l_header .switcher >li >a:active {
+  border: none;
+  background: var(--color-site-bg);
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li >a {
+    width: 36px;
+    height: 48px;
+  }
+}
+.l_header .nav-sub .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+}
+.l_header .m_search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  height: 64px;
+  width: 240px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (max-width: 1024px) {
+  .l_header .m_search {
+    width: 44px;
+    min-width: 44px;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+  }
+  .l_header .m_search:hover {
+    width: 240px;
+  }
+  .l_header .m_search:hover input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search:hover .input {
+    width: 100%;
+  }
+  .l_header .m_search:hover .input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search {
+    min-width: 0;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.l_header .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.l_header .m_search .icon {
+  position: absolute;
+  width: 36px;
+  left: 5px;
+  color: var(--color-meta);
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .icon {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+.l_header .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.3;
+  width: 100%;
+  color: var(--color-text);
+  background: #fafafa;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 40px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search .input:focus {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .input {
+    background: var(--color-block);
+    padding-left: 8px;
+    border: none;
+  }
+  .l_header .m_search .input:hover,
+  .l_header .m_search .input:focus {
+    border: none;
+  }
+}
+@media (max-width: 500px) {
+  .l_header .m_search {
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    transition: all 0.28s ease;
+    -webkit-transition: all 0.28s ease;
+    -khtml-transition: all 0.28s ease;
+    -moz-transition: all 0.28s ease;
+    -o-transition: all 0.28s ease;
+    -ms-transition: all 0.28s ease;
+  }
+  .l_header .m_search .input {
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+  .l_header.z_search-open .m_search {
+    width: 100%;
+  }
+  .l_header.z_search-open .m_search .input {
+    width: calc(100% - 120px);
+  }
+}
+ul.m-pc >li>a {
+  color: inherit;
+  border-bottom: 2px solid transparent;
+}
+ul.m-pc >li>a:active,
+ul.m-pc >li>a.active {
+  border-bottom: 2px solid #3dd9b6;
+}
+ul.m-pc li:hover >ul.list-v,
+ul.list-v li:hover >ul.list-v {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.nav-list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  align-items: stretch;
+}
+ul.nav-list-h>li {
+  position: relative;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  height: 100%;
+  line-height: 2.4;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+ul.nav-list-h>li >a {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+}
+ul.list-v {
+  z-index: 1;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: absolute;
+  background: var(--color-card);
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  margin-top: -6px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 8px 0;
+}
+ul.list-v.show {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.list-v hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ul.list-v >li {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+ul.list-v >li.header {
+  font-size: 0.78125rem;
+  font-weight: bold;
+  line-height: 2em;
+  color: var(--color-meta);
+  margin: 8px 16px 4px;
+}
+ul.list-v >li.header i {
+  margin-right: 8px;
+}
+ul.list-v >li ul {
+  margin-left: 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: -40px;
+}
+ul.list-v .aplayer-container {
+  min-height: 64px;
+  padding: 6px 16px;
+}
+ul.list-v >li>a {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  color: var(--color-list);
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0 20px 0 16px;
+  text-overflow: ellipsis;
+  margin: 0 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+@media screen and (max-width: 1024px) {
+  ul.list-v >li>a {
+    line-height: 40px;
+  }
+}
+ul.list-v >li>a >i {
+  margin-right: 8px;
+}
+ul.list-v >li>a:active,
+ul.list-v >li>a.active {
+  color: var(--color-list-hl);
+}
+ul.list-v >li>a:hover {
+  color: var(--color-list-hl);
+  background: var(--color-site-bg);
+}
+.l_header .menu >ul>li>a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding: 0 8px;
+}
+.l_header .menu >ul>li>a >i {
+  margin-right: 4px;
+}
+.l_header ul.nav-list-h>li {
+  color: var(--color-list);
+  line-height: 64px;
+}
+.l_header ul.nav-list-h>li >a {
+  max-height: 64px;
+  overflow: hidden;
+  color: inherit;
+}
+.l_header ul.nav-list-h>li >a:active,
+.l_header ul.nav-list-h>li >a.active {
+  color: #3dd9b6;
+}
+.l_header ul.nav-list-h>li:hover>a {
+  color: var(--color-list-hl);
+}
+.l_header ul.nav-list-h>li i.music {
+  animation: rotate-effect 1.5s linear infinite;
+  -webkit-animation: rotate-effect 1.5s linear infinite;
+  -khtml-animation: rotate-effect 1.5s linear infinite;
+  -moz-animation: rotate-effect 1.5s linear infinite;
+  -o-animation: rotate-effect 1.5s linear infinite;
+  -ms-animation: rotate-effect 1.5s linear infinite;
+}
+@-moz-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+.menu-phone li ul.list-v {
+  right: calc(100% - 0.5 * 16px);
+}
+.menu-phone li ul.list-v ul {
+  right: calc(100% - 0.5 * 16px);
+}
+#wrapper {
+  max-width: 1280px;
+  margin: auto;
+}
+@media screen and (min-width: 2048px) {
+  #wrapper {
+    max-width: 55vw;
+  }
+}
+#wrapper .menu {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  margin: 0 16px 0 0;
+}
+#wrapper .menu .list-v ul {
+  left: calc(100% - 0.5 * 16px);
+}
+.menu-phone {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: 16px;
+  right: 8px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.menu-phone ul {
+  right: calc(100% - 0.5 * 16px);
+}
+@media screen and (max-width: 500px) {
+  .menu-phone {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: block;
+  }
+}
+.l_header {
+  max-width: 65vw;
+  left: calc((100% - 65vw) * 0.5);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+@media screen and (max-width: 2048px) {
+  .l_header {
+    max-width: 1312px;
+    left: calc((100% - 1312px) * 0.5);
+  }
+}
+@media screen and (max-width: 1312px) {
+  .l_header {
+    left: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .l_header #wrapper .nav-main .title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .l_header #wrapper .nav-sub {
+    width: 100%;
+  }
+  .l_header #wrapper .nav-sub .title {
+    overflow-y: scroll;
+    margin-top: 2px;
+    padding: 8px 16px;
+  }
+  .l_header #wrapper .switcher {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+    margin-right: 8px;
+  }
+  .l_header .menu {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .list-v li {
+    max-width: 270px;
+  }
+}
+#u-search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px 20px;
+  z-index: 1001;
+}
+@media screen and (max-width: 680px) {
+  #u-search {
+    padding: 0px;
+  }
+}
+@media screen and (prefers-color-scheme: dark) and (max-width: 500px) {
+  .l_header .m_search {
+    background: var(--color-site-bg) !important;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="/en/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/en/css/style.css"></noscript>
+    <script>
+      let userColorScheme=localStorage.getItem("color-scheme")
+      if(userColorScheme){
+        document.documentElement.setAttribute("color-scheme", userColorScheme);
+      }
+    </script>
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+    '.kill-t{'+
+      'font-size: 2rem;'+
+    '}'+
+    '.kill-c{'+
+      'font-size: 1.2rem;'+
+    '}'+
+		'#l_header,#l_body{'+
+			'display: none;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        `<span class="kill-t"><b>Sorry, your browser cannot access this site</b></span><br/>`+
+        `<span class="kill-c">Microsoft has terminated support for Internet Explorer (IE) 10 and earlier versions in 2016. <br/>There are great security risks to continue using it. Please use contemporary mainstream browsers to access.</span><br/>`+
+        `<a target="_blank" rel="noopener" href="https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge/"><strong>Learn more ></strong></a>`+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+    .kill-t{
+      font-size: 2rem;
+    }
+    .kill-c{
+      font-size: 1.2rem;
+    }
+		#l_header,#l_body{
+			display: none;
+		}
+	</style>
+    <div class="kill-noscript">
+        <span class="kill-t"><b>Sorry, your browser cannot access this site</b></span><br/>
+        <span class="kill-c">This page requires browser support (enable) JavaScript</span><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>Learn more ></strong></a>
+    </div>
+</noscript>
+
+
+  <script>
+  /************这个文件存放不需要重载的全局变量和全局函数*********/
+  window.volantis = {}; // volantis 全局变量
+  volantis.debug = "env"; // 调试模式
+  volantis.dom = {}; // 页面Dom see: /source/js/app.js etc.
+  /******************** volantis.dom.$ ********************************/
+  // 注：这里没有选择器，也没有forEach一次只处理一个dom，这里重新封装主题常用的dom方法，返回的是dom对象，对象包含了以下方法，同时保留dom的原生API
+  function volantisDom(ele) {
+    if (!ele) ele = document.createElement("div")
+    this.ele = ele;
+    // ==============================================================
+    this.ele.find = (c) => {
+      let q = this.ele.querySelector(c)
+      if (q)
+        return new volantisDom(q)
+    }
+    // ==============================================================
+    this.ele.hasClass = (c) => {
+      return this.ele.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
+    }
+    this.ele.addClass = (c) => {
+      this.ele.classList.add(c);
+      return this.ele
+    }
+    this.ele.removeClass = (c) => {
+      this.ele.classList.remove(c);
+      return this.ele
+    }
+    this.ele.toggleClass = (c) => {
+      if (this.ele.hasClass(c)) {
+        this.ele.removeClass(c)
+      } else {
+        this.ele.addClass(c)
+      }
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.on = (c, f) => {
+      this.ele.addEventListener(c, f, false)
+      return this.ele
+    }
+    this.ele.click = (f, r) => {
+      this.ele.on("click", f, r)
+      return this.ele
+    }
+    this.ele.scroll = (f, r) => {
+      this.ele.on("scroll", f, r)
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.html = (c) => {
+      // if(c=== undefined){
+      //   return this.ele.innerHTML
+      // }else{
+      this.ele.innerHTML = c
+      return this.ele
+      // }
+    }
+    // ==============================================================
+    this.ele.hide = (c) => {
+      this.ele.style.display = "none"
+      return this.ele
+    }
+    this.ele.show = (c) => {
+      this.ele.style.display = "block"
+      return this.ele
+    }
+    // ==============================================================
+    return this.ele
+  }
+  volantis.dom.$ = (ele) => {
+    return !!ele ? new volantisDom(ele) : null;
+  }
+  /******************** RunItem ********************************/
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          volantis.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+  /******************** RightMenu ********************************/
+  // volantis.rightmenu.handle(callBack[,"callBackName"]) 外部菜单项控制
+  // 可在 volantis.mouseEvent 处获取右键事件
+  volantis.rightmenu = {};
+  volantis.rightmenu.method = {
+    handle: new RunItem(),
+  }
+  volantis.rightmenu = Object.assign(volantis.rightmenu, {
+    handle: volantis.rightmenu.method.handle.push,
+  });
+  /********************  Dark Mode  ********************************/
+  // /layout/_partial/scripts/darkmode.ejs
+  // volantis.dark.mode 当前模式 dark or light
+  // volantis.dark.toggle() 暗黑模式触发器
+  // volantis.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  volantis.dark = {};
+  volantis.dark.method = {
+    toggle: new RunItem(),
+  };
+  volantis.dark = Object.assign(volantis.dark, {
+    push: volantis.dark.method.toggle.push,
+  });
+  /********************  Message  ********************************/
+  // VolantisApp.message
+  /********************  isMobile  ********************************/
+  // /source/js/app.js
+  // volantis.isMobile
+  // volantis.isMobileOld
+  /********************脚本动态加载函数********************************/
+  // volantis.js(src, cb)  cb 可以传入onload回调函数 或者 JSON对象 例如: volantis.js("src", ()=>{}) 或 volantis.js("src", {defer:true,onload:()=>{}})
+  // volantis.css(src)
+
+  // 返回Promise对象，如下方法同步加载资源，这利于处理文件资源之间的依赖关系，例如：APlayer 需要在 MetingJS 之前加载
+  // (async () => {
+  //     await volantis.js("...theme.plugins.aplayer.js.aplayer...")
+  //     await volantis.js("...theme.plugins.aplayer.js.meting...")
+  // })();
+
+  // 已经加入了setTimeout
+  volantis.js = (src, cb) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+  volantis.css = (src) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  }
+  /********************按需加载的插件********************************/
+  // volantis.import.jQuery().then(()=>{})
+  volantis.import = {
+    jQuery: () => {
+      if (typeof jQuery == "undefined") {
+        return volantis.js("https://unpkg.com/jquery@3.7.1/dist/jquery.min.js")
+      } else {
+        return new Promise(resolve => {
+          resolve()
+        });
+      }
+    }
+  }
+  /********************** requestAnimationFrame ********************************/
+  // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+  // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+  volantis.requestAnimationFrame = (fn) => {
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    }
+    window.requestAnimationFrame(fn)
+  }
+  /************************ layoutHelper *****************************************/
+  volantis.layoutHelper = (helper, html, opt) => {
+    opt = Object.assign({ clean: false}, opt)
+    function myhelper(helper, html, clean) {
+      volantis.tempDiv = document.createElement("div");
+      volantis.tempDiv.innerHTML = html;
+      let layoutHelper = document.querySelector("#layoutHelper-" + helper)
+      if (layoutHelper) {
+        if (clean) {
+          layoutHelper.innerHTML = ""
+        }
+        layoutHelper.append(volantis.tempDiv);
+      }
+    }
+    myhelper(helper, html, opt.clean)
+  }
+  /****************************** 滚动事件处理 ****************************************/
+  volantis.scroll = {
+    engine: new RunItem(),
+    unengine: new RunItem(),
+  };
+  volantis.scroll = Object.assign(volantis.scroll, {
+    push: volantis.scroll.engine.push,
+  });
+  // 滚动条距离顶部的距离
+  volantis.scroll.getScrollTop = () => {
+    let scrollPos;
+    if (window.pageYOffset) {
+      scrollPos = window.pageYOffset;
+    } else if (document.compatMode && document.compatMode != 'BackCompat') {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (document.body) {
+      scrollPos = document.body.scrollTop;
+    }
+    return scrollPos;
+  }
+  volantis.scroll.scrollHeight = function () {
+    return Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+    )
+  }
+  volantis.scroll.offsetHeight = function () {
+    return Math.max(
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.body.clientHeight,
+      document.documentElement.clientHeight
+    )
+  }
+  volantis.scroll.progress = function () {
+    return volantis.scroll.getScrollTop() / (volantis.scroll.scrollHeight() - volantis.scroll.offsetHeight())
+  }
+  // 使用 requestAnimationFrame 处理滚动事件
+  // `volantis.scroll.del` 中存储了一个数值, 该数值检测一定时间间隔内滚动条滚动的位移, 数值的检测频率是浏览器的刷新频率. 数值为正数时, 表示向下滚动. 数值为负数时, 表示向上滚动.
+  volantis.scroll.handleScrollEvents = () => {
+    volantis.scroll.lastScrollTop = volantis.scroll.getScrollTop()
+    function loop() {
+      const scrollTop = volantis.scroll.getScrollTop();
+      if (volantis.scroll.lastScrollTop !== scrollTop) {
+        volantis.scroll.del = scrollTop - volantis.scroll.lastScrollTop;
+        volantis.scroll.lastScrollTop = scrollTop;
+        // if (volantis.scroll.del > 0) {
+        //   console.log("向下滚动");
+        // } else {
+        //   console.log("向上滚动");
+        // }
+        // 注销过期的unengine未滚动事件
+        volantis.scroll.unengine.list = []
+        volantis.scroll.engine.start();
+      } else {
+        volantis.scroll.unengine.start();
+      }
+      volantis.requestAnimationFrame(loop)
+    }
+    volantis.requestAnimationFrame(loop)
+  }
+  volantis.scroll.handleScrollEvents()
+  volantis.scroll.ele = null;
+  // 触发页面滚动至目标元素位置
+  volantis.scroll.to = (ele, option = {}) => {
+    if (!ele) return;
+    volantis.scroll.ele = ele;
+    // 默认配置
+    opt = {
+      top: ele.getBoundingClientRect().top + document.documentElement.scrollTop,
+      behavior: "smooth"
+    }
+    // 定义配置
+    if ("top" in option) {
+      opt.top = option.top
+    }
+    if ("behavior" in option) {
+      opt.behavior = option.behavior
+    }
+    if ("addTop" in option) {
+      opt.top += option.addTop
+    }
+    if (!("observerDic" in option)) {
+      option.observerDic = 100
+    }
+    // 滚动
+    window.scrollTo(opt);
+    // 监视器
+    // 监视并矫正元素滚动到指定位置
+    // 用于处理 lazyload 引起的 cls 导致的定位失败问题
+    // option.observer = false
+    if (option.observer) {
+      setTimeout(() => {
+        if (volantis.scroll.ele != ele) {
+          return
+        }
+        volantis.scroll.unengine.push(() => {
+          let me = ele.getBoundingClientRect().top
+          if (!(me >= -option.observerDic && me <= option.observerDic)) {
+            volantis.scroll.to(ele, option)
+          }
+          volantis.scroll.unengine.remove("unengineObserver")
+        }, "unengineObserver")
+      }, 1000)
+    }
+  }
+  /********************** Content Visibility ********************************/
+  // 见 source/css/first.styl 如果遇到任何问题 删除 .post-story 即可
+  // 一个元素被声明 content-visibility 属性后 如果元素不在 viewport 中 浏览器不会计算其后代元素样式和属性 从而节省 Style & Layout 耗时
+  // content-visibility 的副作用: 锚点失效 等等(实验初期 暂不明确), 使用此方法清除样式
+  volantis.cleanContentVisibility = () => {
+    if (document.querySelector(".post-story")) {
+      console.log("cleanContentVisibility");
+      document.querySelectorAll(".post-story").forEach(e => {
+        e.classList.remove("post-story")
+      })
+    }
+  }
+  /******************************************************************************/
+  /******************************************************************************/
+  /******************************************************************************/
+  //图像加载出错时的处理
+  function errorImgAvatar(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg";
+    img.onerror = null;
+  }
+  function errorImgCover(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg";
+    img.onerror = null;
+  }
+  /******************************************************************************/
+</script>
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  pdata.commentConfig={};
+  volantis.GLOBAL_CONFIG ={
+    root: '/en/',
+    debug: "env",
+    default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
+    lastupdate: new Date(1771996874673),
+    cdn: {
+      izitoast_css: 'https://unpkg.com/izitoast@1.4.0/dist/css/iziToast.min.css',
+      izitoast_js: 'https://unpkg.com/izitoast@1.4.0/dist/js/iziToast.min.js',
+      fancybox_css: 'https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css',
+      fancybox_js: 'https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.js'
+    },
+    sidebar: {
+      for_page: ["blogger","category","tagcloud","donate"],
+      for_post: ["toc"],
+      webinfo: {
+        lastupd: {
+          enable: true,
+          friendlyShow: true
+        },
+        runtime: {
+          data: "2020/01/01",
+          unit: "天"
+        }
+      }
+    },
+    plugins: {
+      message: {"enable":true,"icon":{"default":"fa-solid fa-info-circle light-blue","quection":"fa-solid fa-question-circle light-blue"},"time":{"default":5000,"quection":20000},"position":"topRight","transitionIn":"bounceInLeft","transitionOut":"fadeOutRight","titleColor":"var(--color-text)","messageColor":"var(--color-text)","backgroundColor":"var(--color-card)","zindex":2147483647,"copyright":{"enable":true,"title":"知识共享许可协议","message":"请遵守 CC BY-NC-SA 4.0 协议。","icon":"far fa-copyright light-blue"},"aplayer":{"enable":true,"play":"fa-solid fa-play","pause":"fa-solid fa-pause"},"rightmenu":{"enable":true,"notice":true}},
+      
+      
+    },
+    search: {
+      
+
+      
+        dataPath: (("/en/" || "/").endsWith("/") ? "/en/" || "/" : "/en//" || "/") + "content.json",
+      
+
+      
+    },
+    languages: {
+      
+        search: {
+          hits_empty: "We didn't find any results for the search: ${query}.",
+          hits_stats: "${hits} results found in ${time} ms",
+        }
+      
+    }
+  }
+</script>
+  <!-- import head_end begin -->
+  <!-- import head_end end -->
+  <!-- Custom Files headEnd begin-->
+  
+  <!-- Custom Files headEnd end-->
+</head>
+  <body itemscope itemtype="https://schema.org.cn/WebPage">
+    
+    <header itemscope itemtype="https://schema.org.cn/WPHeader" id="l_header" class="l_header auto shadow floatable blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone'>
+        <li><a id="s-comment" class="fa-solid fa-comments fa-fw" target="_self" title="comment"></a></li>
+        
+          <li><a id="s-toc" class="s-toc fa-solid fa-list fa-fw" target="_self" title="toc"></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/en/'>
+          
+            <img no-lazy class='logo' src='https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/Logo-NavBar@3x.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/" title="Blog"
+                  
+                  
+                  
+                    active-action="action-en"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>Blog
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/categories/" title="Categories"
+                  
+                  
+                  
+                    active-action="action-encategories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>Categories
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/tags/" title="Tags"
+                  
+                  
+                  
+                    active-action="action-entags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>Tags
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/archives/" title="Archievs"
+                  
+                  
+                  
+                    active-action="action-enarchives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>Archievs
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/friends/" title="Friends"
+                  
+                  
+                  
+                    active-action="action-enfriends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>Friends
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/about/" title="About"
+                  
+                  
+                  
+                    active-action="action-enabout"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>About
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-moon fa-fw'></i>Dark
+                </a>
+              <li>
+            
+          
+          
+				</ul>
+			</div>
+      
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fa-solid fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+      
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fa-solid fa-search fa-fw" target="_self" title="search"></a></li>
+				
+				<li>
+          <a class="s-menu fa-solid fa-bars fa-fw" target="_self" title="menu"></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/" title="Blog"
+                  
+                  
+                  
+                    active-action="action-en"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>Blog
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/categories/" title="Categories"
+                  
+                  
+                  
+                    active-action="action-encategories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>Categories
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/tags/" title="Tags"
+                  
+                  
+                  
+                    active-action="action-entags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>Tags
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/archives/" title="Archievs"
+                  
+                  
+                  
+                    active-action="action-enarchives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>Archievs
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/friends/" title="Friends"
+                  
+                  
+                  
+                    active-action="action-enfriends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>Friends
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/en/about/" title="About"
+                  
+                  
+                  
+                    active-action="action-enabout"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>About
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-moon fa-fw'></i>Dark
+                </a>
+              <li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+
+      <!-- Custom Files header begin -->
+      
+      <!-- Custom Files header end -->
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+      <div class="cover-wrapper post dock" id='half'>
+        
+  <div id="parallax-window"></div>
+
+<div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Archer's blog</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/en/"
+              
+              
+              active-action="action-en">
+              <i class='fa-solid fa-rss fa-fw'></i><p>Blog</p>
+            </a>
+          
+            <a href="/en/categories/"
+              
+              
+              active-action="action-encategories">
+              <img src='https://unpkg.com/volantis-static@0.0.1660614606622/media/twemoji/assets/svg/1f5c3.svg'><p>Categories</p>
+            </a>
+          
+            <a href="/en/tags/"
+              
+              
+              active-action="action-entags">
+              <i class='fa-solid fa-tags fa-fw'></i><p>Tags</p>
+            </a>
+          
+            <a href="/en/archives/"
+              
+              
+              active-action="action-enarchives">
+              <i class='fa-solid fa-archive fa-fw'></i><p>Archievs</p>
+            </a>
+          
+            <a href="/en/friends/"
+              
+              
+              active-action="action-enfriends">
+              <i class='fa-solid fa-link fa-fw'></i><p>Friends</p>
+            </a>
+          
+            <a href="/en/about/"
+              
+              
+              active-action="action-enabout">
+              <i class='fa-solid fa-info-circle fa-fw'></i><p>About</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+    
+  
+</div>
+
+      <div id="safearea">
+        <div class="body-wrapper">
+          
+<div id="l_main" class=''>
+  <article itemscope itemtype="https://schema.org.cn/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="https://archer-baiyi.github.io/en/2025/03/10/CTF/比赛Writeup/Bronco-CTF-Write-Up/">
+  <span hidden itemprop="publisher" itemscope itemtype="https://schema.org.cn/Organization">
+    <meta itemprop="name" content="Hexo">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="https://schema.org.cn/Post">
+    <meta itemprop="name" content="Hexo">
+    <meta itemprop="description" content="hi">
+  </span>
+  
+
+
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title" itemprop="name headline">
+        Bronco CTF Write Up
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+  
+  
+  
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/en/categories/CTF/">CTF</a><span class="sep"></span><a class="category-link" href="/en/categories/CTF/%E6%AF%94%E8%B5%9BWriteup/">比赛Writeup</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="https://schema.org.cn/Thing">
+        <a href="/en/categories/CTF/" itemprop="url"><span itemprop="name">CTF</span></a>
+      </span>
+    
+      <span hidden itemprop="about" itemscope itemtype="https://schema.org.cn/Thing">
+        <a href="/en/categories/CTF/%E6%AF%94%E8%B5%9BWriteup/" itemprop="url"><span itemprop="name">比赛Writeup</span></a>
+      </span>
+    
+  </div>
+  
+
+
+
+          
+        
+          
+            
+  
+  
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/en/tags/writeup/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>writeup</p></a></div>
+  <span hidden itemprop="keywords">writeup</span>
+  
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2025-11-29T22:38:32+01:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>Last UpdatedNov 29, 2025</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
+      
+      <span id="busuanzi_page_pv">
+        <i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i>
+      </span>
+        
+      <span>次浏览</span>
+    </p>
+  </a>
+</div>
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <h2 id="Beginner"><a href="#Beginner" class="headerlink" title="Beginner"></a>Beginner</h2><h3 id="Break-the-Battalion"><a href="#Break-the-Battalion" class="headerlink" title="Break the Battalion"></a>Break the Battalion</h3><p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/Break_the_Battalion.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/Break_the_Battalion.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Break_the_Battalion"></p>
+<p>这道题我们会拿到一份ELF文件，我们用IDA打开它会看到</p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216231337295.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216231337295.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216231337295"></p>
+<p>可以发现，这个程序的核心内容是encrypt，所以我们查看一下它的内容：<br><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216231507284.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216231507284.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216231507284"></p>
+<p>写一段python便可以简单得知输入什么内容最后会输出“brigade”：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt</span>(<span class="params">encrypted</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">chr</span>(<span class="built_in">ord</span>(c) ^ <span class="number">0x50</span>) <span class="keyword">for</span> c <span class="keyword">in</span> encrypted)</span><br><span class="line"></span><br><span class="line">encrypted = <span class="string">&quot;brigade&quot;</span></span><br><span class="line">original_input = decrypt(encrypted)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Original input: <span class="subst">&#123;original_input&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Original input: 2&quot;97145</span></span><br></pre></td></tr></table></figure>
+<p>所以flag为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;2&quot;97145&#125;</span><br></pre></td></tr></table></figure>
+<p>(吐槽一下，这个flag的内容真的非常奇怪，一般都是会带点正常单词的。)</p>
+<h3 id="Simon-Says"><a href="#Simon-Says" class="headerlink" title="Simon Says"></a>Simon Says</h3><p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216231818653.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216231818653.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216231818653"></p>
+<p>这道题我们会拿到这样一张图片：</p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/simon.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/simon.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="simon"></p>
+<p>并没有任何有用的内容。根据题目描述我们猜测这道题用了LSB隐写，所以用Stegsolve打开图片便可得到：</p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/simon.bmp" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/simon.bmp" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="simon"></p>
+<p>flag为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;simon_says_submit_this_flag&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Too-Many-Emojis"><a href="#Too-Many-Emojis" class="headerlink" title="Too Many Emojis"></a>Too Many Emojis</h3><p>这道题我们会得到一串emoji内容：<br><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/emojis.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/emojis.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="emojis"></p>
+<p>因为知道flag的格式为bronco{}，所以可以确定这个应该是单表加密，并且知道前6个emoji对应的明文。</p>
+<p>经过一系列搜索与排查可以发现每一个emoji对应的字母为这个emoji的官方英文名的首字母，根据这个线索我们可以通过找到的这些信息来解密内容：</p>
+<p>（用到的网站：<a target="_blank" rel="noopener" href="https://unicode.org/emoji/charts/full-emoji-list.html）">https://unicode.org/emoji/charts/full-emoji-list.html）</a></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/e9b91f9004a900c2e4d7a34ce6a5862.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/e9b91f9004a900c2e4d7a34ce6a5862.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="e9b91f9004a900c2e4d7a34ce6a5862"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/0931ce3f56bb2a321ba0f4fff03f4b2.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/0931ce3f56bb2a321ba0f4fff03f4b2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="0931ce3f56bb2a321ba0f4fff03f4b2"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/9cd2886e404b3a12858ab96b92b478d.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/9cd2886e404b3a12858ab96b92b478d.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="9cd2886e404b3a12858ab96b92b478d"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/00189c6b43958a1524e193d50025b34.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/00189c6b43958a1524e193d50025b34.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="00189c6b43958a1524e193d50025b34"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/547588949b4ceef18e8c752d9fdca67.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/547588949b4ceef18e8c752d9fdca67.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="547588949b4ceef18e8c752d9fdca67"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/978715d5488adf92ad9f87db0a3cbee.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/978715d5488adf92ad9f87db0a3cbee.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="978715d5488adf92ad9f87db0a3cbee"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/b08cc26fa2123e3eb3e954be60c3c2c.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/b08cc26fa2123e3eb3e954be60c3c2c.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="b08cc26fa2123e3eb3e954be60c3c2c"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/79fca2aa297cab3187b7aba9dd6951f.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/79fca2aa297cab3187b7aba9dd6951f.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="79fca2aa297cab3187b7aba9dd6951f"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/a8740db264e5c8c07e9a7319bc2c477.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/a8740db264e5c8c07e9a7319bc2c477.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="a8740db264e5c8c07e9a7319bc2c477"></p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/b0d298cd23920e18c9bae5935c7b5d7.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/b0d298cd23920e18c9bae5935c7b5d7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="b0d298cd23920e18c9bae5935c7b5d7"></p>
+<p>这里有一个小技巧：如果找不到想要的 emoji，可以描述给 ChatGPT 并询问其官方名称，再到网站上用名称（或部分名称）搜索，确认是否是我们需要的。</p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/de8fa183dfa28abeb9e31ea0bc70027.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/de8fa183dfa28abeb9e31ea0bc70027.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="de8fa183dfa28abeb9e31ea0bc70027"></p>
+<p>最后得到flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;emojis_express_my_emotions&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Straight-Up-Circular"><a href="#Straight-Up-Circular" class="headerlink" title="Straight Up Circular"></a>Straight Up Circular</h3><p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250219130136344.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250219130136344.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250219130136344"></p>
+<p>这道题给出的加密字符串如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dvlby_otspnr&#123;cobrnot450i1nm_e03&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，通过 <code>&#123;&#125;</code> 的位置，我们可以判断这并不是替换加密。其次，我们发现 <code>bronco&#123;&#125;</code>（该比赛的 flag 统一格式）中的每个字母和符号都出现在了这串字符串中，因此很可能是某种乱序加密。</p>
+<p>先确定 <code>b</code>、<code>r</code>、<code>o</code> 等字母在加密字符串中的具体位置，再根据题目名字（Straight Up <strong>Circular</strong>）不难发现这个用这个规律可以得到的flag开头：</p>
+<ul>
+<li>从字符串正中间的 <code>b</code> 出发</li>
+<li>先向右移动 1 位</li>
+<li>再向左移动 2 位</li>
+<li>接着向右移动 3 位</li>
+<li>依此类推……</li>
+</ul>
+<p>继续这个流程便可以成功获得flag：</p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/b95329fa227adf7053eb582afd08bd0.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/b95329fa227adf7053eb582afd08bd0.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="b95329fa227adf7053eb582afd08bd0"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;tr4n5p0sit1on_my_bel0v3d&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="Across-the-Tracks"><a href="#Across-the-Tracks" class="headerlink" title="Across the Tracks"></a>Across the Tracks</h3><p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216233604997.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216233604997.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216233604997"></p>
+<p>我们会得到一段内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Samddre··ath·dhf@_oesoere·ebun·yhot·no··oso·i·a·lr1rcm·iS·aruf·toibadhn·nadpikudynea&#123;l_oeee·ch·oide·f·n·aoe·sae·aonbdhgo_so·rr.i·tYnl·s·tdot·xs·hdtyy&#x27;·.t·cfrlca·epeo·iufiyi.t·yaaf·.a.·ts··tn33&#125;i·tvhr·.tooho···rlmwuI·h·e·iHshonppsoleaseecrtudIdet.·n·BtIpdheiorcihr·or·ovl·c··i·acn·t·su··ootr·:b3cesslyedheIath·e·_</span><br></pre></td></tr></table></figure>
+<p>根据题目描述我们猜测这段内容使用了栅栏密码，并且key为题目描述中提到的“tenth”（10）。解密即可得到flag：</p>
+<p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216233833884.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216233833884.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216233833884"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;r@1l_f3nc3_cip3rs_r_cool&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Rahhh-SA"><a href="#Rahhh-SA" class="headerlink" title="Rahhh-SA"></a>Rahhh-SA</h3><p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216233937032.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216233937032.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216233937032"></p>
+<p>这道题我们会得到以下内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">e = <span class="number">65537</span></span><br><span class="line">n = <span class="number">3429719</span></span><br><span class="line">c = [-<span class="number">53102</span>, -<span class="number">3390264</span>, -<span class="number">2864697</span>, -<span class="number">3111409</span>, -<span class="number">2002688</span>, -<span class="number">2864697</span>, -<span class="number">1695722</span>, -<span class="number">1957072</span>, -<span class="number">1821648</span>, -<span class="number">1268305</span>, -<span class="number">3362005</span>, -<span class="number">712024</span>, -<span class="number">1957072</span>, -<span class="number">1821648</span>, -<span class="number">1268305</span>, -<span class="number">732380</span>, -<span class="number">2002688</span>, -<span class="number">967579</span>, -<span class="number">271768</span>, -<span class="number">3390264</span>, -<span class="number">712024</span>, -<span class="number">1821648</span>, -<span class="number">3069724</span>, -<span class="number">732380</span>, -<span class="number">892709</span>, -<span class="number">271768</span>, -<span class="number">732380</span>, -<span class="number">2062187</span>, -<span class="number">271768</span>, -<span class="number">292609</span>, -<span class="number">1599740</span>, -<span class="number">732380</span>, -<span class="number">1268305</span>, -<span class="number">712024</span>, -<span class="number">271768</span>, -<span class="number">1957072</span>, -<span class="number">1821648</span>, -<span class="number">3418677</span>, -<span class="number">732380</span>, -<span class="number">2002688</span>, -<span class="number">1821648</span>, -<span class="number">3069724</span>, -<span class="number">271768</span>, -<span class="number">3390264</span>, -<span class="number">1847282</span>, -<span class="number">2267004</span>, -<span class="number">3362005</span>, -<span class="number">1764589</span>, -<span class="number">293906</span>, -<span class="number">1607693</span>]</span><br><span class="line">p = -<span class="number">811</span></span><br></pre></td></tr></table></figure>
+<p>首先注意到c的所有内容都是负数，但是其绝对值都小于等于n，所有猜测将其直接放进 $\mathbb{Z}/n\mathbb{Z}$ 进行计算即可。但因为发现$p’ := n+p = 3,428,908$ 并不是n的因数，所以尝试 $3429719/811=4229$ ，发现结果为整数。</p>
+<p>所以写一段python代码来尝试RSA解码即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">n = <span class="number">3429719</span></span><br><span class="line">p = <span class="number">811</span>  <span class="comment"># 题中写的是 -811，这里只取绝对值</span></span><br><span class="line">q = n // p  <span class="comment"># 4229</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算 phi(n)</span></span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)  <span class="comment"># (811 - 1)*(4229 - 1) = 810*4228 = 3424680</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 求 d = e^-1 mod phi(n)</span></span><br><span class="line"><span class="comment"># Python 3.8+ 可以直接用 pow(e, -1, phi) 得到模逆</span></span><br><span class="line">d = <span class="built_in">pow</span>(e, -<span class="number">1</span>, phi)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给出的负数密文</span></span><br><span class="line">c_list = [</span><br><span class="line">    -<span class="number">53102</span>, -<span class="number">3390264</span>, -<span class="number">2864697</span>, -<span class="number">3111409</span>, -<span class="number">2002688</span>, -<span class="number">2864697</span>, -<span class="number">1695722</span>, -<span class="number">1957072</span>,</span><br><span class="line">    -<span class="number">1821648</span>, -<span class="number">1268305</span>, -<span class="number">3362005</span>, -<span class="number">712024</span>, -<span class="number">1957072</span>, -<span class="number">1821648</span>, -<span class="number">1268305</span>, -<span class="number">732380</span>,</span><br><span class="line">    -<span class="number">2002688</span>, -<span class="number">967579</span>, -<span class="number">271768</span>, -<span class="number">3390264</span>, -<span class="number">712024</span>, -<span class="number">1821648</span>, -<span class="number">3069724</span>, -<span class="number">732380</span>,</span><br><span class="line">    -<span class="number">892709</span>, -<span class="number">271768</span>, -<span class="number">732380</span>, -<span class="number">2062187</span>, -<span class="number">271768</span>, -<span class="number">292609</span>, -<span class="number">1599740</span>, -<span class="number">732380</span>,</span><br><span class="line">    -<span class="number">1268305</span>, -<span class="number">712024</span>, -<span class="number">271768</span>, -<span class="number">1957072</span>, -<span class="number">1821648</span>, -<span class="number">3418677</span>, -<span class="number">732380</span>, -<span class="number">2002688</span>,</span><br><span class="line">    -<span class="number">1821648</span>, -<span class="number">3069724</span>, -<span class="number">271768</span>, -<span class="number">3390264</span>, -<span class="number">1847282</span>, -<span class="number">2267004</span>, -<span class="number">3362005</span>, -<span class="number">1764589</span>,</span><br><span class="line">    -<span class="number">293906</span>, -<span class="number">1607693</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解密</span></span><br><span class="line">plaintext_nums = []</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> c_list:</span><br><span class="line">    <span class="comment"># 先把负数转为 mod n 内的非负代表元</span></span><br><span class="line">    c_mod = c % n </span><br><span class="line">    m = <span class="built_in">pow</span>(c_mod, d, n)</span><br><span class="line">    plaintext_nums.append(m)</span><br><span class="line"></span><br><span class="line">message = <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">chr</span>(m) <span class="keyword">for</span> m <span class="keyword">in</span> plaintext_nums)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;解密后得到的数值:&quot;</span>, plaintext_nums)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;尝试映射到字符后的结果:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(message)</span><br><span class="line"></span><br><span class="line"><span class="comment"># bronco&#123;m4th3m4t1c5_r34l1y_1s_qu1t3_m4g1c4l_raAhH!&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="Grandma’s-Secret-Recipe"><a href="#Grandma’s-Secret-Recipe" class="headerlink" title="Grandma’s Secret Recipe"></a>Grandma’s Secret Recipe</h3><p><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216234904671.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216234904671.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216234904671"></p>
+<p>（因为这份食谱离婚了实在是有点抽象）</p>
+<p>点击网站可以看到：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250216235137334.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250216235137334.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216235137334"></p>
+<p>点开Cookie可以发现有2条内容：<br><img src="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216235220057.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/Lycorisby/Picture/main/image-20250216235220057.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216235220057"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">checksum: a223befb6660a23f9c3491f74ef84e43</span><br><span class="line">role: &quot;kitchen helper&quot;</span><br></pre></td></tr></table></figure>
+<p>结果检查发现checksum为role的md5结果：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250216235434789.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250216235434789.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216235434789"></p>
+<p>所以我们将role改为：”grandma”，并且将checksum改为a5d19cdd5fd1a8f664c0ee2b5e293167（=md5(grandma))。点击“Grandma’s Pantry“便可以看到：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250216235705560.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250216235705560.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216235705560"></p>
+<p>得到flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;grandma-makes-b3tter-cookies-than-girl-scouts-and-i-w1ll-fight-you-over-th@t-fact&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><h3 id="Reversing-for-Ophidiophiles"><a href="#Reversing-for-Ophidiophiles" class="headerlink" title="Reversing for Ophidiophiles"></a>Reversing for Ophidiophiles</h3><p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250216235950245.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250216235950245.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250216235950245"></p>
+<p>这道题我们会得到以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">23a326c27bee9b40885df97007aa4dbe410e93</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="built_in">input</span>()</span><br><span class="line">carry = <span class="number">0</span></span><br><span class="line">key = <span class="string">&quot;Awesome!&quot;</span></span><br><span class="line">output = []</span><br><span class="line"><span class="keyword">for</span> i,c <span class="keyword">in</span> <span class="built_in">enumerate</span>(flag):</span><br><span class="line">    val = <span class="built_in">ord</span>(c)</span><br><span class="line">    val += carry</span><br><span class="line">    val %= <span class="number">256</span></span><br><span class="line">    val ^= <span class="built_in">ord</span>(key[i % <span class="built_in">len</span>(key)])</span><br><span class="line">    output.append(val)</span><br><span class="line">    carry += <span class="built_in">ord</span>(c)</span><br><span class="line">    carry %= <span class="number">256</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bytes</span>(output).<span class="built_in">hex</span>())</span><br></pre></td></tr></table></figure>
+<p>直接用python写一段逆向的算法便可以得到flag：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">encrypted_hex = <span class="string">&quot;23a326c27bee9b40885df97007aa4dbe410e93&quot;</span></span><br><span class="line">encrypted_bytes = <span class="built_in">bytes</span>.fromhex(encrypted_hex)</span><br><span class="line">carry = <span class="number">0</span></span><br><span class="line">key = <span class="string">&quot;Awesome!&quot;</span></span><br><span class="line">flag = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, val <span class="keyword">in</span> <span class="built_in">enumerate</span>(encrypted_bytes):</span><br><span class="line">    val ^= <span class="built_in">ord</span>(key[i % <span class="built_in">len</span>(key)])  <span class="comment"># 逆向 XOR 操作</span></span><br><span class="line">    val = (val - carry + <span class="number">256</span>) % <span class="number">256</span>  <span class="comment"># 逆向 carry 计算</span></span><br><span class="line">    flag.append(<span class="built_in">chr</span>(val))</span><br><span class="line">    carry = (carry + val) % <span class="number">256</span>  <span class="comment"># 重新计算 carry 值</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>.join(flag))</span><br><span class="line"></span><br><span class="line"><span class="comment"># bronco&#123;charge_away&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="theflagishere"><a href="#theflagishere" class="headerlink" title="theflagishere!"></a>theflagishere!</h3><p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217000219950.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217000219950.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217000219950"></p>
+<p>这道题我们会得到一份Python 编译后的字节码文件 “theflagishere.pyc”，我们首先用这个网站将其反汇编：</p>
+<p><a target="_blank" rel="noopener" href="https://www.lddgo.net/string/pyc-compile-decompile">https://www.lddgo.net/string/pyc-compile-decompile</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Visit https://www.lddgo.net/string/pyc-compile-decompile for more information</span></span><br><span class="line"><span class="comment"># Version : Python 3.9</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">what_do_i_do</span>(<span class="params">whoKnows</span>):</span><br><span class="line">    a_st = &#123; &#125;</span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> whoKnows:</span><br><span class="line">        <span class="keyword">if</span> a_st.get(a) == <span class="literal">None</span>:</span><br><span class="line">            a_st[a] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        a_st[a] += <span class="number">1</span></span><br><span class="line">    variable_name = <span class="number">0</span></span><br><span class="line">    not_a_variable_name = <span class="string">&#x27;None&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> a_st:</span><br><span class="line">        <span class="keyword">if</span> a_st[a] &gt; variable_name:</span><br><span class="line">            not_a_variable_name = a</span><br><span class="line">            variable_name = a_st[a]</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">return</span> (not_a_variable_name, variable_name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_3</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;m&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_definitely_return_the_flag</span>():</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">notReal</span>():</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">actually_real</span>():</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;actuallyaflag&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> actually_real</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">realFlag</span>():</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;xXx___this__is_the__flag___xXx&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (realFlag, notReal)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_am_a_function_maybe</span>(<span class="params">param</span>):</span><br><span class="line">    variableName = (param + <span class="number">102</span>) * <span class="number">47</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">100</span>):</span><br><span class="line">        variableName *= i + <span class="number">1</span></span><br><span class="line">        variableName /= i + <span class="number">1</span></span><br><span class="line">        newVariable = variableName * i</span><br><span class="line">        newVariable += <span class="number">100</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">chr</span>(<span class="built_in">ord</span>(<span class="built_in">chr</span>(<span class="built_in">int</span>(variableName) + <span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_do_not_know</span>():</span><br><span class="line">    realFlagHere = <span class="string">&#x27;br0nc0s3c_fl4g5_4r3_345y&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;long_live_long_flags&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">unrelated_statement</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;eggs_go_great_with_eggs&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_am_a_function</span>(<span class="params">param</span>):</span><br><span class="line">    variableName = (param + <span class="number">102</span>) * <span class="number">47</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">100</span>):</span><br><span class="line">        variableName *= i + <span class="number">1</span></span><br><span class="line">        newVariable = variableName * i</span><br><span class="line">        newVariable += <span class="number">100</span></span><br><span class="line">        variableName /= i + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">chr</span>(<span class="built_in">ord</span>(<span class="built_in">chr</span>(<span class="built_in">int</span>(variableName))))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_return_a_helpful_function</span>():</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">i_do_something</span>(<span class="params">char</span>):</span><br><span class="line">        var = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">54</span>, <span class="number">2000</span>):</span><br><span class="line">            var.append(<span class="built_in">ord</span>(char) / <span class="number">47</span> - <span class="number">102</span>)</span><br><span class="line">        var.reverse()</span><br><span class="line">        <span class="keyword">return</span> var.pop()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> i_do_something</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_return_the_flag</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;thisisdefinitelytheflag!&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;free_flag_f&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_0</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(i_return_the_flag())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_1_4_6</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(i_definitely_return_the_flag()[<span class="number">0</span>]())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_2_5_9</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(i_definitely_return_the_flag()[<span class="number">1</span>]()())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_7</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(interesting()()()()())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_8</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(i_do_not_know())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_10</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(unrelated_statement())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">interesting</span>():</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">notinteresting</span>():</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">veryuninteresting</span>():</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">def</span> <span class="title function_">interesting_call</span>():</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> interesting_call</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> veryuninteresting</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> notinteresting</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后用python写一段逆向的脚本即可得到flag （主要内容其实就是复制粘贴）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">what_do_i_do</span>(<span class="params">whoKnows</span>):</span><br><span class="line">    a_st = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> whoKnows:</span><br><span class="line">        <span class="keyword">if</span> a_st.get(a) <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            a_st[a] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        a_st[a] += <span class="number">1</span></span><br><span class="line">    variable_name = <span class="number">0</span></span><br><span class="line">    not_a_variable_name = <span class="string">&#x27;None&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> a_st:</span><br><span class="line">        <span class="keyword">if</span> a_st[a] &gt; variable_name:</span><br><span class="line">            not_a_variable_name = a</span><br><span class="line">            variable_name = a_st[a]</span><br><span class="line">    <span class="keyword">return</span> (not_a_variable_name, variable_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_definitely_return_the_flag</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">notReal</span>():</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">actually_real</span>():</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;actuallyaflag&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> actually_real</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">realFlag</span>():</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;xXx___this__is_the__flag___xXx&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> (realFlag, notReal)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_do_not_know</span>():</span><br><span class="line">    realFlagHere = <span class="string">&#x27;br0nc0s3c_fl4g5_4r3_345y&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;long_live_long_flags&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">unrelated_statement</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;eggs_go_great_with_eggs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">interesting</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">notinteresting</span>():</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">veryuninteresting</span>():</span><br><span class="line">            <span class="keyword">def</span> <span class="title function_">interesting_call</span>():</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            <span class="keyword">return</span> interesting_call</span><br><span class="line">        <span class="keyword">return</span> veryuninteresting</span><br><span class="line">    <span class="keyword">return</span> notinteresting</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;free_flag_f&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_return_a_helpful_function</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">i_do_something</span>(<span class="params">char</span>):</span><br><span class="line">        var = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">54</span>, <span class="number">2000</span>):</span><br><span class="line">            var.append(<span class="built_in">ord</span>(char) / <span class="number">47</span> - <span class="number">102</span>)</span><br><span class="line">        var.reverse()</span><br><span class="line">        <span class="keyword">return</span> var.pop()</span><br><span class="line">    <span class="keyword">return</span> i_do_something</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_am_a_function_maybe</span>(<span class="params">param</span>):</span><br><span class="line">    variableName = (param + <span class="number">102</span>) * <span class="number">47</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">100</span>):</span><br><span class="line">        variableName *= i + <span class="number">1</span></span><br><span class="line">        variableName /= i + <span class="number">1</span></span><br><span class="line">        newVariable = variableName * i</span><br><span class="line">        newVariable += <span class="number">100</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">chr</span>(<span class="built_in">ord</span>(<span class="built_in">chr</span>(<span class="built_in">int</span>(variableName) + <span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_0</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(i_return_the_flag())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_1_4_6</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(i_definitely_return_the_flag()[<span class="number">0</span>]())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_2_5_9</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(i_definitely_return_the_flag()[<span class="number">1</span>]()())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_3</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;m&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_7</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(interesting()()()()())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_8</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(i_do_not_know())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">char_10</span>():</span><br><span class="line">    <span class="keyword">return</span> i_am_a_function_maybe(i_return_a_helpful_function()(what_do_i_do(unrelated_statement())[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">i_return_the_flag</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;thisisdefinitelytheflag!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接 flag</span></span><br><span class="line">flag = (</span><br><span class="line">    char_0() +</span><br><span class="line">    char_1_4_6() +</span><br><span class="line">    char_2_5_9() +</span><br><span class="line">    char_3() +</span><br><span class="line">    char_1_4_6() +</span><br><span class="line">    char_2_5_9() +</span><br><span class="line">    char_1_4_6() +</span><br><span class="line">    char_7() +</span><br><span class="line">    char_8() +</span><br><span class="line">    char_2_5_9() +</span><br><span class="line">    char_10()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Recovered flag:&quot;</span>, flag)</span><br><span class="line"></span><br><span class="line"><span class="comment"># i_am_a_flag</span></span><br><span class="line"><span class="comment"># bronco&#123;i_am_a_flag&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Forensics"><a href="#Forensics" class="headerlink" title="Forensics"></a>Forensics</h2><h3 id="QR-Coded"><a href="#QR-Coded" class="headerlink" title="QR Coded"></a>QR Coded</h3><p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217001518466.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217001518466.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217001518466"></p>
+<p>这道题我们会得到一张二维码：<br><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/easy_scan.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/easy_scan.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="easy_scan"></p>
+<p>直接扫描（<a target="_blank" rel="noopener" href="https://scanqr.org/）会得到一个fake">https://scanqr.org/）会得到一个fake</a> flag：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217001643995.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217001643995.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217001643995"></p>
+<p>用Stegsolve打开并调整到Gray bits会得到另外一张二维码：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/easy_scan_gray.bmp" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/easy_scan_gray.bmp" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="easy_scan_gray"></p>
+<p>扫描后会得到真正的flag：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217001828549.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217001828549.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217001828549"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;th1s_0n3_i5&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h3><p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217102445644.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217102445644.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217102445644"></p>
+<p>这道题我们会得到这样一张图片：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/uno.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/uno.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="uno"></p>
+<p>根据题目描述（”a significant bit of the cards were left on the <em>plane</em> I was on.“）我们猜测这道题用的是LSB隐写了ASCII码，所以我们用StegSolve打开图片，利用其Data Extract模块进行查看。这个模块可以查看RGB三种颜色的每一个通道，并且按照（自选的）一定的排列顺序显示每个通道的Hex和ASCII码字符：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217102658148.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217102658148.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217102658148"></p>
+<p>最后，根据题目描述中的 “the numbers really speak to me…” 这一句，尝试各种由 2、3、4、5 组成的组合，便可以得到 flag：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217102401676.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217102401676.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217102401676"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;no_un0_y3t&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Wordlands"><a href="#Wordlands" class="headerlink" title="Wordlands"></a>Wordlands</h3><p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110344089.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110344089.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217110344089"></p>
+<p>我们会得到这张图片：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/wordlands.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/wordlands.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="wordlands"></p>
+<p>经过一番尝试后，当用StegSolve打开图片，利用其Data Extract模块进行查看时可以发现：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110543579.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110543579.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217110543579"></p>
+<p>8BPS是标准的Photoshop 的.psd 文件有固定的文件头，所以我们点击“Save Bin”将其存为wordlands.psd，并用这个网站打开它：</p>
+<p><a target="_blank" rel="noopener" href="https://www.photopea.com/">https://www.photopea.com/</a></p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110726747.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110726747.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217110726747"></p>
+<p>可以发现这里有所有图片创作的信息（图层之类的）。最后根据line的图层的顺序进行拼接便可以得到flag：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110900696.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110900696.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217110900696"></p>
+<p>比如说Shape1这个图层里的线连接了b和r，表示开头为br</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110917647.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250217110917647.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250217110917647"></p>
+<p>然后是(b)ro，以此类推…</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;i_love_admiring_beautiful_winter_landscapes&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="Tick-Tock"><a href="#Tick-Tock" class="headerlink" title="Tick Tock"></a>Tick Tock</h3><p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250218111657044.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250218111657044.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250218111657044"></p>
+<p>这道题我们首先会得到这张图片：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/tick_tock.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/tick_tock.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="tick_tock"></p>
+<p>经过多次尝试可以在StegSolve的Data Extract模块里发现有一长串由“tick”和“tock”组成的内容：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250218112313111.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250218112313111.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250218112313111"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ticktocktocktockticktickticktock ticktocktocktickticktocktocktock ticktocktocktickticktockticktick ticktocktockticktickticktocktock ticktocktocktocktickticktocktick ticktocktocktickticktockticktick ticktocktocktocktockticktocktock ticktocktocktockticktockticktock ticktocktocktocktocktickticktick ticktocktockticktockticktocktock ticktocktocktockticktockticktick ticktockticktocktocktocktocktock ticktocktockticktickticktocktick ticktocktocktocktocktickticktick ticktocktockticktickticktocktock ticktocktockticktockticktocktick ticktocktockticktocktickticktock ticktocktocktockticktockticktick ticktocktockticktocktickticktick ticktockticktocktocktocktocktock ticktocktockticktockticktocktick ticktocktockticktickticktocktock ticktocktockticktocktickticktock ticktocktocktocktocktickticktick ticktocktocktickticktickticktock ticktockticktocktocktocktocktock ticktocktockticktickticktocktick ticktocktocktocktocktickticktick ticktocktocktocktickticktocktock ticktocktockticktickticktocktock ticktocktocktocktocktickticktick ticktocktocktockticktocktocktick ticktocktocktockticktocktocktock ticktocktockticktocktickticktock ticktocktocktocktocktockticktock</span><br></pre></td></tr></table></figure>
+<p>写一段python将tick替换成0，tock替换成1然后当成二进制内容进行解码会得到：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">ticktock_to_binary</span>(<span class="params">text</span>):</span><br><span class="line">    <span class="keyword">return</span> text.replace(<span class="string">&quot;tick&quot;</span>, <span class="string">&quot;0&quot;</span>).replace(<span class="string">&quot;tock&quot;</span>, <span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">text = <span class="string">&quot;ticktocktocktockticktickticktock ticktocktocktickticktocktocktock ticktocktocktickticktockticktick ticktocktockticktickticktocktock ticktocktocktocktickticktocktick ticktocktocktickticktockticktick ticktocktocktocktockticktocktock ticktocktocktockticktockticktock ticktocktocktocktocktickticktick ticktocktockticktockticktocktock ticktocktocktockticktockticktick ticktockticktocktocktocktocktock ticktocktockticktickticktocktick ticktocktocktocktocktickticktick ticktocktockticktickticktocktock ticktocktockticktockticktocktick ticktocktockticktocktickticktock ticktocktocktockticktockticktick ticktocktockticktocktickticktick ticktockticktocktocktocktocktock ticktocktockticktockticktocktick ticktocktockticktickticktocktock ticktocktockticktocktickticktock ticktocktocktocktocktickticktick ticktocktocktickticktickticktock ticktockticktocktocktocktocktock ticktocktockticktickticktocktick ticktocktocktocktocktickticktick ticktocktocktocktickticktocktock ticktocktockticktickticktocktock ticktocktocktocktocktickticktick ticktocktocktockticktocktocktick ticktocktocktockticktocktocktock ticktocktockticktocktickticktock ticktocktocktocktocktockticktock&quot;</span></span><br><span class="line">text = text.replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">binary = ticktock_to_binary(text)</span><br><span class="line"><span class="built_in">print</span>(binary)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 01110001 01100111 01100100 01100011 01110010 01100100 01111011 01110101 01111000 01101011 01110100 01011111 01100010 01111000 01100011 01101010 01101001 01110100 01101000 01011111 01101010 01100011 01101001 01111000 01100001 01011111 01100010 01111000 01110011 01100011 01111000 01110110 01110111 01101001 01111101</span></span><br><span class="line"></span><br><span class="line">content = <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">chr</span>(<span class="built_in">int</span>(binary[i:i+<span class="number">8</span>], <span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(binary), <span class="number">8</span>))</span><br><span class="line"><span class="built_in">print</span>(content)</span><br><span class="line"></span><br><span class="line"><span class="comment"># qgdcrd&#123;uxkt_bxcjith_jcixa_bxscxvwi&#125;</span></span><br></pre></td></tr></table></figure>
+<p>最后通过遍历凯撒密码便可以得到flag：</p>
+<p><img src="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250218111604430.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/archer-baiyi/Picture/main/image-20250218111604430.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20250218111604430"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bronco&#123;five_minutes_until_midnight&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="比赛官方GitHub"><a href="#比赛官方GitHub" class="headerlink" title="比赛官方GitHub"></a>比赛官方GitHub</h2><p><a target="_blank" rel="noopener" href="https://github.com/SCUBroncoSec/BroncoCTF-2025-Public">https://github.com/SCUBroncoSec/BroncoCTF-2025-Public</a></p>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2025-03-10T13:28:52+01:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 10, 2025</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://archer-baiyi.github.io/en/2025/03/10/CTF/%E6%AF%94%E8%B5%9BWriteup/Bronco-CTF-Write-Up/&title=Bronco CTF Write Up - Hexo&summary=Bronco CTF比赛的题解，涉及方向：Crypto, Web, Reverse, Steg, Misc, Forensics"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://archer-baiyi.github.io/en/2025/03/10/CTF/%E6%AF%94%E8%B5%9BWriteup/Bronco-CTF-Write-Up/&title=Bronco CTF Write Up - Hexo&summary=Bronco CTF比赛的题解，涉及方向：Crypto, Web, Reverse, Steg, Misc, Forensics"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://archer-baiyi.github.io/en/2025/03/10/CTF/%E6%AF%94%E8%B5%9BWriteup/Bronco-CTF-Write-Up/&title=Bronco CTF Write Up - Hexo&summary=Bronco CTF比赛的题解，涉及方向：Crypto, Web, Reverse, Steg, Misc, Forensics"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/en/2025/03/10/CTF/General/%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%BA%A4%E4%BA%92/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>与服务器的交互</p>
+          <p class='content'>socket.socketsocket 是 Python 标准库中的模块，用于进行 TCP/UDP 连接。
+假设服务器地址是 example.com，端口是 1234：
+123456789101...</p>
+        </a>
+      
+      
+        <a class='next' href='/en/2025/03/10/CTF/%E6%AF%94%E8%B5%9BWriteup/X3ctf2025-Write-Up/'>
+          <p class='title'>X3ctf2025 Write Up<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Miscp11n-trophy（签到题）:题目描述：
+我们首先会得到这样一份证书：
+
+第一题签到题的答案就是证书下面正中间的“This certificate does not grant th...</p>
+        </a>
+      
+    </div>
+  
+  <!-- 文章推荐 -->
+  
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+  
+
+
+
+
+
+</div>
+<aside id='l_side' itemscope itemtype="https://schema.org.cn/WPSideBar">
+  
+
+  
+    
+    
+      
+    
+  
+
+
+<div class="widget-sticky">
+
+  
+  
+
+
+<section class="widget toc-wrapper desktop mobile" id="toc-div" >
+  
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Beginner"><span class="toc-number">1.</span> <span class="toc-text">Beginner</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Break-the-Battalion"><span class="toc-number">1.1.</span> <span class="toc-text">Break the Battalion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Simon-Says"><span class="toc-number">1.2.</span> <span class="toc-text">Simon Says</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Too-Many-Emojis"><span class="toc-number">1.3.</span> <span class="toc-text">Too Many Emojis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Straight-Up-Circular"><span class="toc-number">1.4.</span> <span class="toc-text">Straight Up Circular</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Crypto"><span class="toc-number">2.</span> <span class="toc-text">Crypto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Across-the-Tracks"><span class="toc-number">2.1.</span> <span class="toc-text">Across the Tracks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rahhh-SA"><span class="toc-number">2.2.</span> <span class="toc-text">Rahhh-SA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web"><span class="toc-number">3.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Grandma%E2%80%99s-Secret-Recipe"><span class="toc-number">3.1.</span> <span class="toc-text">Grandma’s Secret Recipe</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reverse"><span class="toc-number">4.</span> <span class="toc-text">Reverse</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reversing-for-Ophidiophiles"><span class="toc-number">4.1.</span> <span class="toc-text">Reversing for Ophidiophiles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#theflagishere"><span class="toc-number">4.2.</span> <span class="toc-text">theflagishere!</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Forensics"><span class="toc-number">5.</span> <span class="toc-text">Forensics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#QR-Coded"><span class="toc-number">5.1.</span> <span class="toc-text">QR Coded</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Uno"><span class="toc-number">5.2.</span> <span class="toc-text">Uno</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Wordlands"><span class="toc-number">5.3.</span> <span class="toc-text">Wordlands</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc"><span class="toc-number">6.</span> <span class="toc-text">Misc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Tick-Tock"><span class="toc-number">6.1.</span> <span class="toc-text">Tick Tock</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%B5%9B%E5%AE%98%E6%96%B9GitHub"><span class="toc-number">7.</span> <span class="toc-text">比赛官方GitHub</span></a></li></ol>
+  </div>
+</section>
+
+  
+
+</div>
+
+  <!-- Custom Files side begin -->
+  
+  <!-- Custom Files side end -->
+</aside>
+
+
+
+        </div>
+        
+  
+  <footer class="footer clearfix"  itemscope itemtype="https://schema.org.cn/WPFooter">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper" itemprop="about" itemscope itemtype="https://schema.org.cn/Thing">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/#6.0.0-alpha.1" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_site_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © since 2017 XXX</a></p>
+
+        </div>
+      
+    
+    <!-- Custom Files footer begin-->
+    
+    <!-- Custom Files footer end-->
+  </footer>
+
+
+        <a id="s-top" class="fa-solid fa-arrow-up fa-fw" title="top"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+  /******************** volantis.dom ********************************/
+  // 页面选择器 将dom对象缓存起来 see: /source/js/app.js etc.
+  volantis.dom.bodyAnchor = volantis.dom.$(document.getElementById("safearea")); // 页面主体
+  volantis.dom.topBtn = volantis.dom.$(document.getElementById('s-top')); // 向上
+  volantis.dom.wrapper = volantis.dom.$(document.getElementById('wrapper')); // 整个导航栏
+  volantis.dom.coverAnchor = volantis.dom.$(document.querySelector('#l_cover .cover-wrapper')); // 1个
+  volantis.dom.switcher = volantis.dom.$(document.querySelector('#l_header .switcher .s-search')); // 搜索按钮   移动端 1个
+  volantis.dom.header = volantis.dom.$(document.getElementById('l_header')); // 移动端导航栏
+  volantis.dom.search = volantis.dom.$(document.querySelector('#l_header .m_search')); // 搜索框 桌面端 移动端 1个
+  volantis.dom.mPhoneList = volantis.dom.$(document.querySelectorAll('#l_header .m-phone .list-v')); //  手机端 子菜单 多个
+</script>
+
+<script>
+  
+  volantis.css("https://unpkg.com/@fortawesome/fontawesome-free@6.6.0/css/all.min.css");
+  
+  
+  
+</script>
+
+<!-- required -->
+
+
+<!-- internal -->
+
+<script src="/en/en/js/app.js"></script>
+
+
+
+
+<!-- rightmenu要在darkmode之前（ToggleButton） darkmode要在comments之前（volantis.dark.push）-->
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "color-scheme";
+const rootElementDarkModeAttributeName = "color-scheme";
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+  getCustomDarkMode();
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+/**
+ * get target mode
+ */
+ const getCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  if(currentSetting=="dark"){
+    volantis.dark.mode="light";
+  }else{
+    volantis.dark.mode="dark";
+  }
+  // console.log(volantis.dark.mode)
+};
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+/**
+ * 暗黑模式触发器
+ */
+volantis.dark.toggle=()=>{
+  const mode = toggleCustomDarkMode();
+  applyCustomDarkModeSettings(mode);
+  // 使用 volantis.dark.push 方法传入volantis.dark.toggle回调函数 参见layout/_partial/scripts/global.ejs
+  volantis.dark.method.toggle.start();
+}
+/**
+ * bind event for toggle button
+ */
+
+function bindToggleButton() {
+  var btn= document.querySelectorAll("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn")
+  btn.forEach(function (e) {
+    volantis.dom.$(e).on('click',volantis.dark.toggle);
+  })
+}
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", ()=>{
+  volantis.requestAnimationFrame(bindToggleButton)
+});
+
+const darkModelListeners={
+  dark:(mediaQueryList )=>{
+    if(mediaQueryList.matches){
+      volantis.dark.mode = "dark";
+    }
+    volantis.dark.method.toggle.start();
+  },
+  light:(mediaQueryList)=>{
+    if(mediaQueryList.matches){
+      volantis.dark.mode = "light";
+    }
+    volantis.dark.method.toggle.start();
+  }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addListener(darkModelListeners.dark)
+window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListeners.light)
+</script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    
+      const sites_api = document.getElementById('sites-api');
+      if (sites_api != undefined && typeof SitesJS === 'undefined') {
+        volantis.js("/en/js/plugins/tags/sites.js")
+      }
+    
+    
+      const friends_api = document.getElementById('friends-api');
+      if (friends_api != undefined && typeof FriendsJS === 'undefined') {
+        volantis.js("/en/js/plugins/tags/friends.js")
+      }
+    
+    
+      const contributors_api = document.getElementById('contributors-api');
+      if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
+        volantis.js("/en/js/plugins/tags/contributors.js")
+      }
+    
+  };
+  loadIssuesJS()
+</script>
+
+
+
+
+  <script defer src="https://unpkg.com/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: ["#"],
+	maxRPS: 6,
+	hoverDelay: 0
+  };
+</script>
+<script defer src="https://unpkg.com/volantis-static@0.0.1660614606622/libs/flying-pages/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://npm.onmicrosoft.cn/penndu@16.0.0/bsz.js"></script>
+
+
+<!-- optional -->
+
+  <script>
+  async function loadSearchScript() {
+    
+        
+    
+    return volantis.js("/en/js/search/hexo.js");
+  }
+
+  function loadSearchService() {
+    loadSearchScript();
+    document.querySelectorAll(".input.u-search-input").forEach((e) => {
+      e.removeEventListener("focus", loadSearchService, false);
+    });
+
+    document.querySelectorAll(".u-search-form").forEach((e) => {
+      e.addEventListener("submit", (event) => {
+        event.preventDefault();
+      }, false);
+    });
+  }
+
+  // 打开并搜索 字符串 s
+  function OpenSearch(s) {
+    if (typeof SearchService === 'undefined')
+      loadSearchScript().then(() => {
+        SearchService.setQueryText(s);
+        SearchService.search();
+      });
+    else {
+      SearchService.setQueryText(s);
+      SearchService.search();
+    }
+  }
+
+  // 访问含有 ?s=xxx  的链接时打开搜索 // 与搜索引擎 structured data 相关: /scripts/helpers/structured-data/lib/config.js
+  if (window.location.search && /^\?s=/g.test(window.location.search)) {
+    let queryText = decodeURI(window.location.search)
+      .replace(/\ /g, "-")
+      .replace(/^\?s=/g, "");
+    OpenSearch(queryText);
+  }
+
+  // 搜索输入框获取焦点时加载搜索
+  document.querySelectorAll(".input.u-search-input").forEach((e) => {
+    e.addEventListener("focus", loadSearchService, false);
+  });
+</script>
+
+
+
+
+
+
+
+  <script>
+
+
+
+  function p_highlightjs_copyCode(){
+    if (!(document.querySelector(".highlight .code pre") ||
+      document.querySelector(".article pre code"))) {
+      return;
+    }
+    VolantisApp.utilCopyCode(".highlight .code pre, .article pre code")
+  }
+  volantis.requestAnimationFrame(p_highlightjs_copyCode)
+
+</script>
+
+
+
+
+
+
+
+
+  <script>
+  let imgs = ["/background/wallhaven-jewjp5_2560x1080.png"];
+  let index = 0;
+  let IntervalParallax = null;
+
+  function parallax(){
+    let ParallaxWindow = document.querySelector("#parallax-window");
+    
+      ParallaxWindow = document.querySelector("html");
+    
+    Parallax.window = ParallaxWindow;
+    Parallax.options.fade = 1500;
+    Parallax.cache = 1;
+    next_parallax();
+    Parallax.init();
+    if (imgs.length>1) {
+      IntervalParallax = setInterval(function () {
+        next_parallax();
+      }, '31536000000');
+    }
+  }
+
+  function next_parallax() {
+    if (typeof Parallax == "undefined") {
+      return
+    }
+    
+    if (imgs.length>=1) {
+      Parallax.options.src = imgs[index % imgs.length];
+      Parallax.start();
+      index++;
+      if (Parallax.cache) {
+        fetch(imgs[index % imgs.length] +"?t=" + new Date().getTime());
+        if (index == imgs.length) {
+          Parallax.cache = 0;
+        }
+      }
+    }
+  }
+  var runningOnBrowser = typeof window !== "undefined";
+  var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+  if (!isBot) {
+    volantis.js('/en/js/plugins/parallax.js').then(()=>{
+      parallax()
+    })
+  }
+</script>
+
+
+
+
+  <script>
+  function load_swiper() {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    volantis.css("https://unpkg.com/swiper@11.1.14/swiper-bundle.min.css");
+    volantis.js("https://unpkg.com/swiper@11.1.14/swiper-bundle.min.js").then(() => {
+      p_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function p_swiper() {
+    volantis.swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+
+</script>
+
+
+
+  <script>
+  volantis.css("https://unpkg.com/pace-js@1.2.4/themes/blue/pace-theme-minimal.css");
+  volantis.js("https://unpkg.com/pace-js@1.2.4/pace.min.js").then(() => {
+    Pace.options.restartOnPushState = false;
+    // 阅读进度
+    volantis.scroll.push(() => {
+      Pace.stop();
+      Pace.trigger('start');
+      Pace.bar.update(volantis.scroll.progress() * 100);
+      document.body.className = document.body.className.replaceAll("pace-running ","");
+    },"阅读进度")
+    // todo：配置项开关, 哪些页面添加阅读进度
+  })
+</script>
+
+
+
+
+<script>
+  function listenSidebarTOC() {
+    const navItems = document.querySelectorAll(".toc li");
+    if (!navItems.length) return;
+    const targets = []
+    const sections = Array.from(navItems).forEach((element) => {
+      const link = element.querySelector(".toc-link");
+      const target = document.getElementById(
+        link.getAttribute("href") ? decodeURI(link.getAttribute("href")).replace("#", "") : link.getAttribute("toc-action").split("toc-")[1] // 兼容 hexo-blog-encrypt
+      );
+      targets.push(target)
+      // 解除 a 标签 href 的 锚点定位, a 标签 href 的 锚点定位 会随机启用?? 产生错位???
+      if (link.getAttribute("href")) {
+        link.setAttribute("toc-action", "toc-" + decodeURI(link.getAttribute("href")).replace("#", ""))
+        link.removeAttribute("href")
+      }
+      // 配置 点击 触发新的锚点定位
+      if (target && target.id) {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          // 这里的 addTop 是通过错位使得 toc 自动展开.
+          volantis.scroll.to(target, { addTop: 5, observer: true })
+          // Anchor id
+          history.pushState(null, document.title, "#" + target.id);
+        });
+      }
+      return target;
+    });
+
+    function activateNavByIndex(target) {
+      if (target.classList.contains("active-current")) return;
+
+      document.querySelectorAll(".toc .active").forEach((element) => {
+        element.classList.remove("active", "active-current");
+      });
+      target.classList.add("active", "active-current");
+      let parent = target.parentNode;
+      while (!parent.matches(".toc")) {
+        if (parent.matches("li")) parent.classList.add("active");
+        parent = parent.parentNode;
+      }
+    }
+
+    // 方案一：
+    volantis.activateNavIndex = 0
+    activateNavByIndex(navItems[volantis.activateNavIndex])
+    if (targets[0]) {
+      volantis.scroll.push(() => {
+        if (targets[0].getBoundingClientRect().top >= 0) {
+          volantis.activateNavIndex = 0
+        } else if (targets[targets.length - 1].getBoundingClientRect().top < 0) {
+          volantis.activateNavIndex = targets.length - 1
+        } else {
+          for (let index = 0; index < targets.length; index++) {
+            const target0 = targets[index];
+            const target1 = targets[(index + 1) % targets.length];
+            if (target0.getBoundingClientRect().top < 0 && target1.getBoundingClientRect().top >= 0) {
+              volantis.activateNavIndex = index
+              break;
+            }
+          }
+        }
+        activateNavByIndex(navItems[volantis.activateNavIndex])
+      })
+    }
+
+    // 方案二：
+    // IntersectionObserver 不是完美精确到像素级别 也不是低延时性的
+    // function findIndex(entries) {
+    //   let index = 0;
+    //   let entry = entries[index];
+    //   if (entry.boundingClientRect.top > 0) {
+    //     index = sections.indexOf(entry.target);
+    //     return index === 0 ? 0 : index - 1;
+    //   }
+    //   for (; index < entries.length; index++) {
+    //     if (entries[index].boundingClientRect.top <= 0) {
+    //       entry = entries[index];
+    //     } else {
+    //       return sections.indexOf(entry.target);
+    //     }
+    //   }
+    //   return sections.indexOf(entry.target);
+    // }
+    // function createIntersectionObserver(marginTop) {
+    //   marginTop = Math.floor(marginTop + 10000);
+    //   let intersectionObserver = new IntersectionObserver(
+    //     (entries, observe) => {
+    //       let scrollHeight = document.documentElement.scrollHeight;
+    //       if (scrollHeight > marginTop) {
+    //         observe.disconnect();
+    //         createIntersectionObserver(scrollHeight);
+    //         return;
+    //       }
+    //       let index = findIndex(entries);
+    //       activateNavByIndex(navItems[index]);
+    //     }, {
+    //       rootMargin: marginTop + "px 0px -100% 0px",
+    //       threshold: 0,
+    //     }
+    //   );
+    //   sections.forEach((element) => {
+    //     element && intersectionObserver.observe(element);
+    //   });
+    // }
+    // createIntersectionObserver(document.documentElement.scrollHeight);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    volantis.requestAnimationFrame(listenSidebarTOC)
+  });
+</script>
+
+
+
+
+
+<script>
+  document.onreadystatechange = function () {
+    if (document.readyState == 'complete') {
+      // 页面加载完毕 样式加载失败，或是当前网速慢，或是开启了省流模式
+      const { saveData, effectiveType } = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {}
+      if (getComputedStyle(document.querySelector("#safearea"), null)["display"] == "none" || saveData || /2g/.test(effectiveType)) {
+        document.querySelectorAll(".reveal").forEach(function (e) {
+          e.style["opacity"] = "1";
+        });
+        document.querySelector("#safearea").style["display"] = "block";
+      }
+    }
+  }
+</script>
+
+
+  <script type="application/ld+json">[{"@context":"https://schema.org.cn","@type":"Organization","name":"Hexo","url":"https://archer-baiyi.github.io/en/en/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"https://schema.org.cn","@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://archer-baiyi.github.io/en/en/","sameAs":["https://github.com/volantis-x"],"description":"hi"},{"@context":"https://schema.org.cn","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://archer-baiyi.github.io/en/en/","name":"Hexo"}},{"@type":"ListItem","position":2,"item":{"@id":"https://archer-baiyi.github.io/en/en/categories/CTF/","name":"CTF"}},{"@type":"ListItem","position":2,"item":{"@id":"https://archer-baiyi.github.io/en/en/categories/CTF/比赛Writeup/","name":"比赛Writeup"}},{"@type":"ListItem","position":3,"item":{"@id":"https://archer-baiyi.github.io/en/en/2025/03/10/CTF/比赛Writeup/Bronco-CTF-Write-Up/","name":"Bronco CTF Write Up"}}]},{"@context":"https://schema.org.cn","@type":"WebSite","name":"Hexo","url":"https://archer-baiyi.github.io/en/en/","keywords":null,"description":"hi","author":{"@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://archer-baiyi.github.io/en/en/","description":"hi"},"publisher":{"@type":"Organization","name":"Hexo","url":"https://archer-baiyi.github.io/en/en/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://archer-baiyi.github.io/en?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"https://schema.org.cn","@type":"BlogPosting","headline":"Bronco CTF Write Up","description":"Bronco CTF比赛的题解，涉及方向：Crypto, Web, Reverse, Steg, Misc, Forensics","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://archer-baiyi.github.io/en/2025/03/10/CTF/%E6%AF%94%E8%B5%9BWriteup/Bronco-CTF-Write-Up/"},"author":{"@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://archer-baiyi.github.io/en/en/"},"publisher":{"@type":"Organization","name":"Hexo","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://archer-baiyi.github.io/en/2025/03/10/CTF/%E6%AF%94%E8%B5%9BWriteup/Bronco-CTF-Write-Up/","wordCount":64,"datePublished":"2025-03-10T12:28:52.000Z","dateModified":"2025-11-29T21:38:32.221Z","articleSection":"CTF","keywords":"writeup","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+
+
+
+
+    </div>
+    
+    <script>
+      (function() {
+        // 定义修复核心逻辑
+        function checkAndFixTOC() {
+          var tocDiv = document.getElementById('toc-div');
+          
+          if (tocDiv) {
+            // 1. 检查 TOC 里面是不是真的有内容（防止把空目录显示出来）
+            var tocList = tocDiv.querySelector('ol.toc');
+            var hasContent = tocList && tocList.children.length > 0;
+            
+            // 2. 如果有内容，但被隐藏了 (display: none)，则强制显示
+            // 这里检查内联样式 style.display，因为它优先级最高
+            if (hasContent && tocDiv.style.display === 'none') {
+              console.log('Volantis Fix: 检测到目录被误杀，正在强制复活...');
+              
+              // 使用 cssText 赋予最高优先级 !important
+              tocDiv.style.cssText = "display: block !important; opacity: 1 !important; visibility: visible !important;";
+              
+              // 3. 告诉主题重新计算布局（防止侧边栏塌陷）
+              window.dispatchEvent(new Event('resize'));
+              window.dispatchEvent(new Event('scroll'));
+              
+              // 4. 重启目录高亮监听
+              if (typeof listenSidebarTOC === 'function') {
+                listenSidebarTOC();
+              }
+            }
+          }
+        }
+
+        // 策略 A: 监听解密事件 (依然保留，作为第一道防线)
+        window.addEventListener('hexo-blog-encrypt:success', function() {
+          checkAndFixTOC();
+          setTimeout(checkAndFixTOC, 200); // 补刀
+        });
+
+        // 策略 B: 暴力轮询 (每 1 秒检查一次，作为终极防线)
+        // 只要你在当前页面，这个定时器就会一直巡逻，确保目录不会莫名其妙消失
+        setInterval(checkAndFixTOC, 1000);
+        
+      })();
+    </script>
+    </body>
+</html>
